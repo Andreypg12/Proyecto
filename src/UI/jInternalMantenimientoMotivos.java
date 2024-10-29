@@ -94,6 +94,11 @@ public class jInternalMantenimientoMotivos extends javax.swing.JInternalFrame {
         jPanel1.add(jBtnModificar);
 
         jBtnConsultar.setText("Consultar");
+        jBtnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnConsultarActionPerformed(evt);
+            }
+        });
         jPanel1.add(jBtnConsultar);
 
         jBtnEliminar.setText("Eliminar");
@@ -142,31 +147,34 @@ public class jInternalMantenimientoMotivos extends javax.swing.JInternalFrame {
 
     private void jBtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEliminarActionPerformed
         // TODO add your handling code here:
-        int fila = jTable1.getSelectedRow();
-        if (fila != -1) {
-            Motivo motivo = (Motivo) jTable1.getValueAt(fila, 0);
-
-            Motivo.eliminarMotivo(motivo);
-            llenarTabla();
-        } else {
-            JOptionPane.showMessageDialog(null, "Debes seleccionar un elemento de la tabla", "Valor sin seleccionar", JOptionPane.ERROR_MESSAGE);
+        Motivo motivo = crearMotivo();
+        if (motivo != null) {
+            int opcion = JOptionPane.showConfirmDialog(null, "¿Deseas eliminar el motivo?", "Eliminar", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (opcion == JOptionPane.YES_OPTION) {
+                Motivo.eliminarMotivo(motivo);
+                llenarTabla();
+            }
         }
     }//GEN-LAST:event_jBtnEliminarActionPerformed
 
     private void jBtnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnModificarActionPerformed
         // TODO add your handling code here:
-        int fila = jTable1.getSelectedRow();
-        if (fila != -1) {
-            Motivo motivo = (Motivo) jTable1.getValueAt(fila, 0);
-
+        Motivo motivo = crearMotivo();
+        if (motivo != null) {
             JDialogMantenimientoMotivo ventana = new JDialogMantenimientoMotivo(TipoMantenimiento.MODIFICAR, motivo);
             ventana.setVisible(true);
             llenarTabla();
-
-        } else {
-            JOptionPane.showMessageDialog(null, "Debes seleccionar un elemento de la tabla", "Valor sin seleccionar", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jBtnModificarActionPerformed
+
+    private void jBtnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConsultarActionPerformed
+        // TODO add your handling code here:
+        Motivo motivo = crearMotivo();
+        if (motivo != null) {
+            JDialogMantenimientoMotivo ventana = new JDialogMantenimientoMotivo(TipoMantenimiento.CONSULTAR, motivo);
+            ventana.setVisible(true);
+        }
+    }//GEN-LAST:event_jBtnConsultarActionPerformed
 
     private void llenarTabla(){
         modeloTabla.setNumRows(0);
@@ -182,6 +190,17 @@ public class jInternalMantenimientoMotivos extends javax.swing.JInternalFrame {
             }
             Object [] arreglo = {motivo, precio, aplica_examen, vacuna};
             modeloTabla.addRow(arreglo);
+        }
+    }
+    
+    private Motivo crearMotivo(){
+        int fila = jTable1.getSelectedRow();
+        if (fila != -1) {
+            return (Motivo) jTable1.getValueAt(fila, 0);
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Debes seleccionar un elemento de la tabla", "Valor sin seleccionar", JOptionPane.ERROR_MESSAGE);
+            return null;
         }
     }
 

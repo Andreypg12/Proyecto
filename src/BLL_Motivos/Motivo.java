@@ -1,8 +1,6 @@
 package BLL_Motivos;
 
-import DAO.ConeccionDB;
 import DAO.MotivosDAO;
-import DAO.RazasDAO;
 import java.util.List;
 
 public class Motivo {

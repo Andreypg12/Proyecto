@@ -78,7 +78,6 @@ public class RazasDAO {
         } catch (SQLException ex) {
             Logger.getLogger(JInternalMantenimientoEspeciesRazas.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return arrayRazas;
     }
 

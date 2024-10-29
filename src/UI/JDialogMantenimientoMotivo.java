@@ -55,6 +55,35 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
                 jTxtDescripcion.setText(motivo.getDescripcion());
                 jTxtPrecio.setText(String.valueOf(motivo.getPrecio()));
             }
+            case CONSULTAR ->{
+                this.motivo = motivo;
+                this.setTitle("Consulta de motivo");
+                if (motivo instanceof Vacunacion) {
+                    jCmbTipoMotivo.setSelectedIndex(1);
+                    jCmbVacunas.setSelectedItem(((Vacunacion) motivo).getVacuna());
+                    jCmbVacunas.setEnabled(false);
+                }
+                else{
+                    jCmbTipoMotivo.setSelectedIndex(0);
+                }
+                jCmbTipoMotivo.setEnabled(false);
+                
+                jTxtDescripcion.setText(motivo.getDescripcion());
+                jTxtPrecio.setText(String.format("%.2f ¢", motivo.getPrecio()));
+                jTxtDescripcion.setEditable(false);
+                jTxtPrecio.setEditable(false);
+                
+                if (motivo.isAplicaExamen()) {
+                    jRBSiAplicaExamen.setSelected(true);
+                }
+                else{
+                    jRBNoAplicaExamen.setSelected(true);
+                }
+                jRBSiAplicaExamen.setEnabled(false);
+                jRBNoAplicaExamen.setEnabled(false);
+                jBtnAceptar.setVisible(false);
+                jBtnCancelar.setText("Salir");
+            }
         }
     }
     /**
@@ -138,6 +167,11 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
         });
 
         jBtnCancelar.setText("Cancelar");
+        jBtnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -231,6 +265,7 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
                 if (motivo != null) {
                     Motivo.agregarMotivo(motivo);
                     JOptionPane.showMessageDialog(null, "El motivo fue agregado","Motivo agregado", JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
                 }
             }
             case MODIFICAR ->{
@@ -239,7 +274,6 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
                     JOptionPane.showMessageDialog(null, "El motivo fue modificado", "Motivo modificado", JOptionPane.INFORMATION_MESSAGE);
                     this.dispose();
                 }
-                
             }
         }
     }//GEN-LAST:event_jBtnAceptarActionPerformed
@@ -258,6 +292,11 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
         // TODO add your handling code here:
         jBtnAceptar.doClick();
     }//GEN-LAST:event_jTxtPrecioActionPerformed
+
+    private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private boolean aplicaExamen(){
         return (jRBSiAplicaExamen.isSelected()) ? true : false;

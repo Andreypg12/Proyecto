@@ -48,7 +48,7 @@ public class JInternalMantenimientoEspeciesRazas extends javax.swing.JInternalFr
         try {
             arrayRazasPerros.clear();
             arrayRazasGatos.clear();
-            for (Raza raza : Raza.listaRazas()) {
+            for (Raza raza : Raza.consultarRazas()) {
                 if (raza.getCodigoEspecie() == 1) {
                     arrayRazasPerros.add(raza);
                 }

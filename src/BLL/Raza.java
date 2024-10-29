@@ -1,9 +1,9 @@
 package BLL;
 
-import java.io.Serializable;
 import DAO.RazasDAO;
 import java.util.List;
-public class Raza implements Serializable{
+
+public class Raza{
     private final int id_raza;
     protected String nombreRaza;
     private int codigoEspecie;
@@ -40,17 +40,13 @@ public class Raza implements Serializable{
         RazasDAO.agregarRaza(raza);
     }
     
-    public static List<Raza> listaRazas() throws Exception{
+    public static List<Raza> consultarRazas() throws Exception{
         return RazasDAO.consultarRazas();
     }
     
     public static void modificarRaza(String nuevoNombre, int id_raza){
         RazasDAO.modificarRaza(nuevoNombre, id_raza);
     }
-    
-//    public static Razas consultar(String nombre) throws Exception{
-//        return RazasDAOArchivos.getInstance().consultar(nombre);
-//    }
     
     public static boolean eliminarRaza(Raza raza){
         return RazasDAO.eliminarRaza(raza);
