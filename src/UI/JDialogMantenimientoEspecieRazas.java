@@ -1,13 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
 package UI;
 
 import BLL.Especie;
 import BLL.Raza;
 import BLL.TipoMantenimiento;
 import DAO.RazasDAO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -38,11 +36,11 @@ public class JDialogMantenimientoEspecieRazas extends javax.swing.JDialog {
         this.especie = especie;
         this.raza = raza;
         this.tipoMantenimiento = tipoMantenimiento;
-        
+
         if (raza != null) {
             this.nombreRaza = raza.getNombreRaza().trim();
         }
-        
+
         switch (tipoMantenimiento) {
             case AGREGAR -> {
                 this.setTitle("Agregar raza");
@@ -149,13 +147,15 @@ public class JDialogMantenimientoEspecieRazas extends javax.swing.JDialog {
                 if (!nombreRaza.isBlank()) {
                     raza = new Raza(nombreRaza, especie.getCodigoEspecie());
 
-                    if (raza != null) {
+                    try {
                         Raza.agregarRaza(raza);
                         JOptionPane.showMessageDialog(null, "Raza agregada correctamente", "¡Raza agregada!", JOptionPane.INFORMATION_MESSAGE);
                         this.dispose();
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Error al agregar la raza");
+
+                    } catch (Exception ex) {
+                        Logger.getLogger(JDialogMantenimientoEspecieRazas.class.getName()).log(Level.SEVERE, null, ex);
                     }
+
                 } else {
                     JOptionPane.showMessageDialog(null, "Debes escribir en el espacio del nombre de la raza", "Nombre de raza vacío", JOptionPane.ERROR_MESSAGE);
                 }
@@ -163,12 +163,17 @@ public class JDialogMantenimientoEspecieRazas extends javax.swing.JDialog {
 
             case MODIFICAR -> {
                 if (!jTxtNombreRaza.getText().isBlank()) {
-                    String nuevoNombre = jTxtNombreRaza.getText().trim();
-                    Raza.modificarRaza(nuevoNombre,raza.getId_raza());
-                    
-                    JOptionPane.showMessageDialog(null, "La raza de " + this.nombreEspecie + " '" + nombreRaza + "' ahora se llama '" + nuevoNombre + "'",
-                            "Raza modificada", JOptionPane.INFORMATION_MESSAGE);
-                    this.dispose();
+                    try {
+                        String nuevoNombre = jTxtNombreRaza.getText().trim();
+                        Raza.modificarRaza(nuevoNombre, raza.getId_raza());
+
+                        JOptionPane.showMessageDialog(null, "La raza de " + this.nombreEspecie + " '" + nombreRaza + "' ahora se llama '" + nuevoNombre + "'",
+                                "Raza modificada", JOptionPane.INFORMATION_MESSAGE);
+                        this.dispose();
+
+                    } catch (Exception ex) {
+                        Logger.getLogger(JDialogMantenimientoEspecieRazas.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
             case CONSULTAR ->
@@ -185,7 +190,6 @@ public class JDialogMantenimientoEspecieRazas extends javax.swing.JDialog {
         // TODO add your handling code here:
         jBtnAceptar.doClick();
     }//GEN-LAST:event_jTxtNombreRazaActionPerformed
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -6,7 +6,7 @@ import java.sql.*;
 
 public class PruebaLaboratorioDAO {
     
-    public static void agregarPruebaLaboratorio(PruebaLaboratorio pruebaLaboratorio){
+    public static void agregarPruebaLaboratorio(PruebaLaboratorio pruebaLaboratorio) throws Exception{
         try {
             String sql = "insert into PruebaLaboratorio (precio, descripcion) values (?, ?)";
             try(Connection conexion = DAO.ConeccionDB.conectarBaseDatos();
@@ -21,6 +21,7 @@ public class PruebaLaboratorioDAO {
                 pstm.executeUpdate();
             }
         } catch (Exception e) {
+            throw e;
         }
     }
 }

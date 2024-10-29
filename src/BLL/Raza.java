@@ -36,7 +36,7 @@ public class Raza{
         return id_raza;
     }
     
-    public static void agregarRaza(Raza raza){
+    public static void agregarRaza(Raza raza) throws Exception{
         RazasDAO.agregarRaza(raza);
     }
     
@@ -44,11 +44,11 @@ public class Raza{
         return RazasDAO.consultarRazas();
     }
     
-    public static void modificarRaza(String nuevoNombre, int id_raza){
+    public static void modificarRaza(String nuevoNombre, int id_raza) throws Exception{
         RazasDAO.modificarRaza(nuevoNombre, id_raza);
     }
     
-    public static boolean eliminarRaza(Raza raza){
+    public static boolean eliminarRaza(Raza raza)throws Exception{
         return RazasDAO.eliminarRaza(raza);
     }
 

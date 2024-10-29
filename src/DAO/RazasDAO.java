@@ -5,64 +5,47 @@ import BLL.Gato;
 import BLL.Perro;
 import BLL.Raza;
 import static DAO.ConeccionDB.conectarBaseDatos;
-import UI.JInternalMantenimientoEspeciesRazas;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 public class RazasDAO {
 
-    public static void agregarRaza(Raza raza) {
+    public static void agregarRaza(Raza raza) throws Exception{
         try {
-            String sql = "INSERT INTO Razas (nombre_raza, id_especie) VALUES (?, ?)";
+            String sql = "INSERT INTO Razas (nombre_raza, id_especie) VALUES (" + raza.getNombreRaza() + ", " + raza.getCodigoEspecie() + ")";
 
             try (Connection conexion = conectarBaseDatos(); 
                     PreparedStatement pstmt = conexion.prepareStatement(sql);) {
-                
-                int codigoRaza = raza.getCodigoEspecie();
 
-                String nombreRaza = raza.getNombreRaza();
-
-                pstmt.setString(1, nombreRaza);
-                pstmt.setInt(2, codigoRaza);
-
-                pstmt.execute();
+                pstmt.executeUpdate();
             }
-
-        } catch (SQLException e) {
-            System.out.println("Error al insertar datos: " + e.getMessage());
-            e.printStackTrace();
+        } catch (Exception e) {
+            throw e;
         }
     }
 
-    public static void modificarRaza(String nombreNuevo, int id_raza) {
+    public static void modificarRaza(String nombreNuevo, int id_raza) throws Exception{
         conectarBaseDatos();
         try {
-            String sql = "update Razas set nombre_raza = ? where id_raza = ?";
+            String sql = "UPDATE Razas SET nombre_raza = " + nombreNuevo + " WHERE id_raza = " + id_raza;
             try (Connection conexion = conectarBaseDatos();
                     PreparedStatement pstmt = conexion.prepareStatement(sql)) {
-                
-                pstmt.setString(1, nombreNuevo);
-                pstmt.setInt(2, id_raza);
 
-                pstmt.execute();
+                pstmt.executeUpdate();
             }
-        } catch (SQLException e) {
-            System.out.println("Error al insertar datos: " + e.getMessage());
-            e.printStackTrace();
+        } catch (Exception e) {
+            throw e;
         }
     }
 
-    public static List<Raza> consultarRazas() {
+    public static List<Raza> consultarRazas() throws Exception{
         List<Raza> arrayRazas = new ArrayList<>();
         try {
-            String sql = "select id_raza, nombre_raza, id_especie from Razas";
+            String sql = "SELECT id_raza, nombre_raza, id_especie FROM Razas";
 
             try (PreparedStatement pstm = ConeccionDB.conectarBaseDatos().prepareStatement(sql);
-                    ResultSet rs = pstm.executeQuery();) {
+                    ResultSet rs = pstm.executeQuery()) {
 
                 while (rs.next()) {
 
@@ -75,39 +58,31 @@ public class RazasDAO {
                     arrayRazas.add(raza);
                 }
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(JInternalMantenimientoEspeciesRazas.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e) {
+            throw e;
         }
         return arrayRazas;
     }
 
-    public static boolean eliminarRaza(Raza raza) {
+    public static boolean eliminarRaza(Raza raza) throws Exception{
         try {
-            String sql = "delete from Razas where id_raza = ?";
+            String sql = "DELETE FROM Razas WHERE id_raza = " + raza.getId_raza();
 
             try (PreparedStatement pstm = ConeccionDB.conectarBaseDatos().prepareStatement(sql)) {
-                
-                int id_raza = raza.getId_raza();
-                
-                pstm.setInt(1, id_raza);
 
-                pstm.execute();
+                pstm.executeUpdate();
                 return true;
             }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (NullPointerException ex) {
-            JOptionPane.showMessageDialog(null, "Debes seleccionar una raza",
-                    "Raza no especificada", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            return false;
         }
-        return false;
     }
 
-    public static List<Especie> consultarEspecies() {
+    public static List<Especie> consultarEspecies() throws Exception{
         List<Especie> arrayEspecies = new ArrayList<>();
         try {
-            String sql = "select nombre_especie, id_especie from Especies";
+            String sql = "SELECT nombre_especie, id_especie FROM Especies";
 
             try (PreparedStatement pstm = ConeccionDB.conectarBaseDatos().prepareStatement(sql);
                     ResultSet rs = pstm.executeQuery()) {
@@ -123,8 +98,8 @@ public class RazasDAO {
                 }
             }
 
-        } catch (SQLException ex) {
-            Logger.getLogger(JInternalMantenimientoEspeciesRazas.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e) {
+            throw e;
         }
         return arrayEspecies;
     }
