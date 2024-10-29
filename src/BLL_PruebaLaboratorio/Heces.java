@@ -8,6 +8,13 @@ public class Heces extends PruebaLaboratorio{
         this.descripcion = "Prueba de heces" + descripcion;
     }
 
+    public Heces(String descripcion, int numPrueba, double precio) {
+        super(numPrueba, precio);
+        this.descripcion = "Prueba de heces" + descripcion;
+    }
+    
+    
+
     public String getDescripcion() {
         return descripcion;
     }
@@ -16,9 +23,7 @@ public class Heces extends PruebaLaboratorio{
     public String toString() {
         
         StringBuilder sb = new StringBuilder();
-        sb.append("Heces: ");
-        sb.append("\nDescripcion:").append(descripcion);
-        sb.append(super.toString());
+        sb.append(descripcion);
         return sb.toString();
     }
 }

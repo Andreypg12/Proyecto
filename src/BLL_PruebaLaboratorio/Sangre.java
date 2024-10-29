@@ -7,6 +7,13 @@ public class Sangre extends PruebaLaboratorio{
         super(precio);
         this.descripcion = "Prueba de sangre " + descripcion;
     }
+
+    public Sangre(String descripcion, int numPrueba, double precio) {
+        super(numPrueba, precio);
+        this.descripcion = "Prueba de sangre " + descripcion;
+    }
+    
+    
     
     public String getDescripcion() {
         return descripcion;
@@ -14,11 +21,8 @@ public class Sangre extends PruebaLaboratorio{
 
     @Override
     public String toString() {
-        
         StringBuilder sb = new StringBuilder();
-        sb.append("Sangre: ");
-        sb.append("\nDescripcion:").append(descripcion);
-        sb.append(super.toString());
+        sb.append(descripcion);
         return sb.toString();
     }
 }

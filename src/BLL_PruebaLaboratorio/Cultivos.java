@@ -8,6 +8,11 @@ public class Cultivos extends PruebaLaboratorio{
         this.descripcion = "Prueba de cultivos " + descripcion;
     }
 
+    public Cultivos(String descripcion, int numPrueba, double precio) {
+        super(numPrueba, precio);
+        this.descripcion = "Prueba de cultivos " + descripcion;
+    }
+
     public String getDescripcion() {
         return descripcion;
     }
@@ -15,9 +20,7 @@ public class Cultivos extends PruebaLaboratorio{
     public String toString() {
         
         StringBuilder sb = new StringBuilder();
-        sb.append("Cultivos: ");
-        sb.append("\nDescripcion:").append(descripcion);
-        sb.append(super.toString());
+        sb.append(descripcion);
         return sb.toString();
     }
 }

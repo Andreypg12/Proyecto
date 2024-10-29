@@ -1,12 +1,16 @@
 package BLL_PruebaLaboratorio;
 
 public abstract class PruebaLaboratorio{
-    private static int CONTADOR = 1;
     private final int numPrueba;
     protected double precio;
 
     public PruebaLaboratorio(double precio) {
-        this.numPrueba = CONTADOR++;
+        this.numPrueba = 0;
+        this.precio = precio;
+    }
+
+    public PruebaLaboratorio(int numPrueba, double precio) {
+        this.numPrueba = numPrueba;
         this.precio = precio;
     }
 

@@ -7,6 +7,11 @@ public class Orina extends PruebaLaboratorio{
         super(precio);
         this.descripcion = "Prueba de orina " + descripcion;
     }
+    
+    public Orina(String descripcion, int numPrueba, double precio) {
+        super(numPrueba, precio);
+        this.descripcion = "Prueba de orina " + descripcion;
+    }
 
     public String getDescripcion() {
         return descripcion;
@@ -14,11 +19,8 @@ public class Orina extends PruebaLaboratorio{
     
     @Override
     public String toString() {
-        
         StringBuilder sb = new StringBuilder();
-        sb.append("Orina: ");
-        sb.append("\nDescripcion:").append(descripcion);
-        sb.append(super.toString());
+        sb.append(descripcion);
         return sb.toString();
     }
 }
