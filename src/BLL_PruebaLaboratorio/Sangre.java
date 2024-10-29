@@ -1,17 +1,11 @@
 package BLL_PruebaLaboratorio;
 
-public class Sangre extends PruebaLaboratorio <CategoriasSangre>{
+public class Sangre extends PruebaLaboratorio{
     private String descripcion;
 
-    public Sangre() {
-        this.descripcion = "Prueba de sangre";
-    }
-
-    @Override
-    public void definirDescripcion() {
-        for (CategoriasSangre categorias : super.arrayCategorias) {
-            descripcion += ", " + categorias;
-        }
+    public Sangre(double precio, String descripcion) {
+        super(precio);
+        this.descripcion = "Prueba de sangre " + descripcion;
     }
     
     public String getDescripcion() {
@@ -20,8 +14,6 @@ public class Sangre extends PruebaLaboratorio <CategoriasSangre>{
 
     @Override
     public String toString() {
-        super.calcularPrecio(CategoriasSangre.class);
-        definirDescripcion();
         
         StringBuilder sb = new StringBuilder();
         sb.append("Sangre: ");

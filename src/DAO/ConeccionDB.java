@@ -1,7 +1,6 @@
 package DAO;
 
 import java.sql.*;
-import javax.swing.JOptionPane;
 
 public class ConeccionDB {
 
