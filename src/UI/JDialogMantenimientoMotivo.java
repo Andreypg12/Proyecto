@@ -6,6 +6,8 @@ package UI;
 
 import BLL.TipoMantenimiento;
 import BLL_Motivos.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -149,6 +151,8 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
 
         buttonGroup1.add(jRBNoAplicaExamen);
         jRBNoAplicaExamen.setText("No");
+        jRBNoAplicaExamen.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jRBNoAplicaExamen.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
         jLblVacuna.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLblVacuna.setText("Vacuna");
@@ -263,18 +267,27 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
             case AGREGAR -> {
                 Motivo motivo = crearMotivo();
                 if (motivo != null) {
-                    Motivo.agregarMotivo(motivo);
-                    JOptionPane.showMessageDialog(null, "El motivo fue agregado","Motivo agregado", JOptionPane.INFORMATION_MESSAGE);
-                    this.dispose();
+                    try {
+                        Motivo.agregarMotivo(motivo);
+                        JOptionPane.showMessageDialog(null, "El motivo fue agregado","Motivo agregado", JOptionPane.INFORMATION_MESSAGE);
+                        this.dispose();
+                    } catch (Exception ex) {
+                        Logger.getLogger(JDialogMantenimientoMotivo.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
             case MODIFICAR ->{
-                Motivo motivoNuevo = crearMotivo();
-                if (Motivo.modificarMotivo(this.motivo, motivoNuevo)) {
-                    JOptionPane.showMessageDialog(null, "El motivo fue modificado", "Motivo modificado", JOptionPane.INFORMATION_MESSAGE);
-                    this.dispose();
+                try {
+                    Motivo motivoNuevo = crearMotivo();
+                    if (Motivo.modificarMotivo(this.motivo, motivoNuevo)) {
+                        JOptionPane.showMessageDialog(null, "El motivo fue modificado", "Motivo modificado", JOptionPane.INFORMATION_MESSAGE);
+                        this.dispose();
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(JDialogMantenimientoMotivo.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+
         }
     }//GEN-LAST:event_jBtnAceptarActionPerformed
 

@@ -157,6 +157,8 @@
           <ComponentRef name="buttonGroup1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="No"/>
+        <Property name="horizontalAlignment" type="int" value="11"/>
+        <Property name="horizontalTextPosition" type="int" value="2"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLblVacuna">

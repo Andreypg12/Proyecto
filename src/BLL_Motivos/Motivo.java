@@ -66,19 +66,19 @@ public class Motivo {
         return id_motivo;
     }
     
-    public static void agregarMotivo(Motivo motivo){
+    public static void agregarMotivo(Motivo motivo) throws Exception{
         MotivosDAO.agregarMotivo(motivo);
     }
     
-    public static List<Motivo> consultarMotivos(){
+    public static List<Motivo> consultarMotivos() throws Exception{
         return MotivosDAO.consultarMotivos();
     }
     
-    public static void eliminarMotivo(Motivo motivo){
+    public static void eliminarMotivo(Motivo motivo) throws Exception{
         MotivosDAO.eliminarMotivo(motivo);
     }
     
-    public static boolean modificarMotivo(Motivo motivoViejo, Motivo motivoNuevo){
+    public static boolean modificarMotivo(Motivo motivoViejo, Motivo motivoNuevo) throws Exception{
         return MotivosDAO.mofificarMotivo(motivoViejo, motivoNuevo);
     }
 }

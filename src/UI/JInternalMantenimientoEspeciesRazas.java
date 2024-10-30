@@ -37,7 +37,7 @@ public class JInternalMantenimientoEspeciesRazas extends javax.swing.JInternalFr
         jListRazas.setModel(modeloLista);
         actualizarLista();
         llenarLista();
-        codigoEspecie = ((Especie)jCmbEspecie.getSelectedItem()).getCodigoEspecie();
+        codigoEspecie = ((Especie)jCmbEspecie.getSelectedItem()).getId_especie();
     }
     
     public void llenarComboBox(){
@@ -187,7 +187,7 @@ public class JInternalMantenimientoEspeciesRazas extends javax.swing.JInternalFr
     private void jCmbEspecieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCmbEspecieActionPerformed
         // TODO add your handling code here:
         llenarLista();
-        codigoEspecie = ((Especie)jCmbEspecie.getSelectedItem()).getCodigoEspecie();
+        codigoEspecie = ((Especie)jCmbEspecie.getSelectedItem()).getId_especie();
     }//GEN-LAST:event_jCmbEspecieActionPerformed
 
     private void jBtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAgregarActionPerformed

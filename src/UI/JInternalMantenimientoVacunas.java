@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 /**
  *
  * @author andre
@@ -40,18 +41,20 @@ public class JInternalMantenimientoVacunas extends javax.swing.JInternalFrame {
     
     private void llenarLista(){
         modeloLista.clear();
-        if (((Especie)jCmbEspecies.getSelectedItem()).getCodigoEspecie() == 1) {
+        if (((Especie)jCmbEspecies.getSelectedItem()).getId_especie() == 1) {
             modeloLista.addAll(arrayVacunasPerros);
         }
-        else{
+        else if(((Especie)jCmbEspecies.getSelectedItem()).getId_especie() == 2){
             modeloLista.addAll(arrayVacunasGatos);
         }
     }
     
     private void actualizarLista(){
+        arrayVacunasPerros.clear();
+        arrayVacunasGatos.clear();
         try {
             for (Vacuna vacuna : Vacuna.consultarVacunas()) {
-                if (vacuna.getEspecieVacuna().getCodigoEspecie() == 1) {
+                if (vacuna.getEspecieVacuna().getId_especie() == 1) {
                     arrayVacunasPerros.add(vacuna);
                 }
                 else{
@@ -82,6 +85,7 @@ public class JInternalMantenimientoVacunas extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jListVacunas = new javax.swing.JList<>();
 
+        setClosable(true);
         setTitle("Mantenimiento de vacunas");
 
         jCmbEspecies.addActionListener(new java.awt.event.ActionListener() {
@@ -95,18 +99,38 @@ public class JInternalMantenimientoVacunas extends javax.swing.JInternalFrame {
 
         jBtnAgregar.setText("Agregar");
         jBtnAgregar.setPreferredSize(new java.awt.Dimension(110, 30));
+        jBtnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnAgregarActionPerformed(evt);
+            }
+        });
         jPanel1.add(jBtnAgregar);
 
         jBtnModificar.setText("Modificar");
         jBtnModificar.setPreferredSize(new java.awt.Dimension(110, 30));
+        jBtnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnModificarActionPerformed(evt);
+            }
+        });
         jPanel1.add(jBtnModificar);
 
         jBtnConsultar.setText("Consultar");
         jBtnConsultar.setPreferredSize(new java.awt.Dimension(110, 30));
+        jBtnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnConsultarActionPerformed(evt);
+            }
+        });
         jPanel1.add(jBtnConsultar);
 
         jBtnEliminar.setText("Eliminar");
         jBtnEliminar.setPreferredSize(new java.awt.Dimension(110, 30));
+        jBtnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnEliminarActionPerformed(evt);
+            }
+        });
         jPanel1.add(jBtnEliminar);
 
         jListVacunas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -147,6 +171,67 @@ public class JInternalMantenimientoVacunas extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         llenarLista();
     }//GEN-LAST:event_jCmbEspeciesActionPerformed
+
+    private void jBtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAgregarActionPerformed
+        // TODO add your handling code here:
+        JDialogMantenimientoVacunas ventana = new JDialogMantenimientoVacunas(TipoMantenimiento.AGREGAR, null);
+        ventana.setLocationRelativeTo(null);
+        ventana.setVisible(true);
+        actualizarLista();
+        llenarLista();
+    }//GEN-LAST:event_jBtnAgregarActionPerformed
+
+    private void jBtnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnModificarActionPerformed
+        // TODO add your handling code here:
+        Vacuna vacuna = jListVacunas.getSelectedValue();
+        if (vacuna != null) {
+        JDialogMantenimientoVacunas ventana = new JDialogMantenimientoVacunas(TipoMantenimiento.MODIFICAR, vacuna);
+        ventana.setLocationRelativeTo(null);
+        ventana.setVisible(true);
+        actualizarLista();
+        llenarLista();
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Debes seleccionar una vacuna de la lista", "Vacuna sin elegir", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jBtnModificarActionPerformed
+
+    private void jBtnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConsultarActionPerformed
+        // TODO add your handling code here:
+        Vacuna vacuna = jListVacunas.getSelectedValue();
+        if (vacuna != null) {
+        JDialogMantenimientoVacunas ventana = new JDialogMantenimientoVacunas(TipoMantenimiento.CONSULTAR, vacuna);
+        ventana.setLocationRelativeTo(null);
+        ventana.setVisible(true);
+        actualizarLista();
+        llenarLista();
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Debes seleccionar una vacuna de la lista", "Vacuna sin elegir", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jBtnConsultarActionPerformed
+
+    private void jBtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEliminarActionPerformed
+        // TODO add your handling code here:
+        Vacuna vacuna = jListVacunas.getSelectedValue();
+        if (vacuna != null) {
+            try {
+                int opcion = JOptionPane.showConfirmDialog(null, "¿Deseas eliminar la vacuna?", "Eliminar", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (opcion == JOptionPane.YES_OPTION) {
+                    Vacuna.eliminarVacuna(vacuna);
+                    actualizarLista();
+                    llenarLista();
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(JInternalMantenimientoVacunas.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            actualizarLista();
+            llenarLista();
+        } else {
+            JOptionPane.showMessageDialog(null, "Debes seleccionar una vacuna de la lista", "Vacuna sin elegir", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jBtnEliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

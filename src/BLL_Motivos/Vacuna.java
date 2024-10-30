@@ -5,31 +5,31 @@ import DAO.VacunasDAO;
 import java.util.List;
 
 public class Vacuna {
-    private String tipo_vacuna;
+    private String nombre;
     private double precio;
     private final int id_vacuna;
     private Especie especieVacuna;
 
-    public Vacuna(String tipo_vacuna, double precio, Especie especieVacuna) {
-        this.tipo_vacuna = tipo_vacuna;
+    public Vacuna(String nombre, double precio, Especie especieVacuna) {
+        this.nombre = nombre;
         this.precio = precio;
         this.id_vacuna = 0;
         this.especieVacuna = especieVacuna;
     }
 
-    public Vacuna(String tipo_vacuna, double precio, int id_vacuna, Especie especieVacuna) {
-        this.tipo_vacuna = tipo_vacuna;
+    public Vacuna(String nombre, double precio, int id_vacuna, Especie especieVacuna) {
+        this.nombre = nombre;
         this.precio = precio;
         this.id_vacuna = id_vacuna;
         this.especieVacuna = especieVacuna;
     }
 
-    public String getTipo_vacuna() {
-        return tipo_vacuna;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setTipo_vacuna(String tipo_vacuna) {
-        this.tipo_vacuna = tipo_vacuna;
+    public void setNombre(String tipo_vacuna) {
+        this.nombre = tipo_vacuna;
     }
 
     public double getPrecio() {
@@ -54,7 +54,7 @@ public class Vacuna {
 
     @Override
     public String toString() {
-        return tipo_vacuna;
+        return nombre;
     }
     
     public static void agregarVacuna(Vacuna vacuna) throws Exception{
@@ -68,7 +68,7 @@ public class Vacuna {
     public static void eliminarVacuna(Vacuna vacuna) throws Exception{
         VacunasDAO.eliminarVacuna(vacuna);
     }
-    public static void modificarVacuna(Vacuna vacuna) throws Exception{
-        VacunasDAO.modificarVacuna(vacuna);
+    public static void modificarVacuna(Vacuna vacuna, int id_vacuna_cambiar) throws Exception{
+        VacunasDAO.modificarVacuna(vacuna, id_vacuna_cambiar);
     }
 }

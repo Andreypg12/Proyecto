@@ -12,13 +12,13 @@ public class VacunasDAO {
     
     public static void agregarVacuna(Vacuna vacuna) throws Exception{
         try {
-            String sql = "INSERT INTO Vacuna (id_especie,precio, tipo_vacuna) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO Vacuna (id_especie,precio, nombre) VALUES (?, ?, ?)";
             
             try(PreparedStatement pstm = ConeccionDB.conectarBaseDatos().prepareStatement(sql)){
                 
-                int id_especie = vacuna.getEspecieVacuna().getCodigoEspecie();
+                int id_especie = vacuna.getEspecieVacuna().getId_especie();
                 double precio = vacuna.getPrecio();
-                String tipo_vacuna = vacuna.getTipo_vacuna();
+                String tipo_vacuna = vacuna.getNombre();
                 
                 pstm.setInt(1, id_especie);
                 pstm.setDouble(2, precio);
@@ -30,21 +30,20 @@ public class VacunasDAO {
         }
     }
     
-    public static void modificarVacuna(Vacuna vacuna) throws Exception{
+    public static void modificarVacuna(Vacuna vacuna, int id_vacuna_cambiar) throws Exception{
         try {
-            String sql = "UPDATE Vacuna SET id_especie = ?, precio = ?, tipo_vacuna = ? WHERE id_vacuna = ?";
+            String sql = "UPDATE Vacuna SET id_especie = ?, precio = ?, nombre = ? WHERE id_vacuna = ?";
             
             try(PreparedStatement pstm = ConeccionDB.conectarBaseDatos().prepareStatement(sql)){
                 
-                int id_especie = vacuna.getEspecieVacuna().getCodigoEspecie();
+                int id_especie = vacuna.getEspecieVacuna().getId_especie();
                 double precio = vacuna.getPrecio();
-                String tipo_vacuna = vacuna.getTipo_vacuna();
-                int id_vacuna = vacuna.getId_vacuna();
+                String tipo_vacuna = vacuna.getNombre();
                 
                 pstm.setInt(1, id_especie);
                 pstm.setDouble(2, precio);
                 pstm.setString(3, tipo_vacuna);
-                pstm.setInt(4, id_vacuna);
+                pstm.setInt(4, id_vacuna_cambiar);
                 
                 pstm.executeUpdate();
             }
@@ -74,7 +73,7 @@ public class VacunasDAO {
         List<Vacuna> arrayVacunas = new ArrayList<>();
         
         try {
-            String sql = "SELECT id_vacuna, id_especie, precio, tipo_vacuna FROM Vacuna";
+            String sql = "SELECT id_vacuna, id_especie, precio, nombre FROM Vacuna";
             
             try(PreparedStatement pstm = ConeccionDB.conectarBaseDatos().prepareStatement(sql);
                     ResultSet rs = pstm.executeQuery()){
@@ -84,7 +83,7 @@ public class VacunasDAO {
                     int id_vacuna = rs.getInt("id_vacuna");
                     int id_especie = rs.getInt("id_especie");
                     double precio = rs.getDouble("precio");
-                    String tipo_vacuna = rs.getString("tipo_vacuna");
+                    String tipo_vacuna = rs.getString("nombre");
                     Especie especie;
                     
                     if (id_especie == 1) {

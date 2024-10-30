@@ -145,7 +145,7 @@ public class JDialogMantenimientoEspecieRazas extends javax.swing.JDialog {
                 nombreRaza = jTxtNombreRaza.getText();
 
                 if (!nombreRaza.isBlank()) {
-                    raza = new Raza(nombreRaza, especie.getCodigoEspecie());
+                    raza = new Raza(nombreRaza, especie.getId_especie());
 
                     try {
                         Raza.agregarRaza(raza);

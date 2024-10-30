@@ -4,11 +4,11 @@ import DAO.RazasDAO;
 import java.util.List;
 
 public class Especie {
-    private final int codigoEspecie;
+    private final int id_especie;
     private String nombreEspecie;
 
-    public Especie(String nombreEspecie, int codigoEspecie) {
-        this.codigoEspecie = codigoEspecie;
+    public Especie(String nombreEspecie, int id_especie) {
+        this.id_especie = id_especie;
         this.nombreEspecie = nombreEspecie;
     }
 
@@ -20,8 +20,8 @@ public class Especie {
         this.nombreEspecie = nombreEspecie;
     }
 
-    public int getCodigoEspecie() {
-        return codigoEspecie;
+    public int getId_especie() {
+        return id_especie;
     }
     
     public static List<Especie> ConsultarEspecies() throws Exception{

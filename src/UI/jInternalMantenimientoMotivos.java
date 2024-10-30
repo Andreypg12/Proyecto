@@ -8,6 +8,8 @@ import BLL.TipoMantenimiento;
 import BLL_Motivos.Motivo;
 import BLL_Motivos.Vacunacion;
 import BLL_Motivos.Vacunas;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -151,7 +153,11 @@ public class jInternalMantenimientoMotivos extends javax.swing.JInternalFrame {
         if (motivo != null) {
             int opcion = JOptionPane.showConfirmDialog(null, "¿Deseas eliminar el motivo?", "Eliminar", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (opcion == JOptionPane.YES_OPTION) {
-                Motivo.eliminarMotivo(motivo);
+                try {
+                    Motivo.eliminarMotivo(motivo);
+                } catch (Exception ex) {
+                    Logger.getLogger(jInternalMantenimientoMotivos.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 llenarTabla();
             }
         }
@@ -176,20 +182,23 @@ public class jInternalMantenimientoMotivos extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jBtnConsultarActionPerformed
 
-    private void llenarTabla(){
-        modeloTabla.setNumRows(0);
-        for (Motivo motivo : Motivo.consultarMotivos()) {
-            
-//            String descripcion = motivo.getDescripcion();
-            double precio = motivo.getPrecio();
-            String aplica_examen = (motivo.isAplicaExamen()) ? "Si" : "No";
-            Vacunas vacuna = null;
-            
-            if (motivo instanceof Vacunacion) {
-                vacuna = ((Vacunacion)motivo).getVacuna();
+    private void llenarTabla() {
+        try {
+            modeloTabla.setNumRows(0);
+            for (Motivo motivo : Motivo.consultarMotivos()) {
+
+                double precio = motivo.getPrecio();
+                String aplica_examen = (motivo.isAplicaExamen()) ? "Si" : "No";
+                Vacunas vacuna = null;
+
+                if (motivo instanceof Vacunacion) {
+                    vacuna = ((Vacunacion) motivo).getVacuna();
+                }
+                Object[] arreglo = {motivo, precio, aplica_examen, vacuna};
+                modeloTabla.addRow(arreglo);
             }
-            Object [] arreglo = {motivo, precio, aplica_examen, vacuna};
-            modeloTabla.addRow(arreglo);
+        } catch (Exception ex) {
+            Logger.getLogger(jInternalMantenimientoMotivos.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
