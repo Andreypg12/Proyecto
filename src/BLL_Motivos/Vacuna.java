@@ -71,4 +71,8 @@ public class Vacuna {
     public static void modificarVacuna(Vacuna vacuna, int id_vacuna_cambiar) throws Exception{
         VacunasDAO.modificarVacuna(vacuna, id_vacuna_cambiar);
     }
+    
+    public static Vacuna consultarVacuna(int id_vacuna) throws Exception{
+        return VacunasDAO.consultarVacuna(id_vacuna);
+    }
 }

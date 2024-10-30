@@ -26,7 +26,6 @@ public class JInternalMantenimientoEspeciesRazas extends javax.swing.JInternalFr
     DefaultListModel<Raza> modeloLista = new DefaultListModel<>();
     List<Raza> arrayRazasGatos = new ArrayList<>();
     List<Raza> arrayRazasPerros = new ArrayList<>();
-    private int codigoEspecie;
     
     /**
      * Creates new form JInternalMantenimientoEspeciesRazas
@@ -37,7 +36,6 @@ public class JInternalMantenimientoEspeciesRazas extends javax.swing.JInternalFr
         jListRazas.setModel(modeloLista);
         actualizarLista();
         llenarLista();
-        codigoEspecie = ((Especie)jCmbEspecie.getSelectedItem()).getId_especie();
     }
     
     public void llenarComboBox(){
@@ -53,10 +51,10 @@ public class JInternalMantenimientoEspeciesRazas extends javax.swing.JInternalFr
             arrayRazasPerros.clear();
             arrayRazasGatos.clear();
             for (Raza raza : Raza.consultarRazas()) {
-                if (raza.getId_especie() == 1) {
+                if (raza.getEspecieAQuePertenece().getId_especie() == 1) {
                     arrayRazasPerros.add(raza);
                 }
-                else if (raza.getId_especie() == 2) {
+                else if (raza.getEspecieAQuePertenece().getId_especie() == 2) {
                     arrayRazasGatos.add(raza);
                 }
             }
@@ -187,7 +185,6 @@ public class JInternalMantenimientoEspeciesRazas extends javax.swing.JInternalFr
     private void jCmbEspecieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCmbEspecieActionPerformed
         // TODO add your handling code here:
         llenarLista();
-        codigoEspecie = ((Especie)jCmbEspecie.getSelectedItem()).getId_especie();
     }//GEN-LAST:event_jCmbEspecieActionPerformed
 
     private void jBtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAgregarActionPerformed
@@ -200,17 +197,22 @@ public class JInternalMantenimientoEspeciesRazas extends javax.swing.JInternalFr
 
     private void jBtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEliminarActionPerformed
 
-        int opcion = JOptionPane.showConfirmDialog(null, "¿Deseas eliminar la raza?","Eliminar", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (opcion == JOptionPane.YES_OPTION) {
-            try {
-                if (Raza.eliminarRaza(jListRazas.getSelectedValue())) {
+        if (jListRazas.getSelectedIndex() != -1) {
+            int opcion = JOptionPane.showConfirmDialog(null, "¿Deseas eliminar la raza?", "Eliminar", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (opcion == JOptionPane.YES_OPTION) {
+                try {
+                    Raza.eliminarRaza(jListRazas.getSelectedValue());
                     actualizarLista();
                     llenarLista();
-                    JOptionPane.showMessageDialog(null, "¡Raza Eliminada!", "", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "¡Raza Eliminada!", "Eliminación de raza", JOptionPane.INFORMATION_MESSAGE);
+
+                } catch (Exception e) {
+                    Logger.getLogger(JInternalMantenimientoEspeciesRazas.class.getName()).log(Level.SEVERE, null, e);
                 }
-            } catch (Exception ex) {
-                Logger.getLogger(JInternalMantenimientoEspeciesRazas.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Debes seleccionar una raza",
+                    "Raza no especificada", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jBtnEliminarActionPerformed
 

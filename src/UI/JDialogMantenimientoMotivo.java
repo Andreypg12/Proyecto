@@ -33,7 +33,12 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
         this.setModal(true);
         this.setLocationRelativeTo(null);
         this.tipoMantenimiento = tipoMantenimiento;
-        jCmbVacunas.setModel(new DefaultComboBoxModel(Vacunas.values()));
+        
+        try {
+            jCmbVacunas.setModel(new DefaultComboBoxModel(Vacuna.consultarVacunas().toArray()));
+        } catch (Exception ex) {
+            Logger.getLogger(JDialogMantenimientoMotivo.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         jLblVacuna.setVisible(false);
         jCmbVacunas.setVisible(false);
@@ -253,7 +258,7 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
         else if (jCmbTipoMotivo.getSelectedItem().equals("Vacunación")) {
             jLblVacuna.setVisible(true);
             jCmbVacunas.setVisible(true);
-            jTxtPrecio.setText(String.valueOf(((Vacunas)jCmbVacunas.getSelectedItem()).getPrecio()));
+            jTxtPrecio.setText(String.valueOf(((Vacuna)jCmbVacunas.getSelectedItem()).getPrecio()));
             jTxtPrecio.setEditable(false);
             jRBNoAplicaExamen.setSelected(true);
             jRBSiAplicaExamen.setEnabled(false);
@@ -293,7 +298,7 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
 
     private void jCmbVacunasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCmbVacunasActionPerformed
         // TODO add your handling code here:
-        jTxtPrecio.setText(String.valueOf(((Vacunas)jCmbVacunas.getSelectedItem()).getPrecio()));
+        jTxtPrecio.setText(String.valueOf(((Vacuna)jCmbVacunas.getSelectedItem()).getPrecio()));
     }//GEN-LAST:event_jCmbVacunasActionPerformed
 
     private void jTxtDescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtDescripcionActionPerformed
@@ -325,7 +330,7 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
             if (jCmbTipoMotivo.getSelectedItem().equals("Normal")) {
                 return new Motivo(descripcion, precio, aplicaExamen);
             } else {
-                return new Vacunacion(descripcion, (Vacunas) jCmbVacunas.getSelectedItem());
+                return new Vacunacion(descripcion, (Vacuna) jCmbVacunas.getSelectedItem());
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Debes ingresar un numero en el precio", "Valor incorrecto", JOptionPane.ERROR_MESSAGE);
@@ -341,7 +346,7 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
     private javax.swing.JButton jBtnAceptar;
     private javax.swing.JButton jBtnCancelar;
     private javax.swing.JComboBox<String> jCmbTipoMotivo;
-    private javax.swing.JComboBox<Vacunas> jCmbVacunas;
+    private javax.swing.JComboBox<Vacuna> jCmbVacunas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

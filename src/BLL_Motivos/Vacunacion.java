@@ -1,19 +1,19 @@
 package BLL_Motivos;
 
 public class Vacunacion extends Motivo{
-    private Vacunas vacuna;
+    private Vacuna vacuna;
 
-    public Vacunacion(int id_motivo, String descripcion, Vacunas vacuna) {
+    public Vacunacion(int id_motivo, String descripcion, Vacuna vacuna) {
         super(id_motivo, descripcion, vacuna.getPrecio(), false);
         this.vacuna = vacuna;
     }
     
-    public Vacunacion(String descripcion, Vacunas vacuna) {
+    public Vacunacion(String descripcion, Vacuna vacuna) {
         super(descripcion, vacuna.getPrecio(), false);
         this.vacuna = vacuna;
     }
 
-    public Vacunas getVacuna() {
+    public Vacuna getVacuna() {
         return vacuna;
     }
 }

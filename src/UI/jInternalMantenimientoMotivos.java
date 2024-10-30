@@ -6,6 +6,7 @@ package UI;
 
 import BLL.TipoMantenimiento;
 import BLL_Motivos.Motivo;
+import BLL_Motivos.Vacuna;
 import BLL_Motivos.Vacunacion;
 import BLL_Motivos.Vacunas;
 import java.util.logging.Level;
@@ -189,7 +190,7 @@ public class jInternalMantenimientoMotivos extends javax.swing.JInternalFrame {
 
                 double precio = motivo.getPrecio();
                 String aplica_examen = (motivo.isAplicaExamen()) ? "Si" : "No";
-                Vacunas vacuna = null;
+                Vacuna vacuna = null;
 
                 if (motivo instanceof Vacunacion) {
                     vacuna = ((Vacunacion) motivo).getVacuna();

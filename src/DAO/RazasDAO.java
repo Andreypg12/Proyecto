@@ -19,7 +19,7 @@ public class RazasDAO {
                     PreparedStatement pstmt = conexion.prepareStatement(sql);) {
 
                 String nombreRaza = raza.getNombreRaza();
-                int id_especie = raza.getId_especie();
+                int id_especie = raza.getEspecieAQuePertenece().getId_especie();
                 
                 pstmt.setString(1, nombreRaza);
                 pstmt.setInt(2, id_especie);
@@ -60,9 +60,17 @@ public class RazasDAO {
 
                     int id_raza = rs.getInt("id_raza");
                     String nombreRaza = rs.getString("nombre_raza");
-                    int codigoEspecie = rs.getInt("id_especie");
+                    int id_especie = rs.getInt("id_especie");
                     
-                    Raza raza = new Raza(id_raza, nombreRaza, codigoEspecie);
+                    Especie especie  = null;
+                    if (id_especie == 1) {
+                        especie = new Perro();
+                    }
+                    else if (id_especie == 2) {
+                        especie = new Gato();
+                    }
+                    
+                    Raza raza = new Raza(id_raza, nombreRaza, especie);
 
                     arrayRazas.add(raza);
                 }
@@ -73,7 +81,7 @@ public class RazasDAO {
         return arrayRazas;
     }
 
-    public static boolean eliminarRaza(Raza raza) throws Exception{
+    public static void eliminarRaza(Raza raza) throws Exception{
         try {
             String sql = "DELETE FROM Razas WHERE id_raza = ?";
 
@@ -83,11 +91,11 @@ public class RazasDAO {
                 
                 pstm.setInt(1, id_raza);
                 pstm.executeUpdate();
-                return true;
+
             }
 
         } catch (SQLException e) {
-            return false;
+            throw e;
         }
     }
 
@@ -101,10 +109,10 @@ public class RazasDAO {
 
                 while (rs.next()) {
 
-                    int codigoEspecie = rs.getInt("id_especie");
-                    if (codigoEspecie == 1) {
+                    int id_especie = rs.getInt("id_especie");
+                    if (id_especie == 1) {
                         arrayEspecies.add(new Perro());
-                    } else if (codigoEspecie == 2) {
+                    } else if (id_especie == 2) {
                         arrayEspecies.add(new Gato());
                     }
                 }

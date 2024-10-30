@@ -6,18 +6,18 @@ import java.util.List;
 public class Raza{
     private final int id_raza;
     protected String nombreRaza;
-    private int id_especie;
+    private Especie especieAQuePertenece;
 
-    public Raza(String nombreRaza, int codigoEspecie){
+    public Raza(String nombreRaza, Especie especieAQuePertenece){
         id_raza = 0;
         this.nombreRaza = nombreRaza;
-        this.id_especie = codigoEspecie;
+        this.especieAQuePertenece = especieAQuePertenece;
     }
 
-    public Raza(int id_raza, String nombreRaza, int codigoEspecie) {
+    public Raza(int id_raza, String nombreRaza, Especie especieAQuePertenece) {
         this.id_raza = id_raza;
         this.nombreRaza = nombreRaza;
-        this.id_especie = codigoEspecie;
+        this.especieAQuePertenece = especieAQuePertenece;
     }
 
     public String getNombreRaza() {
@@ -26,14 +26,18 @@ public class Raza{
 
     public void setNombreRaza(String nombreRaza) {
         this.nombreRaza = nombreRaza;
-    }   
-
-    public int getId_especie() {
-        return id_especie;
     }
 
     public int getId_raza() {
         return id_raza;
+    }
+
+    public Especie getEspecieAQuePertenece() {
+        return especieAQuePertenece;
+    }
+
+    public void setEspecieAQuePertenece(Especie especieAQuePertenece) {
+        this.especieAQuePertenece = especieAQuePertenece;
     }
     
     public static void agregarRaza(Raza raza) throws Exception{
@@ -48,8 +52,8 @@ public class Raza{
         RazasDAO.modificarRaza(nuevoNombre, id_raza);
     }
     
-    public static boolean eliminarRaza(Raza raza)throws Exception{
-        return RazasDAO.eliminarRaza(raza);
+    public static void eliminarRaza(Raza raza)throws Exception{
+        RazasDAO.eliminarRaza(raza);
     }
 
     @Override

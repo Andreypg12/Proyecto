@@ -73,7 +73,7 @@ public class VacunasDAO {
         List<Vacuna> arrayVacunas = new ArrayList<>();
         
         try {
-            String sql = "SELECT id_vacuna, id_especie, precio, nombre FROM Vacuna";
+            String sql = "SELECT * FROM Vacuna";
             
             try(PreparedStatement pstm = ConeccionDB.conectarBaseDatos().prepareStatement(sql);
                     ResultSet rs = pstm.executeQuery()){
@@ -100,5 +100,31 @@ public class VacunasDAO {
             throw e;
         }
         return arrayVacunas;
+    }
+    
+    public static Vacuna consultarVacuna(int id_vacuna) throws Exception {
+        try {
+            String sql = "SELECT * FROM Vacuna WHERE id_vacuna = " + id_vacuna;
+
+            try (PreparedStatement pstm = ConeccionDB.conectarBaseDatos().prepareStatement(sql); ResultSet rs = pstm.executeQuery()) {
+                if (rs.next()) {
+                    int id_especie = rs.getInt("id_especie");
+                    double precio = rs.getDouble("precio");
+                    String nombre = rs.getString("nombre");
+                    Especie especie;
+
+                    if (id_especie == 1) {
+                        especie = new Perro();
+                    } else {
+                        especie = new Gato();
+                    }
+
+                    return new Vacuna(nombre, precio, id_vacuna, especie);
+                }
+            }
+        } catch (SQLException e) {
+            throw e;
+        }
+        return null;
     }
 }

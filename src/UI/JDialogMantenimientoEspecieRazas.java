@@ -50,8 +50,7 @@ public class JDialogMantenimientoEspecieRazas extends javax.swing.JDialog {
             case MODIFICAR -> {
                 this.setTitle("Modificar raza");
                 jLblNombreRaza.setText("Nuevo nombre de la raza de " + nombreEspecie);
-                jTxtNombreRaza.setText(nombreRaza.trim()
-                );
+                jTxtNombreRaza.setText(nombreRaza.trim());
             }
             case CONSULTAR -> {
                 this.setTitle("Consulta de raza");
@@ -145,7 +144,7 @@ public class JDialogMantenimientoEspecieRazas extends javax.swing.JDialog {
                 nombreRaza = jTxtNombreRaza.getText();
 
                 if (!nombreRaza.isBlank()) {
-                    raza = new Raza(nombreRaza, especie.getId_especie());
+                    raza = new Raza(nombreRaza, especie);
 
                     try {
                         Raza.agregarRaza(raza);
