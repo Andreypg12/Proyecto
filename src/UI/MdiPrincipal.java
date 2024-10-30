@@ -44,9 +44,10 @@ public class MdiPrincipal extends javax.swing.JFrame {
         pasteMenuItem = new javax.swing.JMenuItem();
         deleteMenuItem = new javax.swing.JMenuItem();
         MantenimientoMenu = new javax.swing.JMenu();
-        contentMenuItem = new javax.swing.JMenuItem();
-        aboutMenuItem = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jMItemEspeciesRazas = new javax.swing.JMenuItem();
+        jMItemMotivos = new javax.swing.JMenuItem();
+        jMItemPruebaLaboratorio = new javax.swing.JMenuItem();
+        jMItemVacuna = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -101,26 +102,34 @@ public class MdiPrincipal extends javax.swing.JFrame {
         MantenimientoMenu.setMnemonic('h');
         MantenimientoMenu.setText("Mantenimiento");
 
-        contentMenuItem.setMnemonic('c');
-        contentMenuItem.setText("Especies y razas");
-        contentMenuItem.addActionListener(new java.awt.event.ActionListener() {
+        jMItemEspeciesRazas.setMnemonic('c');
+        jMItemEspeciesRazas.setText("Especies y razas");
+        jMItemEspeciesRazas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                contentMenuItemActionPerformed(evt);
+                jMItemEspeciesRazasActionPerformed(evt);
             }
         });
-        MantenimientoMenu.add(contentMenuItem);
+        MantenimientoMenu.add(jMItemEspeciesRazas);
 
-        aboutMenuItem.setMnemonic('a');
-        aboutMenuItem.setText("Motivos");
-        aboutMenuItem.addActionListener(new java.awt.event.ActionListener() {
+        jMItemMotivos.setMnemonic('a');
+        jMItemMotivos.setText("Motivos");
+        jMItemMotivos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aboutMenuItemActionPerformed(evt);
+                jMItemMotivosActionPerformed(evt);
             }
         });
-        MantenimientoMenu.add(aboutMenuItem);
+        MantenimientoMenu.add(jMItemMotivos);
 
-        jMenuItem1.setText("Pruebas de laboratorio");
-        MantenimientoMenu.add(jMenuItem1);
+        jMItemPruebaLaboratorio.setText("Pruebas de laboratorio");
+        MantenimientoMenu.add(jMItemPruebaLaboratorio);
+
+        jMItemVacuna.setText("Vacunas");
+        jMItemVacuna.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMItemVacunaActionPerformed(evt);
+            }
+        });
+        MantenimientoMenu.add(jMItemVacuna);
 
         menuBar.add(MantenimientoMenu);
 
@@ -144,33 +153,41 @@ public class MdiPrincipal extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
-    private void contentMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contentMenuItemActionPerformed
+    private void jMItemEspeciesRazasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMItemEspeciesRazasActionPerformed
         // TODO add your handling code here:
         JInternalMantenimientoEspeciesRazas jInternalMantenimientoEspeciesRazas = new JInternalMantenimientoEspeciesRazas();
         desktopPane.add(jInternalMantenimientoEspeciesRazas);
         jInternalMantenimientoEspeciesRazas.setVisible(true);
-    }//GEN-LAST:event_contentMenuItemActionPerformed
+    }//GEN-LAST:event_jMItemEspeciesRazasActionPerformed
 
-    private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuItemActionPerformed
+    private void jMItemMotivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMItemMotivosActionPerformed
         // TODO add your handling code here:
         jInternalMantenimientoMotivos ventana = new jInternalMantenimientoMotivos();
         desktopPane.add(ventana);
         ventana.setVisible(true);
-    }//GEN-LAST:event_aboutMenuItemActionPerformed
+    }//GEN-LAST:event_jMItemMotivosActionPerformed
+
+    private void jMItemVacunaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMItemVacunaActionPerformed
+        // TODO add your handling code here:
+        JInternalMantenimientoVacunas ventana = new JInternalMantenimientoVacunas();
+        desktopPane.add(ventana);
+        ventana.setVisible(true);
+    }//GEN-LAST:event_jMItemVacunaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu MantenimientoMenu;
     private javax.swing.JMenu ProcesosMenu;
     private javax.swing.JMenu ReportesMenu;
-    private javax.swing.JMenuItem aboutMenuItem;
-    private javax.swing.JMenuItem contentMenuItem;
     private javax.swing.JMenuItem copyMenuItem;
     private javax.swing.JMenuItem cutMenuItem;
     private javax.swing.JMenuItem deleteMenuItem;
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenuItem exitMenuItem;
-    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMItemEspeciesRazas;
+    private javax.swing.JMenuItem jMItemMotivos;
+    private javax.swing.JMenuItem jMItemPruebaLaboratorio;
+    private javax.swing.JMenuItem jMItemVacuna;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JMenuItem pasteMenuItem;

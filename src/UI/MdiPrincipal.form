@@ -78,28 +78,36 @@
             <Property name="text" type="java.lang.String" value="Mantenimiento"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="contentMenuItem">
+            <MenuItem class="javax.swing.JMenuItem" name="jMItemEspeciesRazas">
               <Properties>
                 <Property name="mnemonic" type="int" value="99"/>
                 <Property name="text" type="java.lang.String" value="Especies y razas"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="contentMenuItemActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMItemEspeciesRazasActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="aboutMenuItem">
+            <MenuItem class="javax.swing.JMenuItem" name="jMItemMotivos">
               <Properties>
                 <Property name="mnemonic" type="int" value="97"/>
                 <Property name="text" type="java.lang.String" value="Motivos"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aboutMenuItemActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMItemMotivosActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+            <MenuItem class="javax.swing.JMenuItem" name="jMItemPruebaLaboratorio">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Pruebas de laboratorio"/>
               </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMItemVacuna">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Vacunas"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMItemVacunaActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

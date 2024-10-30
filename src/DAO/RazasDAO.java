@@ -13,14 +13,20 @@ public class RazasDAO {
 
     public static void agregarRaza(Raza raza) throws Exception{
         try {
-            String sql = "INSERT INTO Razas (nombre_raza, id_especie) VALUES (" + raza.getNombreRaza() + ", " + raza.getCodigoEspecie() + ")";
+            String sql = "INSERT INTO Razas (nombre_raza, id_especie) VALUES (?, ?)";
 
             try (Connection conexion = conectarBaseDatos(); 
                     PreparedStatement pstmt = conexion.prepareStatement(sql);) {
 
+                String nombreRaza = raza.getNombreRaza();
+                int id_especie = raza.getId_especie();
+                
+                pstmt.setString(1, nombreRaza);
+                pstmt.setInt(2, id_especie);
+                
                 pstmt.executeUpdate();
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw e;
         }
     }
@@ -28,13 +34,16 @@ public class RazasDAO {
     public static void modificarRaza(String nombreNuevo, int id_raza) throws Exception{
         conectarBaseDatos();
         try {
-            String sql = "UPDATE Razas SET nombre_raza = " + nombreNuevo + " WHERE id_raza = " + id_raza;
+            String sql = "UPDATE Razas SET nombre_raza = ? WHERE id_raza = ?";
             try (Connection conexion = conectarBaseDatos();
                     PreparedStatement pstmt = conexion.prepareStatement(sql)) {
 
+                pstmt.setString(1, nombreNuevo);
+                pstmt.setInt(1, id_raza);
+                
                 pstmt.executeUpdate();
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw e;
         }
     }
@@ -58,7 +67,7 @@ public class RazasDAO {
                     arrayRazas.add(raza);
                 }
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw e;
         }
         return arrayRazas;
@@ -66,15 +75,18 @@ public class RazasDAO {
 
     public static boolean eliminarRaza(Raza raza) throws Exception{
         try {
-            String sql = "DELETE FROM Razas WHERE id_raza = " + raza.getId_raza();
+            String sql = "DELETE FROM Razas WHERE id_raza = ?";
 
             try (PreparedStatement pstm = ConeccionDB.conectarBaseDatos().prepareStatement(sql)) {
 
+                int id_raza = raza.getId_raza();
+                
+                pstm.setInt(1, id_raza);
                 pstm.executeUpdate();
                 return true;
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             return false;
         }
     }
@@ -98,7 +110,7 @@ public class RazasDAO {
                 }
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw e;
         }
         return arrayEspecies;

@@ -53,10 +53,10 @@ public class JInternalMantenimientoEspeciesRazas extends javax.swing.JInternalFr
             arrayRazasPerros.clear();
             arrayRazasGatos.clear();
             for (Raza raza : Raza.consultarRazas()) {
-                if (raza.getCodigoEspecie() == 1) {
+                if (raza.getId_especie() == 1) {
                     arrayRazasPerros.add(raza);
                 }
-                else if (raza.getCodigoEspecie() == 2) {
+                else if (raza.getId_especie() == 2) {
                     arrayRazasGatos.add(raza);
                 }
             }
@@ -109,9 +109,9 @@ public class JInternalMantenimientoEspeciesRazas extends javax.swing.JInternalFr
         jScrollPane1.setViewportView(jListRazas);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
         jBtnAgregar.setText("Agregar");
+        jBtnAgregar.setPreferredSize(new java.awt.Dimension(110, 30));
         jBtnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnAgregarActionPerformed(evt);
@@ -120,6 +120,7 @@ public class JInternalMantenimientoEspeciesRazas extends javax.swing.JInternalFr
         jPanel1.add(jBtnAgregar);
 
         jBtnModificar.setText("Modificar");
+        jBtnModificar.setPreferredSize(new java.awt.Dimension(110, 30));
         jBtnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnModificarActionPerformed(evt);
@@ -128,6 +129,7 @@ public class JInternalMantenimientoEspeciesRazas extends javax.swing.JInternalFr
         jPanel1.add(jBtnModificar);
 
         jBtnConsultar.setText("Consultar");
+        jBtnConsultar.setPreferredSize(new java.awt.Dimension(110, 30));
         jBtnConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnConsultarActionPerformed(evt);
@@ -136,6 +138,7 @@ public class JInternalMantenimientoEspeciesRazas extends javax.swing.JInternalFr
         jPanel1.add(jBtnConsultar);
 
         jBtnEliminar.setText("Eliminar");
+        jBtnEliminar.setPreferredSize(new java.awt.Dimension(110, 30));
         jBtnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnEliminarActionPerformed(evt);
@@ -167,7 +170,7 @@ public class JInternalMantenimientoEspeciesRazas extends javax.swing.JInternalFr
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(46, Short.MAX_VALUE)
+                .addContainerGap(33, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
@@ -251,7 +254,7 @@ public class JInternalMantenimientoEspeciesRazas extends javax.swing.JInternalFr
     private javax.swing.JButton jBtnModificar;
     private javax.swing.JComboBox<Especie> jCmbEspecie;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JList<Raza> jListRazas;
+    private javax.swing.JList<BLL.Raza> jListRazas;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables

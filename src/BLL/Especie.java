@@ -1,4 +1,5 @@
 package BLL;
+
 import DAO.RazasDAO;
 import java.util.List;
 
@@ -23,8 +24,8 @@ public class Especie {
         return codigoEspecie;
     }
     
-    public static List<Especie> ConsultarEspecies(){
-        return ConsultarEspecies();
+    public static List<Especie> ConsultarEspecies() throws Exception{
+        return RazasDAO.consultarEspecies();
     }
 
     @Override

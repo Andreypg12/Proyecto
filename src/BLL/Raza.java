@@ -6,18 +6,18 @@ import java.util.List;
 public class Raza{
     private final int id_raza;
     protected String nombreRaza;
-    private int codigoEspecie;
+    private int id_especie;
 
     public Raza(String nombreRaza, int codigoEspecie){
         id_raza = 0;
         this.nombreRaza = nombreRaza;
-        this.codigoEspecie = codigoEspecie;
+        this.id_especie = codigoEspecie;
     }
 
     public Raza(int id_raza, String nombreRaza, int codigoEspecie) {
         this.id_raza = id_raza;
         this.nombreRaza = nombreRaza;
-        this.codigoEspecie = codigoEspecie;
+        this.id_especie = codigoEspecie;
     }
 
     public String getNombreRaza() {
@@ -28,8 +28,8 @@ public class Raza{
         this.nombreRaza = nombreRaza;
     }   
 
-    public int getCodigoEspecie() {
-        return codigoEspecie;
+    public int getId_especie() {
+        return id_especie;
     }
 
     public int getId_raza() {
