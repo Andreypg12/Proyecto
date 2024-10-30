@@ -1,5 +1,8 @@
 package DAO;
 
+import BLL.Especie;
+import BLL.Gato;
+import BLL.Perro;
 import BLL_Motivos.*;
 import java.sql.*;
 import static DAO.ConeccionDB.conectarBaseDatos;
@@ -25,58 +28,48 @@ public class MotivosDAO {
                 if (motivo instanceof Vacunacion) {
                     pstm.setInt(4, ((Vacunacion)motivo).getVacuna().getId_vacuna());
                 }
-                else {
-                    pstm.setInt(4, -1);
+                else{
+                    pstm.setNull(4, java.sql.Types.INTEGER);
                 }
 
                 pstm.executeUpdate();
-//                try (ResultSet keyGenerada = pstm.getGeneratedKeys()) {
-//                    if (keyGenerada.next() & motivo instanceof Vacunacion) {
-//                        int id_motivo = keyGenerada.getInt(1);
-//                        String tipo_vacuna = ((Vacunacion) motivo).getVacuna().name();
-//                        insertarVacuna(id_motivo, tipo_vacuna, conexion);
-//                    }
-//                }
             }
         } catch (SQLException e) {
             throw e;
         }
     }
 
-//    public static void insertarVacuna(int id_motivo, String tipo_vacuna, Connection conexion) throws Exception {
-//        try {
-//            String sql = "insert into Vacuna (id_motivo, tipo_vacuna) values(?, ?)";
-//            try (PreparedStatement pstm = conexion.prepareStatement(sql)) {
-//                pstm.setInt(1, id_motivo);
-//                pstm.setString(2, tipo_vacuna);
-//                pstm.executeUpdate();
-//            }
-//        } catch (SQLException e) {
-//            throw e;
-//        }
-//    }
-
     public static List<Motivo> consultarMotivos() throws Exception {
         List<Motivo> arrayMotivos = new ArrayList<>();
         try {
-            String sql = "SELECT id_motivo, descripcion, precio, aplica_examen, id_vacuna FROM Motivo";
+            String sql = "SELECT m.id_motivo, m.descripcion, m.precio AS precio_motivo, m.aplica_examen"
+                    + ", v.id_vacuna, v.nombre, v.id_especie, v.precio AS precio_vacuna "
+                    + "FROM Motivo m "
+                    + "LEFT JOIN Vacuna v ON m.id_vacuna = v.id_vacuna";
 
             try (PreparedStatement pstm = conectarBaseDatos().prepareStatement(sql); ResultSet rs = pstm.executeQuery()) {
 
                 while (rs.next()) {
-                    int id_motivo = rs.getInt(1);
-                    String descripcion = rs.getString(2);
-                    
-                    boolean aplica_examen = rs.getBoolean(4);
-                    int id_vacuna = rs.getInt(5);
+                    int id_motivo = rs.getInt("id_motivo");
+                    String descripcion = rs.getString("descripcion");
+
+                    boolean aplica_examen = rs.getBoolean("aplica_examen");
+                    int id_vacuna = rs.getInt("id_vacuna");
                     Motivo motivo;
 
-                    if (id_vacuna == -1) {
-                        double precio = rs.getInt(3);
+                    if (rs.wasNull()) {
+                        double precio = rs.getDouble("precio_motivo");
                         motivo = new Motivo(id_motivo, descripcion, precio, aplica_examen);
-                        
+
                     } else {
-                        Vacuna vacuna = Vacuna.consultarVacuna(id_vacuna);
+                        String nombreVacuna = rs.getString("nombre");
+                        double precioVacuna = rs.getDouble("precio_vacuna");
+                        int id_especie = rs.getInt("id_especie");
+                        
+                        Especie especie =(id_especie == 1) ? new Perro() : new Gato();
+
+                        Vacuna vacuna = new Vacuna(nombreVacuna, precioVacuna, id_vacuna, especie);
+
                         motivo = new Vacunacion(id_motivo, descripcion, vacuna);
                     }
                     arrayMotivos.add(motivo);
@@ -96,13 +89,6 @@ public class MotivosDAO {
                 int id_motivo = motivo.getId_motivo();
 
                 pstm.setInt(1, id_motivo);
-
-                if (motivo instanceof Vacunacion) {
-                    try (PreparedStatement pstmVacuna = conexion.prepareStatement("delete from Vacuna where id_motivo = ?")) {
-                        pstmVacuna.setInt(1, id_motivo);
-                        pstmVacuna.executeUpdate();
-                    }
-                }
                 pstm.executeUpdate();
             }
         } catch (SQLException e) {
@@ -112,7 +98,7 @@ public class MotivosDAO {
 
     public static boolean mofificarMotivo(Motivo motivoViejo, Motivo motivoNuevo) throws Exception {
         try {
-            String sql = "UPDATE Motivo SET descripcion = ?, precio = ?, aplica_examen = ?, id_vacuna  WHERE id_motivo = ?";
+            String sql = "UPDATE Motivo SET descripcion = ?, precio = ?, aplica_examen = ?, id_vacuna = ?  WHERE id_motivo = ?";
             try (Connection conexion = conectarBaseDatos(); PreparedStatement pstm = conexion.prepareStatement(sql)) {
 
                 int id_motivo = motivoViejo.getId_motivo();
@@ -124,6 +110,8 @@ public class MotivosDAO {
                 
                 if (motivoViejo instanceof Vacunacion) {
                     pstm.setInt(4, ((Vacunacion)motivoNuevo).getVacuna().getId_vacuna());
+                }else{
+                    pstm.setNull(4, java.sql.Types.INTEGER);
                 }
 
                 pstm.executeUpdate();

@@ -8,7 +8,6 @@ import BLL.TipoMantenimiento;
 import BLL_Motivos.Motivo;
 import BLL_Motivos.Vacuna;
 import BLL_Motivos.Vacunacion;
-import BLL_Motivos.Vacunas;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -198,6 +197,7 @@ public class jInternalMantenimientoMotivos extends javax.swing.JInternalFrame {
                 Object[] arreglo = {motivo, precio, aplica_examen, vacuna};
                 modeloTabla.addRow(arreglo);
             }
+
         } catch (Exception ex) {
             Logger.getLogger(jInternalMantenimientoMotivos.class.getName()).log(Level.SEVERE, null, ex);
         }
