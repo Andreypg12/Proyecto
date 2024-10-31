@@ -6,6 +6,7 @@ package UI;
 
 import BLL.TipoMantenimiento;
 import BLL_Motivos.*;
+import java.awt.event.ActionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ComboBoxModel;
@@ -20,6 +21,7 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
 
     private TipoMantenimiento tipoMantenimiento;
     private Motivo motivo;
+
     /**
      * Creates new form JDialogMantenimientoMotivo
      */
@@ -27,63 +29,70 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
     }
-    
+
     public JDialogMantenimientoMotivo(TipoMantenimiento tipoMantenimiento, Motivo motivo) {
         initComponents();
         this.setModal(true);
         this.setLocationRelativeTo(null);
         this.tipoMantenimiento = tipoMantenimiento;
-        
-        try {
-            jCmbVacunas.setModel(new DefaultComboBoxModel(Vacuna.consultarVacunas().toArray()));
-        } catch (Exception ex) {
-            Logger.getLogger(JDialogMantenimientoMotivo.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        jLblVacuna.setVisible(false);
-        jCmbVacunas.setVisible(false);
-        
+
+        llenarComboBox();
+
         switch (tipoMantenimiento) {
-            case AGREGAR ->{
+            case AGREGAR -> {
                 this.setTitle("Agregar Motivo");
+                jLblVacuna.setVisible(false);
+                jCmbVacunas.setVisible(false);
+
             }
-            case MODIFICAR ->{
+            case MODIFICAR -> {
                 this.motivo = motivo;
                 this.setTitle("Modificar Motivo");
                 if (motivo instanceof Vacunacion) {
                     jCmbTipoMotivo.setSelectedIndex(1);
-                    jCmbVacunas.setSelectedItem(((Vacunacion) motivo).getVacuna());
-                }
-                else{
+                    for (int i = 0; i < jCmbVacunas.getItemCount(); i++) {
+                        if (((Vacunacion) motivo).getVacuna().getId_vacuna() == jCmbVacunas.getItemAt(i).getId_vacuna()) {
+                            jCmbVacunas.setSelectedItem(jCmbVacunas.getItemAt(i));
+                            break;
+                        }
+                    }
+                } else {
                     jCmbTipoMotivo.setSelectedIndex(0);
                 }
                 jCmbTipoMotivo.setEnabled(false);
-                
+
                 jTxtDescripcion.setText(motivo.getDescripcion());
                 jTxtPrecio.setText(String.valueOf(motivo.getPrecio()));
             }
-            case CONSULTAR ->{
+            case CONSULTAR -> {
                 this.motivo = motivo;
                 this.setTitle("Consulta de motivo");
+
                 if (motivo instanceof Vacunacion) {
                     jCmbTipoMotivo.setSelectedIndex(1);
-                    jCmbVacunas.setSelectedItem(((Vacunacion) motivo).getVacuna());
+
+                    for (int i = 0; i < jCmbVacunas.getItemCount(); i++) {
+                        if (((Vacunacion) motivo).getVacuna().getId_vacuna() == jCmbVacunas.getItemAt(i).getId_vacuna()) {
+                            jCmbVacunas.setSelectedItem(jCmbVacunas.getItemAt(i));
+                            break;
+                        }
+
+                    }
+
                     jCmbVacunas.setEnabled(false);
-                }
-                else{
+                } else {
                     jCmbTipoMotivo.setSelectedIndex(0);
                 }
                 jCmbTipoMotivo.setEnabled(false);
-                
+
                 jTxtDescripcion.setText(motivo.getDescripcion());
                 jTxtPrecio.setText(String.format("%.2f ¢", motivo.getPrecio()));
                 jTxtDescripcion.setEditable(false);
                 jTxtPrecio.setEditable(false);
-                
+
                 if (motivo.isAplicaExamen()) {
                     jRBSiAplicaExamen.setSelected(true);
-                }
-                else{
+                } else {
                     jRBNoAplicaExamen.setSelected(true);
                 }
                 jRBSiAplicaExamen.setEnabled(false);
@@ -93,6 +102,7 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
             }
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -132,6 +142,7 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Descripcion");
 
+        jTxtDescripcion.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTxtDescripcion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTxtDescripcionActionPerformed(evt);
@@ -141,6 +152,7 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Precio");
 
+        jTxtPrecio.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTxtPrecio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTxtPrecioActionPerformed(evt);
@@ -254,11 +266,10 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
             jRBSiAplicaExamen.setEnabled(true);
             jRBSiAplicaExamen.setSelected(true);
             jRBNoAplicaExamen.setEnabled(true);
-        }
-        else if (jCmbTipoMotivo.getSelectedItem().equals("Vacunación")) {
+        } else if (jCmbTipoMotivo.getSelectedItem().equals("Vacunación")) {
             jLblVacuna.setVisible(true);
             jCmbVacunas.setVisible(true);
-            jTxtPrecio.setText(String.valueOf(((Vacuna)jCmbVacunas.getSelectedItem()).getPrecio()));
+            jTxtPrecio.setText(String.valueOf(((Vacuna) jCmbVacunas.getSelectedItem()).getPrecio()));
             jTxtPrecio.setEditable(false);
             jRBNoAplicaExamen.setSelected(true);
             jRBSiAplicaExamen.setEnabled(false);
@@ -266,6 +277,13 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jCmbTipoMotivoActionPerformed
 
+    private void llenarComboBox() {
+        try {
+            jCmbVacunas.setModel(new DefaultComboBoxModel(Vacuna.consultarVacunas().toArray()));
+        } catch (Exception ex) {
+            Logger.getLogger(JDialogMantenimientoMotivo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     private void jBtnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAceptarActionPerformed
         // TODO add your handling code here:
         switch (tipoMantenimiento) {
@@ -274,14 +292,14 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
                 if (motivo != null) {
                     try {
                         Motivo.agregarMotivo(motivo);
-                        JOptionPane.showMessageDialog(null, "El motivo fue agregado","Motivo agregado", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "El motivo fue agregado", "Motivo agregado", JOptionPane.INFORMATION_MESSAGE);
                         this.dispose();
                     } catch (Exception ex) {
                         Logger.getLogger(JDialogMantenimientoMotivo.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }
-            case MODIFICAR ->{
+            case MODIFICAR -> {
                 try {
                     Motivo motivoNuevo = crearMotivo();
                     if (Motivo.modificarMotivo(this.motivo, motivoNuevo)) {
@@ -298,7 +316,7 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
 
     private void jCmbVacunasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCmbVacunasActionPerformed
         // TODO add your handling code here:
-        jTxtPrecio.setText(String.valueOf(((Vacuna)jCmbVacunas.getSelectedItem()).getPrecio()));
+        jTxtPrecio.setText(String.valueOf(((Vacuna) jCmbVacunas.getSelectedItem()).getPrecio()));
     }//GEN-LAST:event_jCmbVacunasActionPerformed
 
     private void jTxtDescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtDescripcionActionPerformed
@@ -316,10 +334,10 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
-    private boolean aplicaExamen(){
+    private boolean aplicaExamen() {
         return (jRBSiAplicaExamen.isSelected()) ? true : false;
     }
-  
+
     private Motivo crearMotivo() {
         String descripcion = jTxtDescripcion.getText();
         double precio;
