@@ -6,10 +6,8 @@ package UI;
 
 import BLL.TipoMantenimiento;
 import BLL_Motivos.*;
-import java.awt.event.ActionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -35,7 +33,6 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
         this.setModal(true);
         this.setLocationRelativeTo(null);
         this.tipoMantenimiento = tipoMantenimiento;
-
         llenarComboBox();
 
         switch (tipoMantenimiento) {
@@ -43,50 +40,21 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
                 this.setTitle("Agregar Motivo");
                 jLblVacuna.setVisible(false);
                 jCmbVacunas.setVisible(false);
+                jPanelMantenimientoVacunas.setVisible(false);
+                jLblMantenimiento.setVisible(false);
 
             }
             case MODIFICAR -> {
                 this.motivo = motivo;
                 this.setTitle("Modificar Motivo");
-                if (motivo instanceof Vacunacion) {
-                    jCmbTipoMotivo.setSelectedIndex(1);
-                    for (int i = 0; i < jCmbVacunas.getItemCount(); i++) {
-                        if (((Vacunacion) motivo).getVacuna().getId_vacuna() == jCmbVacunas.getItemAt(i).getId_vacuna()) {
-                            jCmbVacunas.setSelectedItem(jCmbVacunas.getItemAt(i));
-                            break;
-                        }
-                    }
-                } else {
-                    jCmbTipoMotivo.setSelectedIndex(0);
-                }
                 jCmbTipoMotivo.setEnabled(false);
 
-                jTxtDescripcion.setText(motivo.getDescripcion());
-                jTxtPrecio.setText(String.valueOf(motivo.getPrecio()));
             }
             case CONSULTAR -> {
                 this.motivo = motivo;
                 this.setTitle("Consulta de motivo");
 
-                if (motivo instanceof Vacunacion) {
-                    jCmbTipoMotivo.setSelectedIndex(1);
-
-                    for (int i = 0; i < jCmbVacunas.getItemCount(); i++) {
-                        if (((Vacunacion) motivo).getVacuna().getId_vacuna() == jCmbVacunas.getItemAt(i).getId_vacuna()) {
-                            jCmbVacunas.setSelectedItem(jCmbVacunas.getItemAt(i));
-                            break;
-                        }
-
-                    }
-
-                    jCmbVacunas.setEnabled(false);
-                } else {
-                    jCmbTipoMotivo.setSelectedIndex(0);
-                }
                 jCmbTipoMotivo.setEnabled(false);
-
-                jTxtDescripcion.setText(motivo.getDescripcion());
-                jTxtPrecio.setText(String.format("%.2f ¢", motivo.getPrecio()));
                 jTxtDescripcion.setEditable(false);
                 jTxtPrecio.setEditable(false);
 
@@ -95,10 +63,30 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
                 } else {
                     jRBNoAplicaExamen.setSelected(true);
                 }
+                
                 jRBSiAplicaExamen.setEnabled(false);
                 jRBNoAplicaExamen.setEnabled(false);
                 jBtnAceptar.setVisible(false);
                 jBtnCancelar.setText("Salir");
+                jCmbVacunas.setEnabled(false);
+            }
+        }
+
+        if (this.motivo != null) {
+            jTxtDescripcion.setText(motivo.getDescripcion());
+            jTxtPrecio.setText(String.valueOf(motivo.getPrecio()));
+            
+            if (motivo instanceof Vacunacion) {
+                jCmbTipoMotivo.setSelectedIndex(1);
+
+                for (int i = 0; i < jCmbVacunas.getItemCount(); i++) {
+                    if (((Vacunacion) motivo).getVacuna().getId_vacuna() == jCmbVacunas.getItemAt(i).getId_vacuna()) {
+                        jCmbVacunas.setSelectedItem(jCmbVacunas.getItemAt(i));
+                        break;
+                    }
+                }
+            } else {
+                jCmbTipoMotivo.setSelectedIndex(0);
             }
         }
     }
@@ -126,6 +114,12 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
         jCmbVacunas = new javax.swing.JComboBox<>();
         jBtnAceptar = new javax.swing.JButton();
         jBtnCancelar = new javax.swing.JButton();
+        jPanelMantenimientoVacunas = new javax.swing.JPanel();
+        jBtnAgregar = new javax.swing.JButton();
+        jBtnModificar = new javax.swing.JButton();
+        jBtnConsultar = new javax.swing.JButton();
+        jBtnSalir = new javax.swing.JButton();
+        jLblMantenimiento = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -194,32 +188,73 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
             }
         });
 
+        jBtnAgregar.setText("Agregar");
+        jBtnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnAgregarActionPerformed(evt);
+            }
+        });
+        jPanelMantenimientoVacunas.add(jBtnAgregar);
+
+        jBtnModificar.setText("Modificar");
+        jBtnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnModificarActionPerformed(evt);
+            }
+        });
+        jPanelMantenimientoVacunas.add(jBtnModificar);
+
+        jBtnConsultar.setText("Consultar");
+        jBtnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnConsultarActionPerformed(evt);
+            }
+        });
+        jPanelMantenimientoVacunas.add(jBtnConsultar);
+
+        jBtnSalir.setText("Eliminar");
+        jBtnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnSalirActionPerformed(evt);
+            }
+        });
+        jPanelMantenimientoVacunas.add(jBtnSalir);
+
+        jLblMantenimiento.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLblMantenimiento.setText("Mantenimiento de vacunas");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(95, 95, 95)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jCmbVacunas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jRBSiAplicaExamen)
-                        .addGap(18, 18, 18)
-                        .addComponent(jRBNoAplicaExamen)
-                        .addGap(25, 25, 25))
-                    .addComponent(jLblVacuna, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTxtPrecio)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTxtDescripcion)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jCmbTipoMotivo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLblMantenimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanelMantenimientoVacunas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jBtnAceptar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(94, Short.MAX_VALUE))
+                        .addGap(91, 91, 91)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jBtnAceptar)
+                                .addGap(18, 18, 18)
+                                .addComponent(jBtnCancelar))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLblVacuna, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addGap(44, 44, 44)
+                                    .addComponent(jRBSiAplicaExamen)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jRBNoAplicaExamen))
+                                .addComponent(jCmbVacunas, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jTxtPrecio, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jTxtDescripcion, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jCmbTipoMotivo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,7 +265,7 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
                 .addComponent(jCmbTipoMotivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(12, 12, 12)
                 .addComponent(jTxtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
@@ -250,7 +285,11 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtnAceptar)
                     .addComponent(jBtnCancelar))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLblMantenimiento)
+                .addGap(11, 11, 11)
+                .addComponent(jPanelMantenimientoVacunas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -261,11 +300,12 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
         if (jCmbTipoMotivo.getSelectedItem().equals("Normal")) {
             jLblVacuna.setVisible(false);
             jCmbVacunas.setVisible(false);
-            jTxtPrecio.setText("");
             jTxtPrecio.setEditable(true);
             jRBSiAplicaExamen.setEnabled(true);
             jRBSiAplicaExamen.setSelected(true);
             jRBNoAplicaExamen.setEnabled(true);
+            jPanelMantenimientoVacunas.setVisible(false);
+            jLblMantenimiento.setVisible(false);
         } else if (jCmbTipoMotivo.getSelectedItem().equals("Vacunación")) {
             jLblVacuna.setVisible(true);
             jCmbVacunas.setVisible(true);
@@ -274,6 +314,8 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
             jRBNoAplicaExamen.setSelected(true);
             jRBSiAplicaExamen.setEnabled(false);
             jRBNoAplicaExamen.setEnabled(false);
+            jPanelMantenimientoVacunas.setVisible(true);
+            jLblMantenimiento.setVisible(true);
         }
     }//GEN-LAST:event_jCmbTipoMotivoActionPerformed
 
@@ -288,21 +330,41 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
         // TODO add your handling code here:
         switch (tipoMantenimiento) {
             case AGREGAR -> {
-                Motivo motivo = crearMotivo();
-                if (motivo != null) {
-                    try {
-                        Motivo.agregarMotivo(motivo);
-                        JOptionPane.showMessageDialog(null, "El motivo fue agregado", "Motivo agregado", JOptionPane.INFORMATION_MESSAGE);
-                        this.dispose();
-                    } catch (Exception ex) {
-                        Logger.getLogger(JDialogMantenimientoMotivo.class.getName()).log(Level.SEVERE, null, ex);
+
+                try {
+                    String descripcion = jTxtDescripcion.getText();
+                    double precio;
+
+                    precio = Double.parseDouble(jTxtPrecio.getText());
+                    boolean aplicaExamen = aplicaExamen();
+                    Motivo motivo;
+
+                    if (jCmbTipoMotivo.getSelectedItem().equals("Normal")) {
+                        motivo = new Motivo(descripcion, precio, aplicaExamen);
+                    } else {
+                        motivo = new Vacunacion(descripcion, (Vacuna) jCmbVacunas.getSelectedItem());
                     }
+                    
+                    Motivo.agregarMotivo(motivo);
+                    JOptionPane.showMessageDialog(null, "El motivo fue agregado", "Motivo agregado", JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Debes ingresar un numero en el precio", "Valor incorrecto", JOptionPane.ERROR_MESSAGE);
+                } catch (Exception ex) {
+                    Logger.getLogger(JDialogMantenimientoMotivo.class.getName()).log(Level.SEVERE, null, ex);
                 }
+
             }
             case MODIFICAR -> {
                 try {
-                    Motivo motivoNuevo = crearMotivo();
-                    if (Motivo.modificarMotivo(this.motivo, motivoNuevo)) {
+                    motivo.setDescripcion(jTxtDescripcion.getText());
+                    motivo.setPrecio(Double.parseDouble(jTxtPrecio.getText()));
+                    if (motivo instanceof Vacunacion) {
+                        ((Vacunacion)motivo).setVacuna((Vacuna)jCmbVacunas.getSelectedItem());
+                    }
+                    motivo.setAplicaExamen(aplicaExamen());
+
+                    if (Motivo.modificarMotivo(motivo)) {
                         JOptionPane.showMessageDialog(null, "El motivo fue modificado", "Motivo modificado", JOptionPane.INFORMATION_MESSAGE);
                         this.dispose();
                     }
@@ -334,26 +396,43 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
+    private void jBtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAgregarActionPerformed
+        // TODO add your handling code here:
+        JDialogMantenimientoVacunas ventana = new JDialogMantenimientoVacunas(tipoMantenimiento.AGREGAR, null);
+        ventana.setVisible(true);
+        llenarComboBox();
+    }//GEN-LAST:event_jBtnAgregarActionPerformed
+
+    private void jBtnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnModificarActionPerformed
+        // TODO add your handling code here:
+        JDialogMantenimientoVacunas ventana = new JDialogMantenimientoVacunas(tipoMantenimiento.MODIFICAR, (Vacuna)jCmbVacunas.getSelectedItem());
+        ventana.setVisible(true);
+        llenarComboBox();
+    }//GEN-LAST:event_jBtnModificarActionPerformed
+
+    private void jBtnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConsultarActionPerformed
+        // TODO add your handling code here:
+        JDialogMantenimientoVacunas ventana = new JDialogMantenimientoVacunas(tipoMantenimiento.CONSULTAR, (Vacuna)jCmbVacunas.getSelectedItem());
+        ventana.setVisible(true);
+    }//GEN-LAST:event_jBtnConsultarActionPerformed
+
+    private void jBtnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSalirActionPerformed
+        // TODO add your handling code here:
+        if (motivo != null) {
+            int opcion = JOptionPane.showConfirmDialog(null, "¿Deseas eliminar la vacuna?", "Eliminar", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (opcion == JOptionPane.YES_OPTION) {
+                try {
+                    Vacuna.eliminarVacuna((Vacuna)jCmbVacunas.getSelectedItem());
+                } catch (Exception ex) {
+                    Logger.getLogger(jInternalMantenimientoMotivos.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                llenarComboBox();
+            }
+        }
+    }//GEN-LAST:event_jBtnSalirActionPerformed
+
     private boolean aplicaExamen() {
         return (jRBSiAplicaExamen.isSelected()) ? true : false;
-    }
-
-    private Motivo crearMotivo() {
-        String descripcion = jTxtDescripcion.getText();
-        double precio;
-        try {
-            precio = Double.parseDouble(jTxtPrecio.getText());
-            boolean aplicaExamen = aplicaExamen();
-
-            if (jCmbTipoMotivo.getSelectedItem().equals("Normal")) {
-                return new Motivo(descripcion, precio, aplicaExamen);
-            } else {
-                return new Vacunacion(descripcion, (Vacuna) jCmbVacunas.getSelectedItem());
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Debes ingresar un numero en el precio", "Valor incorrecto", JOptionPane.ERROR_MESSAGE);
-        }
-        return null;
     }
     /**
      * @param args the command line arguments
@@ -362,14 +441,20 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jBtnAceptar;
+    private javax.swing.JButton jBtnAgregar;
     private javax.swing.JButton jBtnCancelar;
+    private javax.swing.JButton jBtnConsultar;
+    private javax.swing.JButton jBtnModificar;
+    private javax.swing.JButton jBtnSalir;
     private javax.swing.JComboBox<String> jCmbTipoMotivo;
     private javax.swing.JComboBox<Vacuna> jCmbVacunas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLblMantenimiento;
     private javax.swing.JLabel jLblVacuna;
+    private javax.swing.JPanel jPanelMantenimientoVacunas;
     private javax.swing.JRadioButton jRBNoAplicaExamen;
     private javax.swing.JRadioButton jRBSiAplicaExamen;
     private javax.swing.JTextField jTxtDescripcion;

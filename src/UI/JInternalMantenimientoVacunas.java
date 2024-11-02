@@ -26,7 +26,7 @@ public class JInternalMantenimientoVacunas extends javax.swing.JInternalFrame {
     
     private void llenarComboBox(){
         try {
-            jCmbEspecies.setModel(new DefaultComboBoxModel(Especie.ConsultarEspecies().toArray()));
+            jCmbEspecies.setModel(new DefaultComboBoxModel(Especie.consultarEspecies().toArray()));
         } catch (Exception ex) {
             Logger.getLogger(JInternalMantenimientoVacunas.class.getName()).log(Level.SEVERE, null, ex);
         }

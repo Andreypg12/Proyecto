@@ -58,17 +58,17 @@ public class Vacuna {
     }
     
     public static void agregarVacuna(Vacuna vacuna) throws Exception{
-        VacunasDAO.agregarVacuna(vacuna);
+        new VacunasDAO().agregarVacuna(vacuna);
     }
     
     public static List<Vacuna> consultarVacunas() throws Exception{
-        return VacunasDAO.consultarVacunas();
+        return new VacunasDAO().consultarVacunas();
     }
     
     public static void eliminarVacuna(Vacuna vacuna) throws Exception{
-        VacunasDAO.eliminarVacuna(vacuna);
+        new VacunasDAO().eliminarVacuna(vacuna);
     }
-    public static void modificarVacuna(Vacuna vacuna, int id_vacuna_cambiar) throws Exception{
-        VacunasDAO.modificarVacuna(vacuna, id_vacuna_cambiar);
+    public static void modificarVacuna(Vacuna vacuna) throws Exception{
+        new VacunasDAO().modificarVacuna(vacuna);
     }
 }

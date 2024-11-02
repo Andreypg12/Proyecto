@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
 public class JDialogMantenimientoVacunas extends javax.swing.JDialog {
 
     TipoMantenimiento tipoMantenimiento;
-    Vacuna vacunaEntrada;
+    Vacuna vacuna;
 
     /**
      * Creates new form JDialogMantenimientoVacunas
@@ -41,35 +41,30 @@ public class JDialogMantenimientoVacunas extends javax.swing.JDialog {
             }
             case MODIFICAR -> {
                 this.setTitle("Modificar Vacuna " + vacuna.getNombre().trim());
-                vacunaEntrada = vacuna;
-                jTxtNombreVacuna.setText(vacuna.getNombre().trim());
-                jTxtPrecio.setText(String.valueOf(vacuna.getPrecio()));
-
-                if (vacuna.getEspecieVacuna().getId_especie() == 1) {
-                    jRbdPerro.setSelected(true);
-                } else if (vacuna.getEspecieVacuna().getId_especie() == 2) {
-                    jRbdGato.setSelected(true);
-                }
+                this.vacuna = vacuna;
             }
             case CONSULTAR -> {
                 this.setTitle("Consultar sobre: " + vacuna.getNombre().trim());
-                vacunaEntrada = vacuna;
-                jTxtNombreVacuna.setText(vacuna.getNombre().trim());
+                this.vacuna = vacuna;
+
                 jTxtNombreVacuna.setEditable(false);
-                
-                jTxtPrecio.setText(String.valueOf(vacuna.getPrecio()));
+
                 jTxtPrecio.setEditable(false);
 
-                if (vacuna.getEspecieVacuna().getId_especie() == 1) {
-                    jRbdPerro.setSelected(true);
-                } else if (vacuna.getEspecieVacuna().getId_especie() == 2) {
-                    jRbdGato.setSelected(true);
-                }
-                
                 jRbdPerro.setEnabled(false);
                 jRbdGato.setEnabled(false);
                 jBtnAceptar.setText("Salir");
                 jBtnCancelar.setVisible(false);
+            }
+        }
+
+        if (vacuna != null) {
+            jTxtNombreVacuna.setText(vacuna.getNombre().trim());
+            jTxtPrecio.setText(String.valueOf(vacuna.getPrecio()));
+            if (vacuna.getEspecieVacuna().getId_especie() == 1) {
+                jRbdPerro.setSelected(true);
+            } else if (vacuna.getEspecieVacuna().getId_especie() == 2) {
+                jRbdGato.setSelected(true);
             }
         }
     }
@@ -198,7 +193,10 @@ public class JDialogMantenimientoVacunas extends javax.swing.JDialog {
             case AGREGAR -> {
                 if (verificarCampos()) {
                     try {
-                        Vacuna vacuna = crearVacuna();
+                        Vacuna vacuna = new Vacuna(jTxtNombreVacuna.getText().trim(),
+                                Double.parseDouble(
+                                        jTxtPrecio.getText().trim()), crearEspecie());
+
                         Vacuna.agregarVacuna(vacuna);
                         JOptionPane.showMessageDialog(null, "La vacuna " + vacuna.getNombre() + " a sido agregada", "¡Vacuna agregada!", JOptionPane.INFORMATION_MESSAGE);
                         this.dispose();
@@ -212,9 +210,10 @@ public class JDialogMantenimientoVacunas extends javax.swing.JDialog {
             case MODIFICAR -> {
                 if (verificarCampos()) {
                     try {
-                        Vacuna vacuna = crearVacuna();
+                        vacuna.setNombre(jTxtNombreVacuna.getText().trim());
+                        vacuna.setPrecio(Double.parseDouble(jTxtPrecio.getText().trim()));
 
-                        Vacuna.modificarVacuna(vacuna, vacunaEntrada.getId_vacuna());
+                        Vacuna.modificarVacuna(vacuna);
                         JOptionPane.showMessageDialog(null, "La vacuna se modifico correctamente", "¡Vacuna modificada!", JOptionPane.INFORMATION_MESSAGE);
                         this.dispose();
                     } catch (NumberFormatException e) {
@@ -249,23 +248,6 @@ public class JDialogMantenimientoVacunas extends javax.swing.JDialog {
         return (jRbdPerro.isSelected()) ? new Perro()
                 : (jRbdGato.isSelected()) ? new Gato()
                 : null;
-    }
-
-    private Vacuna crearVacuna() throws Exception {
-        try {
-            String nombreVacuna = jTxtNombreVacuna.getText().trim();
-
-            double precio = Double.parseDouble(jTxtPrecio.getText().trim());
-
-            Especie especie = crearEspecie();
-
-            Vacuna vacuna = new Vacuna(nombreVacuna, precio, especie);
-
-            return vacuna;
-
-        } catch (NumberFormatException e) {
-            throw e;
-        }
     }
 
     private boolean verificarCampos() {

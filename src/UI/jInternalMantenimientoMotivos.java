@@ -54,14 +54,14 @@ public class jInternalMantenimientoMotivos extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Motivo", "Precio", "Examen", "Vacuna"
+                "Motivo", "Precio", "Examen"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Double.class, java.lang.String.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.Double.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -189,12 +189,8 @@ public class jInternalMantenimientoMotivos extends javax.swing.JInternalFrame {
 
                 double precio = motivo.getPrecio();
                 String aplica_examen = (motivo.isAplicaExamen()) ? "Si" : "No";
-                Vacuna vacuna = null;
 
-                if (motivo instanceof Vacunacion) {
-                    vacuna = ((Vacunacion) motivo).getVacuna();
-                }
-                Object[] arreglo = {motivo, precio, aplica_examen, vacuna};
+                Object[] arreglo = {motivo, precio, aplica_examen};
                 modeloTabla.addRow(arreglo);
             }
 

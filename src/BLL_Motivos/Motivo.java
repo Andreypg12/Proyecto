@@ -67,18 +67,18 @@ public class Motivo {
     }
     
     public static void agregarMotivo(Motivo motivo) throws Exception{
-        MotivosDAO.agregarMotivo(motivo);
+        new MotivosDAO().agregarMotivo(motivo);
     }
     
     public static List<Motivo> consultarMotivos() throws Exception{
-        return MotivosDAO.consultarMotivos();
+        return new MotivosDAO().consultarMotivos();
     }
     
     public static void eliminarMotivo(Motivo motivo) throws Exception{
-        MotivosDAO.eliminarMotivo(motivo);
+        new MotivosDAO().eliminarMotivo(motivo);
     }
     
-    public static boolean modificarMotivo(Motivo motivoViejo, Motivo motivoNuevo) throws Exception{
-        return MotivosDAO.mofificarMotivo(motivoViejo, motivoNuevo);
+    public static boolean modificarMotivo(Motivo motivo) throws Exception{
+        return new MotivosDAO().mofificarMotivo(motivo);
     }
 }

@@ -16,4 +16,8 @@ public class Vacunacion extends Motivo{
     public Vacuna getVacuna() {
         return vacuna;
     }
+
+    public void setVacuna(Vacuna vacuna) {
+        this.vacuna = vacuna;
+    }
 }

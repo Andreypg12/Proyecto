@@ -11,7 +11,7 @@ import java.util.List;
 
 public class RazasDAO {
 
-    public static void agregarRaza(Raza raza) throws Exception{
+    public void agregarRaza(Raza raza) throws Exception{
         try {
             String sql = "INSERT INTO Razas (nombre_raza, id_especie) VALUES (?, ?)";
 
@@ -31,15 +31,15 @@ public class RazasDAO {
         }
     }
 
-    public static void modificarRaza(String nombreNuevo, int id_raza) throws Exception{
+    public void modificarRaza(Raza raza) throws Exception{
         conectarBaseDatos();
         try {
             String sql = "UPDATE Razas SET nombre_raza = ? WHERE id_raza = ?";
             try (Connection conexion = conectarBaseDatos();
                     PreparedStatement pstmt = conexion.prepareStatement(sql)) {
 
-                pstmt.setString(1, nombreNuevo);
-                pstmt.setInt(1, id_raza);
+                pstmt.setString(1, raza.getNombreRaza());
+                pstmt.setInt(2, raza.getId_raza());
                 
                 pstmt.executeUpdate();
             }
@@ -48,7 +48,7 @@ public class RazasDAO {
         }
     }
 
-    public static List<Raza> consultarRazas() throws Exception{
+    public List<Raza> consultarRazas() throws Exception{
         List<Raza> arrayRazas = new ArrayList<>();
         try {
             String sql = "SELECT id_raza, nombre_raza, id_especie FROM Razas";
@@ -81,7 +81,7 @@ public class RazasDAO {
         return arrayRazas;
     }
 
-    public static void eliminarRaza(Raza raza) throws Exception{
+    public void eliminarRaza(Raza raza) throws Exception{
         try {
             String sql = "DELETE FROM Razas WHERE id_raza = ?";
 
@@ -99,7 +99,7 @@ public class RazasDAO {
         }
     }
 
-    public static List<Especie> consultarEspecies() throws Exception{
+    public List<Especie> consultarEspecies() throws Exception{
         List<Especie> arrayEspecies = new ArrayList<>();
         try {
             String sql = "SELECT nombre_especie, id_especie FROM Especies";

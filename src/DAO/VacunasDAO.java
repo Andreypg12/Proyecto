@@ -10,7 +10,7 @@ import java.util.List;
 
 public class VacunasDAO {
     
-    public static void agregarVacuna(Vacuna vacuna) throws Exception{
+    public void agregarVacuna(Vacuna vacuna) throws Exception{
         try {
             String sql = "INSERT INTO Vacuna (id_especie,precio, nombre) VALUES (?, ?, ?)";
             
@@ -30,7 +30,7 @@ public class VacunasDAO {
         }
     }
     
-    public static void modificarVacuna(Vacuna vacuna, int id_vacuna_cambiar) throws Exception{
+    public void modificarVacuna(Vacuna vacuna) throws Exception{
         try {
             String sql = "UPDATE Vacuna SET id_especie = ?, precio = ?, nombre = ? WHERE id_vacuna = ?";
             
@@ -43,7 +43,7 @@ public class VacunasDAO {
                 pstm.setInt(1, id_especie);
                 pstm.setDouble(2, precio);
                 pstm.setString(3, tipo_vacuna);
-                pstm.setInt(4, id_vacuna_cambiar);
+                pstm.setInt(4, vacuna.getId_vacuna());
                 
                 pstm.executeUpdate();
             }
@@ -52,7 +52,7 @@ public class VacunasDAO {
         }
     }
     
-    public static void eliminarVacuna(Vacuna vacuna) throws Exception{
+    public void eliminarVacuna(Vacuna vacuna) throws Exception{
         try {
             String sql = "DELETE FROM Vacuna WHERE id_vacuna = ?";
             
@@ -69,7 +69,7 @@ public class VacunasDAO {
         }
     }
     
-    public static List<Vacuna> consultarVacunas() throws Exception{
+    public List<Vacuna> consultarVacunas() throws Exception{
         List<Vacuna> arrayVacunas = new ArrayList<>();
         
         try {

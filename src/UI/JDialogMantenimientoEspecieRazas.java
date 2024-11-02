@@ -16,8 +16,6 @@ public class JDialogMantenimientoEspecieRazas extends javax.swing.JDialog {
 
     private TipoMantenimiento tipoMantenimiento;
     private Especie especie;
-    String nombreEspecie;
-    private String nombreRaza;
     private Raza raza;
 
     /**
@@ -32,30 +30,25 @@ public class JDialogMantenimientoEspecieRazas extends javax.swing.JDialog {
         initComponents();
         this.setModal(true);
         this.setLocationRelativeTo(null);
-        nombreEspecie = especie.getNombreEspecie();
         this.especie = especie;
         this.raza = raza;
         this.tipoMantenimiento = tipoMantenimiento;
 
-        if (raza != null) {
-            this.nombreRaza = raza.getNombreRaza().trim();
-        }
-
         switch (tipoMantenimiento) {
             case AGREGAR -> {
                 this.setTitle("Agregar raza");
-                jLblNombreRaza.setText("Agregar Raza de " + nombreEspecie);
+                jLblNombreRaza.setText("Agregar Raza de " + especie.getNombreEspecie().trim());
             }
 
             case MODIFICAR -> {
                 this.setTitle("Modificar raza");
-                jLblNombreRaza.setText("Nuevo nombre de la raza de " + nombreEspecie);
-                jTxtNombreRaza.setText(nombreRaza.trim());
+                jLblNombreRaza.setText("Nuevo nombre de la raza de " + especie.getNombreEspecie().trim());
+                jTxtNombreRaza.setText(raza.getNombreRaza().trim());
             }
             case CONSULTAR -> {
                 this.setTitle("Consulta de raza");
-                jLblNombreRaza.setText("Raza de " + nombreEspecie);
-                jTxtNombreRaza.setText(nombreRaza.trim());
+                jLblNombreRaza.setText("Raza de " + especie.getNombreEspecie().trim());
+                jTxtNombreRaza.setText(raza.getNombreRaza().trim());
                 jTxtNombreRaza.setEnabled(false);
                 jBtnCancelar.setEnabled(false);
                 jBtnCancelar.setVisible(false);
@@ -141,7 +134,7 @@ public class JDialogMantenimientoEspecieRazas extends javax.swing.JDialog {
         switch (this.tipoMantenimiento) {
             case AGREGAR -> {
                 Raza raza = null;
-                nombreRaza = jTxtNombreRaza.getText();
+                String nombreRaza = jTxtNombreRaza.getText();
 
                 if (!nombreRaza.isBlank()) {
                     raza = new Raza(nombreRaza, especie);
@@ -163,10 +156,11 @@ public class JDialogMantenimientoEspecieRazas extends javax.swing.JDialog {
             case MODIFICAR -> {
                 if (!jTxtNombreRaza.getText().isBlank()) {
                     try {
-                        String nuevoNombre = jTxtNombreRaza.getText().trim();
-                        Raza.modificarRaza(nuevoNombre, raza.getId_raza());
+                        raza.setNombreRaza(jTxtNombreRaza.getText().trim());
+                        
+                        Raza.modificarRaza(raza);
 
-                        JOptionPane.showMessageDialog(null, "La raza de " + this.nombreEspecie + " '" + nombreRaza + "' ahora se llama '" + nuevoNombre + "'",
+                        JOptionPane.showMessageDialog(null, "La raza  de " + especie.getNombreEspecie() + "ahora se llama '" + raza.getNombreRaza() + "'",
                                 "Raza modificada", JOptionPane.INFORMATION_MESSAGE);
                         this.dispose();
 

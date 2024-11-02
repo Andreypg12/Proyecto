@@ -11,7 +11,7 @@ import java.util.List;
 
 public class MotivosDAO {
 
-    public static void agregarMotivo(Motivo motivo) throws Exception {
+    public void agregarMotivo(Motivo motivo) throws Exception {
         try {
             String sql = "INSERT INTO Motivo (descripcion, precio, aplica_examen, id_vacuna) VALUES( ?, ?, ?, ?)";
 
@@ -39,7 +39,7 @@ public class MotivosDAO {
         }
     }
 
-    public static List<Motivo> consultarMotivos() throws Exception {
+    public List<Motivo> consultarMotivos() throws Exception {
         List<Motivo> arrayMotivos = new ArrayList<>();
         try {
             String sql = "SELECT m.id_motivo, m.descripcion, m.precio AS precio_motivo, m.aplica_examen"
@@ -81,7 +81,7 @@ public class MotivosDAO {
         return arrayMotivos;
     }
 
-    public static void eliminarMotivo(Motivo motivo) throws Exception {
+    public void eliminarMotivo(Motivo motivo) throws Exception {
         try {
             String sql = "delete from Motivo where id_motivo = ?";
             try (Connection conexion = conectarBaseDatos(); PreparedStatement pstm = conexion.prepareStatement(sql)) {
@@ -96,20 +96,20 @@ public class MotivosDAO {
         }
     }
 
-    public static boolean mofificarMotivo(Motivo motivoViejo, Motivo motivoNuevo) throws Exception {
+    public boolean mofificarMotivo(Motivo motivo) throws Exception {
         try {
             String sql = "UPDATE Motivo SET descripcion = ?, precio = ?, aplica_examen = ?, id_vacuna = ?  WHERE id_motivo = ?";
             try (Connection conexion = conectarBaseDatos(); PreparedStatement pstm = conexion.prepareStatement(sql)) {
 
-                int id_motivo = motivoViejo.getId_motivo();
+                int id_motivo = motivo.getId_motivo();
 
-                pstm.setString(1, motivoNuevo.getDescripcion());
-                pstm.setDouble(2, motivoNuevo.getPrecio());
-                pstm.setBoolean(3, motivoNuevo.isAplicaExamen());
+                pstm.setString(1, motivo.getDescripcion());
+                pstm.setDouble(2, motivo.getPrecio());
+                pstm.setBoolean(3, motivo.isAplicaExamen());
                 pstm.setInt(5, id_motivo);
                 
-                if (motivoViejo instanceof Vacunacion) {
-                    pstm.setInt(4, ((Vacunacion)motivoNuevo).getVacuna().getId_vacuna());
+                if (motivo instanceof Vacunacion) {
+                    pstm.setInt(4, ((Vacunacion)motivo).getVacuna().getId_vacuna());
                 }else{
                     pstm.setNull(4, java.sql.Types.INTEGER);
                 }

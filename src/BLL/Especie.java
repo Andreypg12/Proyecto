@@ -24,8 +24,8 @@ public class Especie {
         return id_especie;
     }
     
-    public static List<Especie> ConsultarEspecies() throws Exception{
-        return RazasDAO.consultarEspecies();
+    public static List<Especie> consultarEspecies() throws Exception{
+        return new RazasDAO().consultarEspecies();
     }
 
     @Override

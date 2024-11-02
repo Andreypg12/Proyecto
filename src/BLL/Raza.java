@@ -41,19 +41,19 @@ public class Raza{
     }
     
     public static void agregarRaza(Raza raza) throws Exception{
-        RazasDAO.agregarRaza(raza);
+        new RazasDAO().agregarRaza(raza);
     }
     
     public static List<Raza> consultarRazas() throws Exception{
-        return RazasDAO.consultarRazas();
+        return new RazasDAO().consultarRazas();
     }
     
-    public static void modificarRaza(String nuevoNombre, int id_raza) throws Exception{
-        RazasDAO.modificarRaza(nuevoNombre, id_raza);
+    public static void modificarRaza(Raza raza) throws Exception{
+        new RazasDAO().modificarRaza(raza);
     }
     
     public static void eliminarRaza(Raza raza)throws Exception{
-        RazasDAO.eliminarRaza(raza);
+        new RazasDAO().eliminarRaza(raza);
     }
 
     @Override

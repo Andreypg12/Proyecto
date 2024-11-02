@@ -40,7 +40,7 @@ public class JInternalMantenimientoEspeciesRazas extends javax.swing.JInternalFr
     
     public void llenarComboBox(){
         try {
-            jCmbEspecie.setModel(new DefaultComboBoxModel(RazasDAO.consultarEspecies().toArray()));
+            jCmbEspecie.setModel(new DefaultComboBoxModel(Especie.consultarEspecies().toArray()));
         } catch (Exception ex) {
             Logger.getLogger(JInternalMantenimientoEspeciesRazas.class.getName()).log(Level.SEVERE, null, ex);
         }
