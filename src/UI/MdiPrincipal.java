@@ -121,6 +121,11 @@ public class MdiPrincipal extends javax.swing.JFrame {
         MantenimientoMenu.add(jMItemMotivos);
 
         jMItemPruebaLaboratorio.setText("Pruebas de laboratorio");
+        jMItemPruebaLaboratorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMItemPruebaLaboratorioActionPerformed(evt);
+            }
+        });
         MantenimientoMenu.add(jMItemPruebaLaboratorio);
 
         jMItemVacuna.setText("Vacunas");
@@ -173,6 +178,13 @@ public class MdiPrincipal extends javax.swing.JFrame {
         desktopPane.add(ventana);
         ventana.setVisible(true);
     }//GEN-LAST:event_jMItemVacunaActionPerformed
+
+    private void jMItemPruebaLaboratorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMItemPruebaLaboratorioActionPerformed
+        // TODO add your handling code here:
+        JInternalMantenimientoPruebasLaboratorio ventana = new JInternalMantenimientoPruebasLaboratorio();
+        desktopPane.add(ventana);
+        ventana.setVisible(true);
+    }//GEN-LAST:event_jMItemPruebaLaboratorioActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

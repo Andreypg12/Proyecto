@@ -1,5 +1,7 @@
 package BLL_PruebaLaboratorio;
 
+import DAO.PruebaLaboratorioDAO;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,12 +50,12 @@ public abstract class PruebaLaboratorio{
         return arraySubCategorias;
     }
 
-    public void setArraySubCategorias(List<SubCategoriaPrueba> arraySubCategorias) {
-        this.arraySubCategorias = arraySubCategorias;
-    }
-
     public int getId_prueba() {
         return id_prueba;
+    }
+    
+    public static List<PruebaLaboratorio> consultarPruebasLaboratorio() throws SQLException{
+        return new PruebaLaboratorioDAO().consultarPruebasLaboratorio();
     }
 
     @Override

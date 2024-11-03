@@ -2,10 +2,12 @@ package DAO;
 
 import BLL_PruebaLaboratorio.*;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PruebaLaboratorioDAO {
     
-    public void agregarPruebaLaboratorio(PruebaLaboratorio pruebaLaboratorio) throws Exception{
+    public void agregarPruebaLaboratorio(PruebaLaboratorio pruebaLaboratorio) throws SQLException{
         try {
             String sql = "INSERT INTO PruebaLaboratorio (id_prueba, nombre, precio) VALUES (?, ?, ?)";
             try(Connection conexion = DAO.ConeccionDB.conectarBaseDatos();
@@ -26,7 +28,38 @@ public class PruebaLaboratorioDAO {
         }
     }
     
-    public void agregarSubCategoria(SubCategoriaPrueba subCategoria) throws Exception{
+    public List<PruebaLaboratorio> consultarPruebasLaboratorio() throws SQLException {
+        List<PruebaLaboratorio> arrayPruebas = new ArrayList<>();
+        try {
+            String sql = "SELECT id_prueba FROM PruebaLaboratorio";
+            try (Connection conexion = DAO.ConeccionDB.conectarBaseDatos(); PreparedStatement pstm = conexion.prepareStatement(sql); ResultSet rs = pstm.executeQuery()) {
+
+                while (rs.next()) {
+                    int id_prueba = rs.getInt("id_prueba");
+
+                    PruebaLaboratorio prueba = switch (id_prueba) {
+                        case 1 ->
+                            new Sangre();
+                        case 2 ->
+                            new Heces();
+                        case 3 ->
+                            new Orina();
+                        case 4 ->
+                            new Cultivos();
+                        default ->
+                            null;
+                    };
+                    arrayPruebas.add(prueba);
+                }
+
+            }
+        } catch (SQLException e) {
+            throw e;
+        }
+        return arrayPruebas;
+    }
+    
+    public void agregarSubCategoria(SubCategoriaPrueba subCategoria) throws SQLException{
         try {
             String sql = "INSERT INTO SubCategoriaPrueba (id_prueba, nombre, precio) VALUES (?, ?, ?)";
             try(Connection conexion = DAO.ConeccionDB.conectarBaseDatos();
@@ -47,7 +80,7 @@ public class PruebaLaboratorioDAO {
         }
     }
     
-    public void modificarSubCategoria(SubCategoriaPrueba subCategoria) throws Exception{
+    public void modificarSubCategoria(SubCategoriaPrueba subCategoria) throws SQLException{
         try {
             String sql = "UPDATE SubCategoriaPrueba SET id_prueba = ?, nombre = ?, precio = ? WHERE id_subCategoria = ?";
             try(Connection conexion = DAO.ConeccionDB.conectarBaseDatos();

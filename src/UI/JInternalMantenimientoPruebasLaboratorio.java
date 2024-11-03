@@ -4,6 +4,12 @@
  */
 package UI;
 
+import BLL_PruebaLaboratorio.*;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+
 /**
  *
  * @author andre
@@ -15,8 +21,16 @@ public class JInternalMantenimientoPruebasLaboratorio extends javax.swing.JInter
      */
     public JInternalMantenimientoPruebasLaboratorio() {
         initComponents();
+        llenarComboBox();
     }
 
+    private void llenarComboBox(){
+        try {
+            jCmbPruebasLaboratorio.setModel(new DefaultComboBoxModel(PruebaLaboratorio.consultarPruebasLaboratorio().toArray()));
+        } catch (SQLException ex) {
+            Logger.getLogger(JInternalMantenimientoPruebasLaboratorio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,15 +40,70 @@ public class JInternalMantenimientoPruebasLaboratorio extends javax.swing.JInter
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jBtnAgregar = new javax.swing.JButton();
+        jBtnModificar = new javax.swing.JButton();
+        jBtnConsultar = new javax.swing.JButton();
+        jBtnEliminar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
+        jCmbPruebasLaboratorio = new javax.swing.JComboBox<>();
+
+        setClosable(true);
+        setTitle("Mantenimiento de Pruebas de laboratorio");
+
+        jBtnAgregar.setText("Aceptar");
+        jPanel1.add(jBtnAgregar);
+
+        jBtnModificar.setText("Modificar");
+        jPanel1.add(jBtnModificar);
+
+        jBtnConsultar.setText("Consultar");
+        jPanel1.add(jBtnConsultar);
+
+        jBtnEliminar.setText("Eliminar");
+        jPanel1.add(jBtnEliminar);
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Listado de pruebas de laboratorio");
+
+        jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(jList1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 716, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 54, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(79, 79, 79))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jCmbPruebasLaboratorio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(166, 166, 166))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 590, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jCmbPruebasLaboratorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -42,5 +111,14 @@ public class JInternalMantenimientoPruebasLaboratorio extends javax.swing.JInter
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBtnAgregar;
+    private javax.swing.JButton jBtnConsultar;
+    private javax.swing.JButton jBtnEliminar;
+    private javax.swing.JButton jBtnModificar;
+    private javax.swing.JComboBox<PruebaLaboratorio> jCmbPruebasLaboratorio;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JList<SubCategoriaPrueba> jList1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

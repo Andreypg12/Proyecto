@@ -48,6 +48,7 @@ public class jInternalMantenimientoMotivos extends javax.swing.JInternalFrame {
         jBtnEliminar = new javax.swing.JButton();
 
         setClosable(true);
+        setTitle("Mantenimiento de motivos");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
