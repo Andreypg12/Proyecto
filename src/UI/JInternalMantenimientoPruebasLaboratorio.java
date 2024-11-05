@@ -4,6 +4,7 @@
  */
 package UI;
 
+import BLL.TipoMantenimiento;
 import BLL_PruebaLaboratorio.*;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -54,6 +55,11 @@ public class JInternalMantenimientoPruebasLaboratorio extends javax.swing.JInter
         setTitle("Mantenimiento de Pruebas de laboratorio");
 
         jBtnAgregar.setText("Aceptar");
+        jBtnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnAgregarActionPerformed(evt);
+            }
+        });
         jPanel1.add(jBtnAgregar);
 
         jBtnModificar.setText("Modificar");
@@ -108,6 +114,14 @@ public class JInternalMantenimientoPruebasLaboratorio extends javax.swing.JInter
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jBtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAgregarActionPerformed
+        // TODO add your handling code here:
+        JDialogMantenimientoPruebasLaboratorio ventana = new JDialogMantenimientoPruebasLaboratorio(TipoMantenimiento.AGREGAR
+                , (PruebaLaboratorio)jCmbPruebasLaboratorio.getSelectedItem(), null);
+        ventana.setModal(true);
+        ventana.setVisible(true);
+    }//GEN-LAST:event_jBtnAgregarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
