@@ -1,5 +1,9 @@
 package BLL_PruebaLaboratorio;
 
+import DAO.PruebaLaboratorioDAO;
+import java.sql.SQLException;
+import java.util.List;
+
 public class SubCategoriaPrueba {
     private final int id_subCategoria;
     private int id_prueba;
@@ -43,5 +47,25 @@ public class SubCategoriaPrueba {
     public void setId_prueba(int id_prueba) {
         this.id_prueba = id_prueba;
     }
+
+    public int getId_subCategoria() {
+        return id_subCategoria;
+    }
     
+    public static void agregarSubCategoria(SubCategoriaPrueba subCategoria) throws SQLException{
+        new PruebaLaboratorioDAO().agregarSubCategoria(subCategoria);
+    }
+    
+    public static void modificarSubCategoria(SubCategoriaPrueba subCategoria) throws SQLException{
+        new PruebaLaboratorioDAO().modificarSubCategoria(subCategoria);
+    }
+    
+    public static List<SubCategoriaPrueba> consultarSubCategorias() throws SQLException{
+        return new PruebaLaboratorioDAO().consultarSubCategorias();
+    }
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }

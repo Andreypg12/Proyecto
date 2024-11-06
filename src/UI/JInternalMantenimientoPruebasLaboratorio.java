@@ -7,9 +7,13 @@ package UI;
 import BLL.TipoMantenimiento;
 import BLL_PruebaLaboratorio.*;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,21 +21,45 @@ import javax.swing.DefaultComboBoxModel;
  */
 public class JInternalMantenimientoPruebasLaboratorio extends javax.swing.JInternalFrame {
 
+    List<SubCategoriaPrueba> arraySubCategorias = new ArrayList<>();
+    DefaultListModel modeloLista = new DefaultListModel();
+
     /**
      * Creates new form JInternalMantenimientoPruebasLaboratorio
      */
     public JInternalMantenimientoPruebasLaboratorio() {
         initComponents();
         llenarComboBox();
+        jListSubCategorias.setModel(modeloLista);
+        actualizarLista();
+        llenarLista(((PruebaLaboratorio) jCmbPruebasLaboratorio.getSelectedItem()).getId_prueba());
     }
 
-    private void llenarComboBox(){
+    private void llenarComboBox() {
         try {
             jCmbPruebasLaboratorio.setModel(new DefaultComboBoxModel(PruebaLaboratorio.consultarPruebasLaboratorio().toArray()));
         } catch (SQLException ex) {
             Logger.getLogger(JInternalMantenimientoPruebasLaboratorio.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    private void actualizarLista() {
+        try {
+            arraySubCategorias = SubCategoriaPrueba.consultarSubCategorias();
+        } catch (SQLException ex) {
+            Logger.getLogger(JInternalMantenimientoPruebasLaboratorio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void llenarLista(int n) {
+        modeloLista.clear();
+        for (SubCategoriaPrueba subCategoria : arraySubCategorias) {
+            if (subCategoria.getId_prueba() == n) {
+                modeloLista.addElement(subCategoria);
+            }
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -48,13 +76,13 @@ public class JInternalMantenimientoPruebasLaboratorio extends javax.swing.JInter
         jBtnEliminar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        jListSubCategorias = new javax.swing.JList<>();
         jCmbPruebasLaboratorio = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setTitle("Mantenimiento de Pruebas de laboratorio");
 
-        jBtnAgregar.setText("Aceptar");
+        jBtnAgregar.setText("Agregar");
         jBtnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnAgregarActionPerformed(evt);
@@ -63,9 +91,19 @@ public class JInternalMantenimientoPruebasLaboratorio extends javax.swing.JInter
         jPanel1.add(jBtnAgregar);
 
         jBtnModificar.setText("Modificar");
+        jBtnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnModificarActionPerformed(evt);
+            }
+        });
         jPanel1.add(jBtnModificar);
 
         jBtnConsultar.setText("Consultar");
+        jBtnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnConsultarActionPerformed(evt);
+            }
+        });
         jPanel1.add(jBtnConsultar);
 
         jBtnEliminar.setText("Eliminar");
@@ -74,8 +112,14 @@ public class JInternalMantenimientoPruebasLaboratorio extends javax.swing.JInter
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Listado de pruebas de laboratorio");
 
-        jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane1.setViewportView(jList1);
+        jListSubCategorias.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(jListSubCategorias);
+
+        jCmbPruebasLaboratorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCmbPruebasLaboratorioActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -117,11 +161,46 @@ public class JInternalMantenimientoPruebasLaboratorio extends javax.swing.JInter
 
     private void jBtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAgregarActionPerformed
         // TODO add your handling code here:
-        JDialogMantenimientoPruebasLaboratorio ventana = new JDialogMantenimientoPruebasLaboratorio(TipoMantenimiento.AGREGAR
-                , (PruebaLaboratorio)jCmbPruebasLaboratorio.getSelectedItem(), null);
+        JDialogMantenimientoPruebasLaboratorio ventana = new JDialogMantenimientoPruebasLaboratorio(TipoMantenimiento.AGREGAR,
+                 (PruebaLaboratorio) jCmbPruebasLaboratorio.getSelectedItem(), null);
         ventana.setModal(true);
         ventana.setVisible(true);
+        actualizarLista();
+        llenarLista(((PruebaLaboratorio) jCmbPruebasLaboratorio.getSelectedItem()).getId_prueba());
     }//GEN-LAST:event_jBtnAgregarActionPerformed
+
+    private void jCmbPruebasLaboratorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCmbPruebasLaboratorioActionPerformed
+        // TODO add your handling code here:
+        llenarLista(((PruebaLaboratorio) jCmbPruebasLaboratorio.getSelectedItem()).getId_prueba());
+    }//GEN-LAST:event_jCmbPruebasLaboratorioActionPerformed
+
+    private void jBtnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnModificarActionPerformed
+        // TODO add your handling code here:
+        if (jListSubCategorias.getSelectedIndex() != -1) {
+            JDialogMantenimientoPruebasLaboratorio ventana = new JDialogMantenimientoPruebasLaboratorio(TipoMantenimiento.MODIFICAR,
+                     (PruebaLaboratorio) jCmbPruebasLaboratorio.getSelectedItem(),
+                     jListSubCategorias.getSelectedValue());
+            ventana.setModal(true);
+            ventana.setVisible(true);
+            actualizarLista();
+            llenarLista(((PruebaLaboratorio) jCmbPruebasLaboratorio.getSelectedItem()).getId_prueba());
+        } else {
+            JOptionPane.showMessageDialog(null, "Debes elsegir una subcategoría de la lista", "Subcategoría no elegida", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jBtnModificarActionPerformed
+
+    private void jBtnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConsultarActionPerformed
+        // TODO add your handling code here:
+        if (jListSubCategorias.getSelectedIndex() != -1) {
+            JDialogMantenimientoPruebasLaboratorio ventana = new JDialogMantenimientoPruebasLaboratorio(TipoMantenimiento.CONSULTAR,
+                    (PruebaLaboratorio) jCmbPruebasLaboratorio.getSelectedItem(),
+                    jListSubCategorias.getSelectedValue());
+            ventana.setModal(true);
+            ventana.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Debes elsegir una subcategoría de la lista", "Subcategoría no elegida", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jBtnConsultarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -131,7 +210,7 @@ public class JInternalMantenimientoPruebasLaboratorio extends javax.swing.JInter
     private javax.swing.JButton jBtnModificar;
     private javax.swing.JComboBox<PruebaLaboratorio> jCmbPruebasLaboratorio;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JList<SubCategoriaPrueba> jList1;
+    private javax.swing.JList<SubCategoriaPrueba> jListSubCategorias;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables

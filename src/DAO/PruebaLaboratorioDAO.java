@@ -32,7 +32,8 @@ public class PruebaLaboratorioDAO {
         List<PruebaLaboratorio> arrayPruebas = new ArrayList<>();
         try {
             String sql = "SELECT id_prueba FROM PruebaLaboratorio";
-            try (Connection conexion = DAO.ConeccionDB.conectarBaseDatos(); PreparedStatement pstm = conexion.prepareStatement(sql); ResultSet rs = pstm.executeQuery()) {
+            try (Connection conexion = DAO.ConeccionDB.conectarBaseDatos(); 
+                    PreparedStatement pstm = conexion.prepareStatement(sql); ResultSet rs = pstm.executeQuery()) {
 
                 while (rs.next()) {
                     int id_prueba = rs.getInt("id_prueba");
@@ -70,8 +71,8 @@ public class PruebaLaboratorioDAO {
                 double precio = subCategoria.getPrecio();
                 
                 pstm.setInt(1, id_prueba);
-                pstm.setDouble(2, precio);
-                pstm.setString(3, nombre);
+                pstm.setString(2, nombre);
+                pstm.setDouble(3, precio);
                 
                 pstm.executeUpdate();
             }
@@ -82,23 +83,45 @@ public class PruebaLaboratorioDAO {
     
     public void modificarSubCategoria(SubCategoriaPrueba subCategoria) throws SQLException{
         try {
-            String sql = "UPDATE SubCategoriaPrueba SET id_prueba = ?, nombre = ?, precio = ? WHERE id_subCategoria = ?";
+            String sql = "UPDATE SubCategoriaPrueba SET nombre = ?, precio = ? WHERE id_subCategoria = ?";
             try(Connection conexion = DAO.ConeccionDB.conectarBaseDatos();
                     PreparedStatement pstm = conexion.prepareStatement(sql)){
                 
-                int id_prueba = subCategoria.getId_prueba();
                 String nombre = subCategoria.getNombre();
                 double precio = subCategoria.getPrecio();
+                int id_subCategoria = subCategoria.getId_subCategoria();
                 
-                pstm.setInt(1, id_prueba);
+                pstm.setString(1, nombre);
                 pstm.setDouble(2, precio);
-                pstm.setString(3, nombre);
+                pstm.setInt(3, id_subCategoria);
                 
                 pstm.executeUpdate();
             }
         } catch (SQLException e) {
             throw e;
         }
+    }
+    
+    public List<SubCategoriaPrueba> consultarSubCategorias() throws SQLException{
+        List<SubCategoriaPrueba> arraySubCategorias = new ArrayList<>();
+        try {
+                String sql = "SELECT * FROM SubCategoriaPrueba";
+            try (Connection conexion = DAO.ConeccionDB.conectarBaseDatos();
+                    PreparedStatement pstm = conexion.prepareStatement(sql); ResultSet rs = pstm.executeQuery()) {
+
+                while (rs.next()) {
+                    SubCategoriaPrueba subCategoria = new SubCategoriaPrueba(rs.getString("nombre")
+                            , rs.getDouble("precio")
+                            , rs.getInt("id_prueba")
+                            ,rs.getInt("id_subCategoria"));
+                    
+                    arraySubCategorias.add(subCategoria);
+                }
+            }
+        } catch (SQLException e) {
+            throw e;
+        }
+        return arraySubCategorias;
     }
     
 }
