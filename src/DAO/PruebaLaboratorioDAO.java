@@ -124,4 +124,18 @@ public class PruebaLaboratorioDAO {
         return arraySubCategorias;
     }
     
+    public void eliminarSubCategoria(SubCategoriaPrueba subCategoria) throws SQLException{
+        try {
+            String sql = "DELETE FROM SubCategoriaPrueba where id_subCategoria = ?";
+            try(PreparedStatement pstm = ConeccionDB.conectarBaseDatos().prepareStatement(sql)){
+                int id_subCategoria = subCategoria.getId_subCategoria();
+                pstm.setInt(1, id_subCategoria);
+                
+                pstm.executeUpdate();
+            }
+        } catch (SQLException e) {
+            throw e;
+        }
+    }
+    
 }

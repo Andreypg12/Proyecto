@@ -32,7 +32,7 @@ public class JInternalMantenimientoPruebasLaboratorio extends javax.swing.JInter
         llenarComboBox();
         jListSubCategorias.setModel(modeloLista);
         actualizarLista();
-        llenarLista(((PruebaLaboratorio) jCmbPruebasLaboratorio.getSelectedItem()).getId_prueba());
+        llenarLista();
     }
 
     private void llenarComboBox() {
@@ -51,10 +51,10 @@ public class JInternalMantenimientoPruebasLaboratorio extends javax.swing.JInter
         }
     }
 
-    private void llenarLista(int n) {
+    private void llenarLista() {
         modeloLista.clear();
         for (SubCategoriaPrueba subCategoria : arraySubCategorias) {
-            if (subCategoria.getId_prueba() == n) {
+            if (subCategoria.getId_prueba() == ((PruebaLaboratorio) jCmbPruebasLaboratorio.getSelectedItem()).getId_prueba()) {
                 modeloLista.addElement(subCategoria);
             }
         }
@@ -107,6 +107,11 @@ public class JInternalMantenimientoPruebasLaboratorio extends javax.swing.JInter
         jPanel1.add(jBtnConsultar);
 
         jBtnEliminar.setText("Eliminar");
+        jBtnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnEliminarActionPerformed(evt);
+            }
+        });
         jPanel1.add(jBtnEliminar);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -166,12 +171,12 @@ public class JInternalMantenimientoPruebasLaboratorio extends javax.swing.JInter
         ventana.setModal(true);
         ventana.setVisible(true);
         actualizarLista();
-        llenarLista(((PruebaLaboratorio) jCmbPruebasLaboratorio.getSelectedItem()).getId_prueba());
+        llenarLista();
     }//GEN-LAST:event_jBtnAgregarActionPerformed
 
     private void jCmbPruebasLaboratorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCmbPruebasLaboratorioActionPerformed
         // TODO add your handling code here:
-        llenarLista(((PruebaLaboratorio) jCmbPruebasLaboratorio.getSelectedItem()).getId_prueba());
+        llenarLista();
     }//GEN-LAST:event_jCmbPruebasLaboratorioActionPerformed
 
     private void jBtnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnModificarActionPerformed
@@ -183,7 +188,7 @@ public class JInternalMantenimientoPruebasLaboratorio extends javax.swing.JInter
             ventana.setModal(true);
             ventana.setVisible(true);
             actualizarLista();
-            llenarLista(((PruebaLaboratorio) jCmbPruebasLaboratorio.getSelectedItem()).getId_prueba());
+            llenarLista();
         } else {
             JOptionPane.showMessageDialog(null, "Debes elsegir una subcategoría de la lista", "Subcategoría no elegida", JOptionPane.ERROR_MESSAGE);
         }
@@ -201,6 +206,28 @@ public class JInternalMantenimientoPruebasLaboratorio extends javax.swing.JInter
             JOptionPane.showMessageDialog(null, "Debes elsegir una subcategoría de la lista", "Subcategoría no elegida", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jBtnConsultarActionPerformed
+
+    private void jBtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEliminarActionPerformed
+        // TODO add your handling code here:
+        if (jListSubCategorias.getSelectedIndex() != -1) {
+            int opcion = JOptionPane.showConfirmDialog(null, "¿Deseas eliminar la subcategoria?", "Eliminar", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (opcion == JOptionPane.YES_OPTION) {
+                try {
+                    SubCategoriaPrueba.eliminarSubCategoria(jListSubCategorias.getSelectedValue());
+                    actualizarLista();
+                    llenarLista();
+                    JOptionPane.showMessageDialog(null, "¡Subcategoría eliminada!", "Eliminación de subcategoría", JOptionPane.INFORMATION_MESSAGE);
+
+                } catch (Exception e) {
+                    Logger.getLogger(JInternalMantenimientoEspeciesRazas.class.getName()).log(Level.SEVERE, null, e);
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Debes seleccionar una raza",
+                    "Raza no especificada", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_jBtnEliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

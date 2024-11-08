@@ -35,9 +35,6 @@ public class MdiPrincipal extends javax.swing.JFrame {
         menuBar = new javax.swing.JMenuBar();
         ProcesosMenu = new javax.swing.JMenu();
         openMenuItem = new javax.swing.JMenuItem();
-        saveMenuItem = new javax.swing.JMenuItem();
-        saveAsMenuItem = new javax.swing.JMenuItem();
-        exitMenuItem = new javax.swing.JMenuItem();
         ReportesMenu = new javax.swing.JMenu();
         cutMenuItem = new javax.swing.JMenuItem();
         copyMenuItem = new javax.swing.JMenuItem();
@@ -46,8 +43,8 @@ public class MdiPrincipal extends javax.swing.JFrame {
         MantenimientoMenu = new javax.swing.JMenu();
         jMItemEspeciesRazas = new javax.swing.JMenuItem();
         jMItemMotivos = new javax.swing.JMenuItem();
-        jMItemPruebaLaboratorio = new javax.swing.JMenuItem();
         jMItemVacuna = new javax.swing.JMenuItem();
+        jMItemPruebaLaboratorio = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,26 +52,13 @@ public class MdiPrincipal extends javax.swing.JFrame {
         ProcesosMenu.setText("Procesos");
 
         openMenuItem.setMnemonic('o');
-        openMenuItem.setText("Open");
-        ProcesosMenu.add(openMenuItem);
-
-        saveMenuItem.setMnemonic('s');
-        saveMenuItem.setText("Save");
-        ProcesosMenu.add(saveMenuItem);
-
-        saveAsMenuItem.setMnemonic('a');
-        saveAsMenuItem.setText("Save As ...");
-        saveAsMenuItem.setDisplayedMnemonicIndex(5);
-        ProcesosMenu.add(saveAsMenuItem);
-
-        exitMenuItem.setMnemonic('x');
-        exitMenuItem.setText("Exit");
-        exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
+        openMenuItem.setText("Proceso de cita");
+        openMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exitMenuItemActionPerformed(evt);
+                openMenuItemActionPerformed(evt);
             }
         });
-        ProcesosMenu.add(exitMenuItem);
+        ProcesosMenu.add(openMenuItem);
 
         menuBar.add(ProcesosMenu);
 
@@ -120,14 +104,6 @@ public class MdiPrincipal extends javax.swing.JFrame {
         });
         MantenimientoMenu.add(jMItemMotivos);
 
-        jMItemPruebaLaboratorio.setText("Pruebas de laboratorio");
-        jMItemPruebaLaboratorio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMItemPruebaLaboratorioActionPerformed(evt);
-            }
-        });
-        MantenimientoMenu.add(jMItemPruebaLaboratorio);
-
         jMItemVacuna.setText("Vacunas");
         jMItemVacuna.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -135,6 +111,14 @@ public class MdiPrincipal extends javax.swing.JFrame {
             }
         });
         MantenimientoMenu.add(jMItemVacuna);
+
+        jMItemPruebaLaboratorio.setText("Pruebas de laboratorio");
+        jMItemPruebaLaboratorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMItemPruebaLaboratorioActionPerformed(evt);
+            }
+        });
+        MantenimientoMenu.add(jMItemPruebaLaboratorio);
 
         menuBar.add(MantenimientoMenu);
 
@@ -153,10 +137,6 @@ public class MdiPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_exitMenuItemActionPerformed
 
     private void jMItemEspeciesRazasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMItemEspeciesRazasActionPerformed
         // TODO add your handling code here:
@@ -186,6 +166,10 @@ public class MdiPrincipal extends javax.swing.JFrame {
         ventana.setVisible(true);
     }//GEN-LAST:event_jMItemPruebaLaboratorioActionPerformed
 
+    private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_openMenuItemActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu MantenimientoMenu;
@@ -195,7 +179,6 @@ public class MdiPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem cutMenuItem;
     private javax.swing.JMenuItem deleteMenuItem;
     private javax.swing.JDesktopPane desktopPane;
-    private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenuItem jMItemEspeciesRazas;
     private javax.swing.JMenuItem jMItemMotivos;
     private javax.swing.JMenuItem jMItemPruebaLaboratorio;
@@ -203,8 +186,6 @@ public class MdiPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JMenuItem pasteMenuItem;
-    private javax.swing.JMenuItem saveAsMenuItem;
-    private javax.swing.JMenuItem saveMenuItem;
     // End of variables declaration//GEN-END:variables
 
 }

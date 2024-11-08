@@ -30,6 +30,7 @@ public class JDialogMantenimientoPruebasLaboratorio extends javax.swing.JDialog 
     
     public JDialogMantenimientoPruebasLaboratorio(TipoMantenimiento tipoMantenimiento, PruebaLaboratorio pruebaLaboratorio, SubCategoriaPrueba subCategoriaPrueba) {
         initComponents();
+        this.setLocationRelativeTo(null);
         this.tipoMantenimiento = tipoMantenimiento;
         this.pruebaLaboratorio = pruebaLaboratorio;
         

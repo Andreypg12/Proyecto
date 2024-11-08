@@ -63,6 +63,10 @@ public class SubCategoriaPrueba {
     public static List<SubCategoriaPrueba> consultarSubCategorias() throws SQLException{
         return new PruebaLaboratorioDAO().consultarSubCategorias();
     }
+    
+    public static void eliminarSubCategoria(SubCategoriaPrueba subCategoria) throws SQLException{
+        new PruebaLaboratorioDAO().eliminarSubCategoria(subCategoria);
+    }
 
     @Override
     public String toString() {
