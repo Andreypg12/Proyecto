@@ -23,6 +23,7 @@ public class jFrameInicioSesion extends javax.swing.JFrame {
     public jFrameInicioSesion() {
         initComponents();
         crearUsuarios();
+        this.setResizable(false);
         jTxtUsuario.setText("admin");
         jPwdContraseña.setText("123456");
     }
@@ -44,9 +45,8 @@ public class jFrameInicioSesion extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
-        jPanel1 = new PonerImagenPanel("/Imagenes/FondoInicioSesion2.jpg");
+        jPanel1 = new PonerImagenPanel("/Imagenes/FondoInicioSesion.jpg");
         jPwdContraseña = new javax.swing.JPasswordField();
         jLblContraseña = new javax.swing.JLabel();
         jTxtUsuario = new javax.swing.JTextField();
@@ -54,8 +54,7 @@ public class jFrameInicioSesion extends javax.swing.JFrame {
         jBtnIngresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jPanel1.setLayout(new java.awt.GridBagLayout());
+        setTitle("Inicio de sesión");
 
         jPwdContraseña.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jPwdContraseña.addActionListener(new java.awt.event.ActionListener() {
@@ -63,25 +62,9 @@ public class jFrameInicioSesion extends javax.swing.JFrame {
                 jPwdContraseñaActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.ipadx = 213;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 48, 0, 49);
-        jPanel1.add(jPwdContraseña, gridBagConstraints);
 
         jLblContraseña.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLblContraseña.setText("Contraseña");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.ipadx = 221;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(30, 48, 0, 49);
-        jPanel1.add(jLblContraseña, gridBagConstraints);
+        jLblContraseña.setText("Contraseña: ");
 
         jTxtUsuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTxtUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -89,25 +72,9 @@ public class jFrameInicioSesion extends javax.swing.JFrame {
                 jTxtUsuarioActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.ipadx = 214;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 47, 0, 49);
-        jPanel1.add(jTxtUsuario, gridBagConstraints);
 
         jLblUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLblUsuario.setText("Usuario");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.ipadx = 242;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(44, 47, 0, 49);
-        jPanel1.add(jLblUsuario, gridBagConstraints);
+        jLblUsuario.setText("Usuario: ");
 
         jBtnIngresar.setText("Ingresar");
         jBtnIngresar.addActionListener(new java.awt.event.ActionListener() {
@@ -115,12 +82,42 @@ public class jFrameInicioSesion extends javax.swing.JFrame {
                 jBtnIngresarActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 151, 59, 0);
-        jPanel1.add(jBtnIngresar, gridBagConstraints);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(47, 47, 47)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLblUsuario)
+                        .addGap(26, 26, 26)
+                        .addComponent(jTxtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLblContraseña)
+                        .addGap(6, 6, 6)
+                        .addComponent(jPwdContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(227, 227, 227)
+                        .addComponent(jBtnIngresar)))
+                .addContainerGap(66, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTxtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(42, 42, 42)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLblContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPwdContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jBtnIngresar)
+                .addContainerGap(72, Short.MAX_VALUE))
+        );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
