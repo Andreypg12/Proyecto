@@ -15,7 +15,7 @@ public class MotivosDAO {
         try {
             String sql = "INSERT INTO Motivo (descripcion, precio, aplica_examen, id_vacuna) VALUES( ?, ?, ?, ?)";
 
-            try (Connection conexion = conectarBaseDatos(); PreparedStatement pstm = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            try (Connection conexion = conectarBaseDatos(); PreparedStatement pstm = conexion.prepareStatement(sql)) {
 
                 String descripcion = motivo.getDescripcion();
                 double precio = motivo.getPrecio();

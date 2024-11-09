@@ -8,20 +8,23 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.MediaTracker;
 import javax.swing.ImageIcon;
-import javax.swing.JPanel;
+import javax.swing.JDesktopPane;
 
 /**
  *
  * @author andre
  */
-public class PonerImagenPanel extends JPanel{
+public class DesktopConFondo extends JDesktopPane {
+
     private Image imagenFondo;
 
-    public PonerImagenPanel(String rutaImagen) {
-        try {
-            imagenFondo = new ImageIcon(getClass().getResource(rutaImagen)).getImage();
-        } catch (NullPointerException e) {
-            System.err.println("Error: No se pudo cargar la imagen de fondo. Verifica la ruta: " + rutaImagen);
+    public DesktopConFondo(String rutaImagen) {
+        // Cargar la imagen de fondo
+        ImageIcon icono = new ImageIcon(getClass().getResource(rutaImagen));
+        if (icono.getImageLoadStatus() == MediaTracker.COMPLETE) {
+            this.imagenFondo = icono.getImage();
+        } else {
+            System.err.println("Error: No se pudo cargar la imagen de fondo.");
         }
     }
 
@@ -29,6 +32,7 @@ public class PonerImagenPanel extends JPanel{
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (imagenFondo != null) {
+            // Dibuja la imagen escalada al tamaño del DesktopPane
             g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), this);
         }
     }

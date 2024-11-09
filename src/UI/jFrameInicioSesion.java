@@ -46,7 +46,7 @@ public class jFrameInicioSesion extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new PonerImagenPanel("/Imagenes/FondoInicioSesion.jpg");
+        jPanel1 = new PanelConFondo("/Imagenes/FondoInicioSesion.jpg");
         jPwdContraseña = new javax.swing.JPasswordField();
         jLblContraseña = new javax.swing.JLabel();
         jTxtUsuario = new javax.swing.JTextField();

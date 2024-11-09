@@ -4,17 +4,40 @@
  */
 package UI;
 
+import BLL.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 /**
  *
  * @author andre
  */
 public class JInternalProcesoCita extends javax.swing.JInternalFrame {
 
+    DefaultListModel<Dueño> modeloListaDuenos = new DefaultListModel<>();
+    List<Dueño> arrayDueños;
+    Dueño dueno;
+    
     /**
+     * 
      * Creates new form JInternalProcesoCIta
      */
     public JInternalProcesoCita() {
         initComponents();
+        jListDueno.setModel(modeloListaDuenos);
+        actualizararrayDuenos();
+        modeloListaDuenos.addAll(arrayDueños);
+    }
+    
+    private void actualizararrayDuenos(){
+        try {
+            arrayDueños = Dueño.cosultarDueños();
+        } catch (Exception ex) {
+            Logger.getLogger(JInternalProcesoCita.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -26,9 +49,41 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        buttonGroupSexo = new javax.swing.ButtonGroup();
+        buttonGroupEspecie = new javax.swing.ButtonGroup();
+        jTPlProcesoCita = new javax.swing.JTabbedPane();
+        jPanelPaciente = new PanelConFondo("/Imagenes/FondoCitas.png");
+        jPanelDueno = new javax.swing.JPanel();
+        jLblNombreDueno = new javax.swing.JLabel();
+        jTxtNombreDueno = new javax.swing.JTextField();
+        jLblDireccion = new javax.swing.JLabel();
+        jTxtDireccionDueno = new javax.swing.JTextField();
+        jLblNumeroTelefono = new javax.swing.JLabel();
+        jFTxtNumeroTelefono = new javax.swing.JFormattedTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jListDueno = new javax.swing.JList<>();
+        jLblDuenos = new javax.swing.JLabel();
+        jBtnElegirDueno = new javax.swing.JButton();
+        jBtnAnadirNuevoDueno = new javax.swing.JButton();
+        jFTxtNumeroCedula = new javax.swing.JFormattedTextField();
+        jLblCedula = new javax.swing.JLabel();
+        jPanelDatosPaciente = new javax.swing.JPanel();
+        jLblNombrePaciente = new javax.swing.JLabel();
+        jTxtNombrePaciente = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jListPaciente = new javax.swing.JList<>();
+        jLblPacientes = new javax.swing.JLabel();
+        jBtnElegirPaciente = new javax.swing.JButton();
+        jBtnAnadirNuevoPaciente = new javax.swing.JButton();
+        jLblSexoPaciente = new javax.swing.JLabel();
+        jRBnHembra = new javax.swing.JRadioButton();
+        jRBnMacho = new javax.swing.JRadioButton();
+        jLblEdad = new javax.swing.JLabel();
+        jTxtEdad = new javax.swing.JTextField();
+        jLblEspecie = new javax.swing.JLabel();
+        jRBnPerro = new javax.swing.JRadioButton();
+        jRBnGato = new javax.swing.JRadioButton();
+        jPanelCita = new PanelConFondo("/Imagenes/FondoCitas.png");
         jPanel3 = new javax.swing.JPanel();
         jSpinner1 = new javax.swing.JSpinner();
 
@@ -36,18 +91,261 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         setTitle("Proceso de citas");
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1239, Short.MAX_VALUE)
+        jPanelDueno.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Datos del dueño"));
+        jPanelDueno.setOpaque(false);
+
+        jLblNombreDueno.setText("Nombre");
+
+        jTxtNombreDueno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTxtNombreDuenoActionPerformed(evt);
+            }
+        });
+
+        jLblDireccion.setText("Dirección");
+
+        jTxtDireccionDueno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTxtDireccionDuenoActionPerformed(evt);
+            }
+        });
+
+        jLblNumeroTelefono.setText("Numero de teléfono");
+
+        try {
+            jFTxtNumeroTelefono.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jFTxtNumeroTelefono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFTxtNumeroTelefonoActionPerformed(evt);
+            }
+        });
+
+        jListDueno.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(jListDueno);
+
+        jLblDuenos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLblDuenos.setText("Lista de dueños");
+
+        jBtnElegirDueno.setText("Elegir dueño seleccionado");
+        jBtnElegirDueno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnElegirDuenoActionPerformed(evt);
+            }
+        });
+
+        jBtnAnadirNuevoDueno.setText("Añadir nuevo dueño");
+        jBtnAnadirNuevoDueno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnAnadirNuevoDuenoActionPerformed(evt);
+            }
+        });
+
+        try {
+            jFTxtNumeroCedula.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#-####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jFTxtNumeroCedula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFTxtNumeroCedulaActionPerformed(evt);
+            }
+        });
+        jFTxtNumeroCedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jFTxtNumeroCedulaKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jFTxtNumeroCedulaKeyTyped(evt);
+            }
+        });
+
+        jLblCedula.setText("Cédula");
+
+        javax.swing.GroupLayout jPanelDuenoLayout = new javax.swing.GroupLayout(jPanelDueno);
+        jPanelDueno.setLayout(jPanelDuenoLayout);
+        jPanelDuenoLayout.setHorizontalGroup(
+            jPanelDuenoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelDuenoLayout.createSequentialGroup()
+                .addGap(166, 166, 166)
+                .addComponent(jBtnElegirDueno)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDuenoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanelDuenoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jBtnAnadirNuevoDueno, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDuenoLayout.createSequentialGroup()
+                        .addGroup(jPanelDuenoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLblNumeroTelefono)
+                            .addComponent(jLblCedula)
+                            .addGroup(jPanelDuenoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLblDireccion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLblNombreDueno, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanelDuenoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTxtDireccionDueno)
+                            .addComponent(jTxtNombreDueno)
+                            .addComponent(jFTxtNumeroTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jFTxtNumeroCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLblDuenos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 758, Short.MAX_VALUE)
+        jPanelDuenoLayout.setVerticalGroup(
+            jPanelDuenoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelDuenoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelDuenoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLblCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFTxtNumeroCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelDuenoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTxtNombreDueno)
+                    .addComponent(jLblNombreDueno, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelDuenoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLblDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTxtDireccionDueno))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelDuenoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLblNumeroTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFTxtNumeroTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jBtnAnadirNuevoDueno)
+                .addGap(18, 18, 18)
+                .addComponent(jLblDuenos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtnElegirDueno)
+                .addContainerGap())
         );
 
-        jTabbedPane1.addTab("tab1", jPanel1);
+        jPanelDatosPaciente.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Datos del paciente"));
+        jPanelDatosPaciente.setOpaque(false);
+
+        jLblNombrePaciente.setText("Nombre");
+
+        jListPaciente.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane2.setViewportView(jListPaciente);
+
+        jLblPacientes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLblPacientes.setText("Lista de pacientes por dueño");
+
+        jBtnElegirPaciente.setText("Elegir paciente seleccionado");
+
+        jBtnAnadirNuevoPaciente.setText("Añadir nuevo paciente");
+
+        jLblSexoPaciente.setText("Sexo");
+
+        buttonGroupSexo.add(jRBnHembra);
+        jRBnHembra.setText("Hembra");
+
+        buttonGroupSexo.add(jRBnMacho);
+        jRBnMacho.setText("Macho");
+
+        jLblEdad.setText("Edad en meses");
+
+        jLblEspecie.setText("Especie");
+
+        buttonGroupEspecie.add(jRBnPerro);
+        jRBnPerro.setText("Perro");
+
+        buttonGroupEspecie.add(jRBnGato);
+        jRBnGato.setText("Gato");
+
+        javax.swing.GroupLayout jPanelDatosPacienteLayout = new javax.swing.GroupLayout(jPanelDatosPaciente);
+        jPanelDatosPaciente.setLayout(jPanelDatosPacienteLayout);
+        jPanelDatosPacienteLayout.setHorizontalGroup(
+            jPanelDatosPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelDatosPacienteLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelDatosPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDatosPacienteLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jBtnElegirPaciente))
+                    .addComponent(jScrollPane2)
+                    .addGroup(jPanelDatosPacienteLayout.createSequentialGroup()
+                        .addGroup(jPanelDatosPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLblNombrePaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLblSexoPaciente)
+                            .addComponent(jLblEspecie)
+                            .addGroup(jPanelDatosPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jBtnAnadirNuevoPaciente)
+                                .addGroup(jPanelDatosPacienteLayout.createSequentialGroup()
+                                    .addComponent(jLblEdad)
+                                    .addGap(18, 18, 18)
+                                    .addGroup(jPanelDatosPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jTxtNombrePaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jTxtEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDatosPacienteLayout.createSequentialGroup()
+                                            .addGroup(jPanelDatosPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jRBnPerro)
+                                                .addComponent(jRBnMacho))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addGroup(jPanelDatosPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jRBnHembra)
+                                                .addComponent(jRBnGato))
+                                            .addGap(18, 18, 18)))))
+                            .addComponent(jLblPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 5, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanelDatosPacienteLayout.setVerticalGroup(
+            jPanelDatosPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelDatosPacienteLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelDatosPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLblNombrePaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTxtNombrePaciente))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelDatosPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLblEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTxtEdad))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelDatosPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLblSexoPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jRBnMacho)
+                    .addComponent(jRBnHembra))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelDatosPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLblEspecie, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jRBnPerro)
+                    .addComponent(jRBnGato))
+                .addGap(18, 18, 18)
+                .addComponent(jBtnAnadirNuevoPaciente)
+                .addGap(18, 18, 18)
+                .addComponent(jLblPacientes)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtnElegirPaciente))
+        );
+
+        javax.swing.GroupLayout jPanelPacienteLayout = new javax.swing.GroupLayout(jPanelPaciente);
+        jPanelPaciente.setLayout(jPanelPacienteLayout);
+        jPanelPacienteLayout.setHorizontalGroup(
+            jPanelPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelPacienteLayout.createSequentialGroup()
+                .addContainerGap(232, Short.MAX_VALUE)
+                .addComponent(jPanelDueno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanelDatosPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(219, 219, 219))
+        );
+        jPanelPacienteLayout.setVerticalGroup(
+            jPanelPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelPacienteLayout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(jPanelPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanelDueno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelDatosPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(228, Short.MAX_VALUE))
+        );
+
+        jTPlProcesoCita.addTab("Paciente", jPanelPaciente);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Fecha para la cita"));
 
@@ -70,36 +368,164 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanelCitaLayout = new javax.swing.GroupLayout(jPanelCita);
+        jPanelCita.setLayout(jPanelCitaLayout);
+        jPanelCitaLayout.setHorizontalGroup(
+            jPanelCitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelCitaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(1020, Short.MAX_VALUE))
+                .addContainerGap(975, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        jPanelCitaLayout.setVerticalGroup(
+            jPanelCitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelCitaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(691, Short.MAX_VALUE))
+                .addContainerGap(670, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("tab2", jPanel2);
+        jTPlProcesoCita.addTab("Cita", jPanelCita);
 
-        getContentPane().add(jTabbedPane1);
+        getContentPane().add(jTPlProcesoCita);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jFTxtNumeroCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFTxtNumeroCedulaKeyTyped
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jFTxtNumeroCedulaKeyTyped
+
+    private void jBtnAnadirNuevoDuenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAnadirNuevoDuenoActionPerformed
+        // TODO add your handling code here:
+        String cedula = jFTxtNumeroCedula.getText().replace("-", "").trim();
+        String nombre = jTxtNombreDueno.getText().trim();
+        String direccion = jTxtNombreDueno.getText().trim();
+        String numero_telefono = jFTxtNumeroTelefono.getText().replace("-", "").trim();
+
+        try {
+            if (modeloListaDuenos.get(0).getCedula().equals(cedula)) {
+                JOptionPane.showMessageDialog(null, "El Dueño solo fue elegido porque ya existe", "Dueño ya existente", JOptionPane.ERROR_MESSAGE);
+                dueno = modeloListaDuenos.get(0);
+                jTxtNombreDueno.setText(dueno.getNombre());
+                jTxtDireccionDueno.setText(dueno.getDireccion());
+                jFTxtNumeroTelefono.setText(dueno.getTelefono());
+                return;
+            }
+        } catch (Exception e) {
+        }
+
+        if (cedula.isBlank()) {
+            JOptionPane.showMessageDialog(null, "Debes ingresar la cédula del dueño", "Espacio en blanco", JOptionPane.ERROR_MESSAGE);
+        } else if (nombre.isBlank()) {
+            JOptionPane.showMessageDialog(null, "Debes ingresar el nombre del dueño", "Espacio en blanco", JOptionPane.ERROR_MESSAGE);
+        } else if (direccion.isBlank()) {
+            JOptionPane.showMessageDialog(null, "Debes ingresar la direccion del dueño", "Espacio en blanco", JOptionPane.ERROR_MESSAGE);
+        } else if (numero_telefono.isBlank()) {
+            JOptionPane.showMessageDialog(null, "Debes ingresar el número de teléfono del dueño", "Espacio en blanco", JOptionPane.ERROR_MESSAGE);
+        } else {
+
+            dueno = new Dueño(cedula, nombre, direccion, numero_telefono);
+            JOptionPane.showMessageDialog(null, "El dueño fue creado correctamete", "!Dueño creado¡", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+    }//GEN-LAST:event_jBtnAnadirNuevoDuenoActionPerformed
+
+    private boolean seguir = true;
+    private void jFTxtNumeroCedulaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFTxtNumeroCedulaKeyPressed
+
+        //Es para que vaya buscando en la lista pero que si ya no encuentra deje de hacer todo el recorrido
+//        int i = 0;
+//        if (seguir) {
+            modeloListaDuenos.clear();
+            for (Dueño dueno : arrayDueños) {
+                if (dueno.getCedula().contains(jFTxtNumeroCedula.getText().replace("-", "").trim())) {
+                    modeloListaDuenos.addElement(dueno);
+//                    i++;
+                }
+            }
+//            if (i <= 0) {
+//                seguir = false;
+//            }
+//            else{
+//                seguir = true;
+//            }
+//        }
+    }//GEN-LAST:event_jFTxtNumeroCedulaKeyPressed
+
+    private void jFTxtNumeroCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFTxtNumeroCedulaActionPerformed
+        // TODO add your handling code here:
+        jTxtNombreDueno.requestFocus();
+    }//GEN-LAST:event_jFTxtNumeroCedulaActionPerformed
+
+    private void jTxtNombreDuenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtNombreDuenoActionPerformed
+        // TODO add your handling code here:
+        jTxtDireccionDueno.requestFocus();
+    }//GEN-LAST:event_jTxtNombreDuenoActionPerformed
+
+    private void jTxtDireccionDuenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtDireccionDuenoActionPerformed
+        // TODO add your handling code here:
+        jFTxtNumeroTelefono.requestFocus();
+    }//GEN-LAST:event_jTxtDireccionDuenoActionPerformed
+
+    private void jFTxtNumeroTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFTxtNumeroTelefonoActionPerformed
+        // TODO add your handling code here:
+        jBtnAnadirNuevoDueno.doClick();
+    }//GEN-LAST:event_jFTxtNumeroTelefonoActionPerformed
+
+    private void jBtnElegirDuenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnElegirDuenoActionPerformed
+        // TODO add your handling code here:
+        if (jListDueno.getSelectedIndex() != -1) {
+            dueno = jListDueno.getSelectedValue();
+            jFTxtNumeroCedula.setText(dueno.getCedula());
+            jTxtNombreDueno.setText(dueno.getNombre());
+            jTxtDireccionDueno.setText(dueno.getDireccion());
+            jFTxtNumeroTelefono.setText(dueno.getTelefono());
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Debes elegir un dueño de la lista", "Dueño no elegido", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jBtnElegirDuenoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.ButtonGroup buttonGroupEspecie;
+    private javax.swing.ButtonGroup buttonGroupSexo;
+    private javax.swing.JButton jBtnAnadirNuevoDueno;
+    private javax.swing.JButton jBtnAnadirNuevoPaciente;
+    private javax.swing.JButton jBtnElegirDueno;
+    private javax.swing.JButton jBtnElegirPaciente;
+    private javax.swing.JFormattedTextField jFTxtNumeroCedula;
+    private javax.swing.JFormattedTextField jFTxtNumeroTelefono;
+    private javax.swing.JLabel jLblCedula;
+    private javax.swing.JLabel jLblDireccion;
+    private javax.swing.JLabel jLblDuenos;
+    private javax.swing.JLabel jLblEdad;
+    private javax.swing.JLabel jLblEspecie;
+    private javax.swing.JLabel jLblNombreDueno;
+    private javax.swing.JLabel jLblNombrePaciente;
+    private javax.swing.JLabel jLblNumeroTelefono;
+    private javax.swing.JLabel jLblPacientes;
+    private javax.swing.JLabel jLblSexoPaciente;
+    private javax.swing.JList<Dueño> jListDueno;
+    private javax.swing.JList<String> jListPaciente;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanelCita;
+    private javax.swing.JPanel jPanelDatosPaciente;
+    private javax.swing.JPanel jPanelDueno;
+    private javax.swing.JPanel jPanelPaciente;
+    private javax.swing.JRadioButton jRBnGato;
+    private javax.swing.JRadioButton jRBnHembra;
+    private javax.swing.JRadioButton jRBnMacho;
+    private javax.swing.JRadioButton jRBnPerro;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane jTPlProcesoCita;
+    private javax.swing.JTextField jTxtDireccionDueno;
+    private javax.swing.JTextField jTxtEdad;
+    private javax.swing.JTextField jTxtNombreDueno;
+    private javax.swing.JTextField jTxtNombrePaciente;
     // End of variables declaration//GEN-END:variables
 }

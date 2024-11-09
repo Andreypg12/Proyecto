@@ -1,11 +1,16 @@
 package BLL;
 
+import DAO.DueñosDAO;
+import java.util.List;
+
 public class Dueño {
+    private final String cedula;
     private String direccion;
     private String nombre;
-    private Long telefono;
+    private String telefono;
 
-    public Dueño(String direccion, String nombre, Long telefono) {
+    public Dueño(String cedula, String nombre, String direccion, String telefono) {
+        this.cedula = cedula;
         this.direccion = direccion;
         this.nombre = nombre;
         this.telefono = telefono;
@@ -27,11 +32,28 @@ public class Dueño {
         this.nombre = nombre;
     }
 
-    public Long getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(Long telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    public String getCedula() {
+        return cedula;
+    }
+    
+    public static void agregar(Dueño dueno) throws Exception{
+        new DueñosDAO().agregar(dueno);
+    }
+    
+    public static List<Dueño> cosultarDueños() throws Exception{
+        return new DueñosDAO().consultarDuenos();
+    }
+
+    @Override
+    public String toString() {
+        return nombre + " - cédula: " + cedula;
     }
 }
