@@ -454,6 +454,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                 actualizararrayDuenos();
                 modeloListaDuenos.addAll(arrayDueños);
                 jLblDuenoElegido.setText("Dueño: " + dueno.getNombre());
+                
                 cambiarEstadoEspaciosDueno(false);
                 JOptionPane.showMessageDialog(null, "El dueño fue creado correctamete", "!Dueño creado¡", JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception ex) {
