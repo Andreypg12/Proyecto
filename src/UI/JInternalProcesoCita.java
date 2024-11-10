@@ -433,6 +433,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                 jFTxtNumeroTelefono.setText(dueno.getTelefono());
                 jLblDuenoElegido.setText("Dueño: " + dueno.getNombre());
                 cambiarEstadoEspaciosDueno(false);
+                jBtnLimpiarDueno.setText("Cambiar dueño");
                 return;
             }
         } catch (Exception e) {
@@ -454,8 +455,8 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                 actualizararrayDuenos();
                 modeloListaDuenos.addAll(arrayDueños);
                 jLblDuenoElegido.setText("Dueño: " + dueno.getNombre());
-                
                 cambiarEstadoEspaciosDueno(false);
+                jBtnLimpiarDueno.setText("Cambiar dueño");
                 JOptionPane.showMessageDialog(null, "El dueño fue creado correctamete", "!Dueño creado¡", JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception ex) {
                 Logger.getLogger(JInternalProcesoCita.class.getName()).log(Level.SEVERE, null, ex);
@@ -523,6 +524,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
             jFTxtNumeroTelefono.setText(dueno.getTelefono());
             jLblDuenoElegido.setText("Dueño: " + dueno.getNombre());
             cambiarEstadoEspaciosDueno(false);
+            jBtnLimpiarDueno.setText("Cambiar dueño");
         }
         else{
             JOptionPane.showMessageDialog(null, "Debes elegir un dueño de la lista", "Dueño no elegido", JOptionPane.ERROR_MESSAGE);
@@ -539,6 +541,10 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         modeloListaDuenos.addAll(arrayDueños);
         jLblDuenoElegido.setText("Dueño no elegido");
         dueno = null;
+        if (jBtnLimpiarDueno.getText().equals("Cambiar dueño")) {
+            jBtnLimpiarDueno.setText("Limpiar");
+            cambiarEstadoEspaciosDueno(true);
+        }
     }//GEN-LAST:event_jBtnLimpiarDuenoActionPerformed
 
 

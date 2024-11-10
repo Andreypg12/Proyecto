@@ -422,9 +422,6 @@
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="jRBnHembra">
                   <Properties>
-                    <Property name="model" type="javax.swing.ButtonModel" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                      <ComponentRef name="default"/>
-                    </Property>
                     <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                       <ComponentRef name="buttonGroupSexo"/>
                     </Property>
@@ -433,9 +430,6 @@
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="jRBnMacho">
                   <Properties>
-                    <Property name="model" type="javax.swing.ButtonModel" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                      <ComponentRef name="default"/>
-                    </Property>
                     <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                       <ComponentRef name="buttonGroupSexo"/>
                     </Property>
