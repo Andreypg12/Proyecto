@@ -19,7 +19,6 @@ public class DesktopConFondo extends JDesktopPane {
     private Image imagenFondo;
 
     public DesktopConFondo(String rutaImagen) {
-        // Cargar la imagen de fondo
         ImageIcon icono = new ImageIcon(getClass().getResource(rutaImagen));
         if (icono.getImageLoadStatus() == MediaTracker.COMPLETE) {
             this.imagenFondo = icono.getImage();
@@ -32,7 +31,6 @@ public class DesktopConFondo extends JDesktopPane {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (imagenFondo != null) {
-            // Dibuja la imagen escalada al tamaño del DesktopPane
             g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), this);
         }
     }

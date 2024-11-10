@@ -225,8 +225,8 @@ public class JInternalMantenimientoPruebasLaboratorio extends javax.swing.JInter
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Debes seleccionar una raza",
-                    "Raza no especificada", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Debes seleccionar una subcategoría",
+                    "subcategoría no especificada", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_jBtnEliminarActionPerformed

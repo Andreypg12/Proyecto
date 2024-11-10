@@ -138,6 +138,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
             }
         });
 
+        jBtnAnadirNuevoDueno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AgregarDueño.png"))); // NOI18N
         jBtnAnadirNuevoDueno.setText("Añadir nuevo dueño");
         jBtnAnadirNuevoDueno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -249,6 +250,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
 
         jBtnElegirPaciente.setText("Elegir paciente seleccionado");
 
+        jBtnAnadirNuevoPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AgregarPaciente.png"))); // NOI18N
         jBtnAnadirNuevoPaciente.setText("Añadir nuevo paciente");
 
         jLblSexoPaciente.setText("Sexo");
@@ -362,7 +364,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                 .addGroup(jPanelPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanelDueno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanelDatosPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(190, Short.MAX_VALUE))
+                .addContainerGap(248, Short.MAX_VALUE))
         );
 
         jTPlProcesoCita.addTab("Paciente", jPanelPaciente);
@@ -402,7 +404,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
             .addGroup(jPanelCitaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(670, Short.MAX_VALUE))
+                .addContainerGap(736, Short.MAX_VALUE))
         );
 
         jTPlProcesoCita.addTab("Cita", jPanelCita);
