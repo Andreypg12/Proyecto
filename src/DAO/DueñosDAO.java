@@ -10,7 +10,7 @@ public class DueñosDAO {
     
     public void agregar(Dueño dueno) throws SQLException{
         try {
-            String sql = "UPDATE INTO Dueño (cedula, nombre, direccion, numero_telefono) VALUES(?, ?, ?, ?)";
+            String sql = "INSERT INTO Dueño (cedula, nombre, direccion, numero_telefono) VALUES(?, ?, ?, ?)";
             try(PreparedStatement pstm = ConeccionDB.conectarBaseDatos().prepareStatement(sql)){
                 
                 String cedula = dueno.getCedula();
