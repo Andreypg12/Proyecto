@@ -9,4 +9,11 @@ public enum Sexo {
     private Sexo(String nombreSexo) {
         this.nombreSexo = nombreSexo;
     }
+
+    @Override
+    public String toString() {
+        return nombreSexo;
+    }
+    
+    
 }

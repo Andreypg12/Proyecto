@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
-  <NonVisualComponents>
-    <Component class="javax.swing.ButtonGroup" name="buttonGroupSexo">
-    </Component>
-    <Component class="javax.swing.ButtonGroup" name="buttonGroupEspecie">
-    </Component>
-  </NonVisualComponents>
   <Properties>
     <Property name="closable" type="boolean" value="true"/>
     <Property name="title" type="java.lang.String" value="Proceso de citas"/>
@@ -24,7 +18,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,3,106,0,0,4,-74"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,3,12,0,0,4,-80"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
@@ -49,7 +43,7 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="233" max="32767" attributes="0"/>
+                      <EmptySpace pref="227" max="32767" attributes="0"/>
                       <Component id="jPanelDueno" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -70,7 +64,7 @@
                           <Component id="jPanelDueno" max="32767" attributes="0"/>
                           <Component id="jPanelDatosPaciente" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="248" max="32767" attributes="0"/>
+                      <EmptySpace pref="125" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -95,34 +89,37 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jBtnLimpiarDueno" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
-                          <Component id="jBtnElegirDueno" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jBtnAnadirNuevoDueno" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLblNumeroTelefono" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLblCedula" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="jLblDireccion" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLblNombreDueno" alignment="0" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jTxtDireccionDueno" max="32767" attributes="0"/>
-                                      <Component id="jTxtNombreDueno" max="32767" attributes="0"/>
-                                      <Component id="jFTxtNumeroTelefono" alignment="0" min="-2" pref="213" max="-2" attributes="0"/>
-                                      <Component id="jFTxtNumeroCedula" alignment="0" min="-2" pref="213" max="-2" attributes="0"/>
+                                      <Component id="jBtnAnadirNuevoDueno" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jLblNumeroTelefono" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLblCedula" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                                  <Component id="jLblDireccion" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="jLblNombreDueno" alignment="0" max="32767" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="jTxtDireccionDueno" max="32767" attributes="0"/>
+                                              <Component id="jTxtNombreDueno" max="32767" attributes="0"/>
+                                              <Component id="jFTxtNumeroTelefono" alignment="0" min="-2" pref="213" max="-2" attributes="0"/>
+                                              <Component id="jFTxtNumeroCedula" alignment="0" min="-2" pref="213" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Component id="jLblDuenos" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="jScrollPane1" alignment="1" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Component id="jLblDuenos" alignment="1" max="32767" attributes="0"/>
-                              <Component id="jScrollPane1" alignment="1" max="32767" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="jBtnLimpiarDueno" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="jBtnElegirDueno" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -156,13 +153,13 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jLblDuenos" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane1" min="-2" pref="163" max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" min="-2" pref="192" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jBtnElegirDueno" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jBtnLimpiarDueno" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -295,42 +292,41 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jScrollPane2" pref="343" max="32767" attributes="0"/>
+                              <Component id="jLblPacientes" alignment="0" min="-2" pref="338" max="-2" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  <Component id="jBtnElegirPaciente" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="jScrollPane2" max="32767" attributes="0"/>
-                              <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLblNombrePaciente" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
-                                      <Component id="jLblSexoPaciente" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLblEspecie" min="-2" max="-2" attributes="0"/>
-                                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                          <Component id="jBtnAnadirNuevoPaciente" min="-2" max="-2" attributes="0"/>
-                                          <Group type="102" attributes="0">
-                                              <Component id="jLblEdad" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                  <Component id="jTxtNombrePaciente" min="-2" pref="203" max="-2" attributes="0"/>
-                                                  <Component id="jTxtEdad" min="-2" pref="203" max="-2" attributes="0"/>
-                                                  <Group type="102" alignment="1" attributes="0">
-                                                      <Group type="103" groupAlignment="0" attributes="0">
-                                                          <Component id="jRBnPerro" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="jRBnMacho" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <EmptySpace min="55" max="32767" attributes="0"/>
-                                                      <Group type="103" groupAlignment="0" attributes="0">
-                                                          <Component id="jRBnHembra" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="jRBnGato" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                                                  </Group>
-                                              </Group>
-                                          </Group>
-                                      </Group>
-                                      <Component id="jLblPacientes" alignment="0" min="-2" pref="338" max="-2" attributes="0"/>
+                                      <Component id="jLblEspecie" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLblSexoPaciente" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLblEdad" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLblEspecie1" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="0" pref="5" max="32767" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="jSprEdad" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jLblEdad1" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="jCmbRaza" max="32767" attributes="0"/>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jCmbEspecie" max="32767" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="jCmbSexo" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jTxtNombrePaciente" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jBtnElegirPaciente" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jBtnAnadirNuevoPaciente" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -341,35 +337,48 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLblNombrePaciente" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
-                              <Component id="jTxtNombrePaciente" alignment="3" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="jLblNombrePaciente" min="-2" pref="26" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="jLblEdad" min="-2" pref="26" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="jLblSexoPaciente" max="32767" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="jLblEspecie" max="32767" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="jLblEspecie1" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="jTxtNombrePaciente" max="32767" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jSprEdad" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLblEdad1" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="jCmbSexo" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jCmbEspecie" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="separate" max="32767" attributes="0"/>
+                                  <Component id="jCmbRaza" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLblEdad" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
-                              <Component id="jTxtEdad" alignment="3" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLblSexoPaciente" alignment="3" max="32767" attributes="0"/>
-                              <Component id="jRBnMacho" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jRBnHembra" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLblEspecie" alignment="3" max="32767" attributes="0"/>
-                              <Component id="jRBnPerro" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jRBnGato" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="jBtnAnadirNuevoPaciente" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           <Component id="jLblPacientes" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane2" min="-2" pref="172" max="-2" attributes="0"/>
+                          <Component id="jScrollPane2" min="-2" pref="160" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jBtnElegirPaciente" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -397,7 +406,7 @@
                         <Property name="selectionMode" type="int" value="0"/>
                       </Properties>
                       <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Paciente&gt;"/>
                       </AuxValues>
                     </Component>
                   </SubComponents>
@@ -420,55 +429,88 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="A&#xf1;adir nuevo paciente"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnAnadirNuevoPacienteActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLblSexoPaciente">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Sexo"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRBnHembra">
-                  <Properties>
-                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                      <ComponentRef name="buttonGroupSexo"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Hembra"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JRadioButton" name="jRBnMacho">
-                  <Properties>
-                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                      <ComponentRef name="buttonGroupSexo"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Macho"/>
-                  </Properties>
-                </Component>
                 <Component class="javax.swing.JLabel" name="jLblEdad">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Edad en meses"/>
+                    <Property name="text" type="java.lang.String" value="Edad"/>
                   </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="jTxtEdad">
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLblEspecie">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Especie"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRBnPerro">
+                <Component class="javax.swing.JComboBox" name="jCmbEspecie">
                   <Properties>
-                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                      <ComponentRef name="buttonGroupEspecie"/>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Perro"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCmbEspecieActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Especie&gt;"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="jCmbSexo">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="0"/>
+                    </Property>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Sexo&gt;"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel1">
+                  <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/Imagenes/Perro.png"/>
+                    </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRBnGato">
+                <Component class="javax.swing.JLabel" name="jLabel2">
                   <Properties>
-                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                      <ComponentRef name="buttonGroupEspecie"/>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/Imagenes/gato.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Gato"/>
                   </Properties>
+                </Component>
+                <Component class="javax.swing.JSpinner" name="jSprEdad">
+                  <Properties>
+                    <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+                      <SpinnerModel initial="0" maximum="300" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+                    </Property>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLblEdad1">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Meses"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLblEspecie1">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Raza"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="jCmbRaza">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="0"/>
+                    </Property>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Raza&gt;"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>
@@ -498,7 +540,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="975" max="32767" attributes="0"/>
+                      <EmptySpace pref="969" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -507,7 +549,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="736" max="32767" attributes="0"/>
+                      <EmptySpace pref="642" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

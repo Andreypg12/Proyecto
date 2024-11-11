@@ -5,10 +5,12 @@
 package UI;
 
 import BLL.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 /**
@@ -18,6 +20,9 @@ import javax.swing.JOptionPane;
 public class JInternalProcesoCita extends javax.swing.JInternalFrame {
 
     DefaultListModel<Dueño> modeloListaDuenos = new DefaultListModel<>();
+    DefaultListModel<Paciente> modeloListaPacientes = new DefaultListModel<>();
+    List<Raza> arrayRazasPerros;
+    List<Raza> arrayRazasGatos;
     List<Dueño> arrayDueños;
     Dueño dueno;
     
@@ -28,8 +33,18 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
     public JInternalProcesoCita() {
         initComponents();
         jListDueno.setModel(modeloListaDuenos);
+        jListPaciente.setModel(modeloListaPacientes);
         actualizararrayDuenos();
         modeloListaDuenos.addAll(arrayDueños);
+        jCmbSexo.setModel(new DefaultComboBoxModel<>(Sexo.values()));
+        try {
+            jCmbEspecie.setModel(new DefaultComboBoxModel(Especie.consultarEspecies().toArray()));
+        } catch (Exception ex) {
+            Logger.getLogger(JInternalProcesoCita.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        CrearListaRazas();
+        jCmbRaza.setModel(new DefaultComboBoxModel(arrayRazasPerros.toArray()));
     }
     
     private void actualizararrayDuenos(){
@@ -37,6 +52,23 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
             arrayDueños = Dueño.cosultarDueños();
         } catch (Exception ex) {
             Logger.getLogger(JInternalProcesoCita.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void CrearListaRazas(){
+        try {
+            arrayRazasPerros = new ArrayList<>();
+            arrayRazasGatos = new ArrayList<>();
+            for (Raza raza : Raza.consultarRazas()) {
+                if (raza.getEspecieAQuePertenece().getId_especie() == 1) {
+                    arrayRazasPerros.add(raza);
+                }
+                else if (raza.getEspecieAQuePertenece().getId_especie() == 2) {
+                    arrayRazasGatos.add(raza);
+                }
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(JInternalMantenimientoEspeciesRazas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -49,8 +81,6 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroupSexo = new javax.swing.ButtonGroup();
-        buttonGroupEspecie = new javax.swing.ButtonGroup();
         jTPlProcesoCita = new javax.swing.JTabbedPane();
         jPanelPaciente = new PanelConFondo("/Imagenes/FondoCitas.png");
         jPanelDueno = new javax.swing.JPanel();
@@ -77,13 +107,16 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         jBtnElegirPaciente = new javax.swing.JButton();
         jBtnAnadirNuevoPaciente = new javax.swing.JButton();
         jLblSexoPaciente = new javax.swing.JLabel();
-        jRBnHembra = new javax.swing.JRadioButton();
-        jRBnMacho = new javax.swing.JRadioButton();
         jLblEdad = new javax.swing.JLabel();
-        jTxtEdad = new javax.swing.JTextField();
         jLblEspecie = new javax.swing.JLabel();
-        jRBnPerro = new javax.swing.JRadioButton();
-        jRBnGato = new javax.swing.JRadioButton();
+        jCmbEspecie = new javax.swing.JComboBox<>();
+        jCmbSexo = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jSprEdad = new javax.swing.JSpinner();
+        jLblEdad1 = new javax.swing.JLabel();
+        jLblEspecie1 = new javax.swing.JLabel();
+        jCmbRaza = new javax.swing.JComboBox<>();
         jLblDuenoElegido = new javax.swing.JLabel();
         jPanelCita = new PanelConFondo("/Imagenes/FondoCitas.png");
         jPanel3 = new javax.swing.JPanel();
@@ -180,29 +213,30 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
             jPanelDuenoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelDuenoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jBtnLimpiarDueno)
-                .addGap(81, 81, 81)
-                .addComponent(jBtnElegirDueno)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDuenoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanelDuenoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jBtnAnadirNuevoDueno, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDuenoLayout.createSequentialGroup()
-                        .addGroup(jPanelDuenoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLblNumeroTelefono)
-                            .addComponent(jLblCedula)
-                            .addGroup(jPanelDuenoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jLblDireccion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLblNombreDueno, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGap(18, 18, 18)
+                .addGroup(jPanelDuenoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelDuenoLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanelDuenoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTxtDireccionDueno)
-                            .addComponent(jTxtNombreDueno)
-                            .addComponent(jFTxtNumeroTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFTxtNumeroCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLblDuenos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(jBtnAnadirNuevoDueno, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDuenoLayout.createSequentialGroup()
+                                .addGroup(jPanelDuenoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLblNumeroTelefono)
+                                    .addComponent(jLblCedula)
+                                    .addGroup(jPanelDuenoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jLblDireccion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLblNombreDueno, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanelDuenoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTxtDireccionDueno)
+                                    .addComponent(jTxtNombreDueno)
+                                    .addComponent(jFTxtNumeroTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jFTxtNumeroCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLblDuenos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDuenoLayout.createSequentialGroup()
+                        .addComponent(jBtnLimpiarDueno)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBtnElegirDueno)))
                 .addContainerGap())
         );
         jPanelDuenoLayout.setVerticalGroup(
@@ -229,7 +263,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLblDuenos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDuenoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtnElegirDueno)
@@ -252,24 +286,33 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
 
         jBtnAnadirNuevoPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AgregarPaciente.png"))); // NOI18N
         jBtnAnadirNuevoPaciente.setText("Añadir nuevo paciente");
+        jBtnAnadirNuevoPaciente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnAnadirNuevoPacienteActionPerformed(evt);
+            }
+        });
 
         jLblSexoPaciente.setText("Sexo");
 
-        buttonGroupSexo.add(jRBnHembra);
-        jRBnHembra.setText("Hembra");
-
-        buttonGroupSexo.add(jRBnMacho);
-        jRBnMacho.setText("Macho");
-
-        jLblEdad.setText("Edad en meses");
+        jLblEdad.setText("Edad");
 
         jLblEspecie.setText("Especie");
 
-        buttonGroupEspecie.add(jRBnPerro);
-        jRBnPerro.setText("Perro");
+        jCmbEspecie.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCmbEspecieActionPerformed(evt);
+            }
+        });
 
-        buttonGroupEspecie.add(jRBnGato);
-        jRBnGato.setText("Gato");
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Perro.png"))); // NOI18N
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/gato.png"))); // NOI18N
+
+        jSprEdad.setModel(new javax.swing.SpinnerNumberModel(0, 0, 300, 1));
+
+        jLblEdad1.setText("Meses");
+
+        jLblEspecie1.setText("Raza");
 
         javax.swing.GroupLayout jPanelDatosPacienteLayout = new javax.swing.GroupLayout(jPanelDatosPaciente);
         jPanelDatosPaciente.setLayout(jPanelDatosPacienteLayout);
@@ -278,65 +321,77 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
             .addGroup(jPanelDatosPacienteLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelDatosPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
+                    .addComponent(jLblPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDatosPacienteLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jBtnElegirPaciente))
-                    .addComponent(jScrollPane2)
-                    .addGroup(jPanelDatosPacienteLayout.createSequentialGroup()
                         .addGroup(jPanelDatosPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLblNombrePaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLblSexoPaciente)
                             .addComponent(jLblEspecie)
-                            .addGroup(jPanelDatosPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jBtnAnadirNuevoPaciente)
-                                .addGroup(jPanelDatosPacienteLayout.createSequentialGroup()
-                                    .addComponent(jLblEdad)
-                                    .addGap(18, 18, 18)
-                                    .addGroup(jPanelDatosPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jTxtNombrePaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jTxtEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDatosPacienteLayout.createSequentialGroup()
-                                            .addGroup(jPanelDatosPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jRBnPerro)
-                                                .addComponent(jRBnMacho))
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addGroup(jPanelDatosPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jRBnHembra)
-                                                .addComponent(jRBnGato))
-                                            .addGap(18, 18, 18)))))
-                            .addComponent(jLblPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 5, Short.MAX_VALUE)))
+                            .addComponent(jLblSexoPaciente)
+                            .addComponent(jLblEdad)
+                            .addComponent(jLblEspecie1))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanelDatosPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelDatosPacienteLayout.createSequentialGroup()
+                                .addComponent(jSprEdad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLblEdad1))
+                            .addComponent(jCmbRaza, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDatosPacienteLayout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jCmbEspecie, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel2))
+                            .addComponent(jCmbSexo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jTxtNombrePaciente)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDatosPacienteLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanelDatosPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jBtnElegirPaciente, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jBtnAnadirNuevoPaciente, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addContainerGap())
         );
         jPanelDatosPacienteLayout.setVerticalGroup(
             jPanelDatosPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelDatosPacienteLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelDatosPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLblNombrePaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTxtNombrePaciente))
-                .addGap(18, 18, 18)
-                .addGroup(jPanelDatosPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLblEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTxtEdad))
-                .addGap(18, 18, 18)
-                .addGroup(jPanelDatosPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLblSexoPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jRBnMacho)
-                    .addComponent(jRBnHembra))
-                .addGap(18, 18, 18)
-                .addGroup(jPanelDatosPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLblEspecie, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jRBnPerro)
-                    .addComponent(jRBnGato))
-                .addGap(18, 18, 18)
+                .addGroup(jPanelDatosPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelDatosPacienteLayout.createSequentialGroup()
+                        .addComponent(jLblNombrePaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLblEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLblSexoPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLblEspecie, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLblEspecie1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanelDatosPacienteLayout.createSequentialGroup()
+                        .addComponent(jTxtNombrePaciente)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanelDatosPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jSprEdad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLblEdad1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jCmbSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanelDatosPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanelDatosPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1)
+                                .addComponent(jCmbEspecie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel2))
+                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addComponent(jCmbRaza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtnAnadirNuevoPaciente)
-                .addGap(18, 18, 18)
+                .addGap(12, 12, 12)
                 .addComponent(jLblPacientes)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtnElegirPaciente))
+                .addComponent(jBtnElegirPaciente)
+                .addContainerGap())
         );
 
         jLblDuenoElegido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -347,7 +402,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         jPanelPacienteLayout.setHorizontalGroup(
             jPanelPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelPacienteLayout.createSequentialGroup()
-                .addContainerGap(233, Short.MAX_VALUE)
+                .addContainerGap(227, Short.MAX_VALUE)
                 .addComponent(jPanelDueno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanelPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -364,7 +419,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                 .addGroup(jPanelPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanelDueno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanelDatosPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(248, Short.MAX_VALUE))
+                .addContainerGap(125, Short.MAX_VALUE))
         );
 
         jTPlProcesoCita.addTab("Paciente", jPanelPaciente);
@@ -397,14 +452,14 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
             .addGroup(jPanelCitaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(975, Short.MAX_VALUE))
+                .addContainerGap(969, Short.MAX_VALUE))
         );
         jPanelCitaLayout.setVerticalGroup(
             jPanelCitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCitaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(736, Short.MAX_VALUE))
+                .addContainerGap(642, Short.MAX_VALUE))
         );
 
         jTPlProcesoCita.addTab("Cita", jPanelCita);
@@ -433,9 +488,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                 jTxtNombreDueno.setText(dueno.getNombre());
                 jTxtDireccionDueno.setText(dueno.getDireccion());
                 jFTxtNumeroTelefono.setText(dueno.getTelefono());
-                jLblDuenoElegido.setText("Dueño: " + dueno.getNombre());
-                cambiarEstadoEspaciosDueno(false);
-                jBtnLimpiarDueno.setText("Cambiar dueño");
+                accionesDefinirDueño();
                 return;
             }
         } catch (Exception e) {
@@ -456,9 +509,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                 Dueño.agregar(dueno);
                 actualizararrayDuenos();
                 modeloListaDuenos.addAll(arrayDueños);
-                jLblDuenoElegido.setText("Dueño: " + dueno.getNombre());
-                cambiarEstadoEspaciosDueno(false);
-                jBtnLimpiarDueno.setText("Cambiar dueño");
+                accionesDefinirDueño();
                 JOptionPane.showMessageDialog(null, "El dueño fue creado correctamete", "!Dueño creado¡", JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception ex) {
                 Logger.getLogger(JInternalProcesoCita.class.getName()).log(Level.SEVERE, null, ex);
@@ -474,26 +525,16 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         jBtnAnadirNuevoDueno.setEnabled(estado);
         jBtnElegirDueno.setEnabled(estado);
     }
-//    private boolean seguir = true;
+
     private void jFTxtNumeroCedulaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFTxtNumeroCedulaKeyPressed
 
-        //Es para que vaya buscando en la lista pero que si ya no encuentra deje de hacer todo el recorrido
-//        int i = 0;
-//        if (seguir) {
-            modeloListaDuenos.clear();
-            for (Dueño dueno : arrayDueños) {
-                if (dueno.getCedula().contains(jFTxtNumeroCedula.getText().replace("-", "").trim())) {
-                    modeloListaDuenos.addElement(dueno);
-//                    i++;
-                }
+        modeloListaDuenos.clear();
+        for (Dueño dueno : arrayDueños) {
+            if (dueno.getCedula().contains(jFTxtNumeroCedula.getText().replace("-", "").trim())) {
+                modeloListaDuenos.addElement(dueno);
+
             }
-//            if (i <= 0) {
-//                seguir = false;
-//            }
-//            else{
-//                seguir = true;
-//            }
-//        }
+        }
     }//GEN-LAST:event_jFTxtNumeroCedulaKeyPressed
 
     private void jFTxtNumeroCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFTxtNumeroCedulaActionPerformed
@@ -524,9 +565,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
             jTxtNombreDueno.setText(dueno.getNombre());
             jTxtDireccionDueno.setText(dueno.getDireccion());
             jFTxtNumeroTelefono.setText(dueno.getTelefono());
-            jLblDuenoElegido.setText("Dueño: " + dueno.getNombre());
-            cambiarEstadoEspaciosDueno(false);
-            jBtnLimpiarDueno.setText("Cambiar dueño");
+            accionesDefinirDueño();
         }
         else{
             JOptionPane.showMessageDialog(null, "Debes elegir un dueño de la lista", "Dueño no elegido", JOptionPane.ERROR_MESSAGE);
@@ -549,45 +588,90 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jBtnLimpiarDuenoActionPerformed
 
+    private void jBtnAnadirNuevoPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAnadirNuevoPacienteActionPerformed
+        // TODO add your handling code here:
+        String nombrePaciente = jTxtNombrePaciente.getText().trim();
+        if (nombrePaciente.isBlank()) {
+            JOptionPane.showMessageDialog(null, "Debes ingresar el nombre del paciente", "Espacio en blanco", JOptionPane.ERROR_MESSAGE);
+        } else {
+            Especie especie = (Especie) jCmbEspecie.getSelectedItem();
+            especie.setRaza((Raza)jCmbRaza.getSelectedItem());
+            Paciente paciente = new Paciente(nombrePaciente,
+                    (Sexo) jCmbSexo.getSelectedItem(),
+                    (int) jSprEdad.getValue(),
+                    dueno,
+                    especie);
+            try {
+                Paciente.agregar(paciente);
+
+                modeloListaPacientes.addAll(Paciente.consultarPacientesPorDueño(dueno));
+                JOptionPane.showMessageDialog(null, "El paciente fue agreado", "¡Paciente agregado!", JOptionPane.INFORMATION_MESSAGE);
+            } catch (SQLException ex) {
+                Logger.getLogger(JInternalProcesoCita.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jBtnAnadirNuevoPacienteActionPerformed
+
+    private void jCmbEspecieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCmbEspecieActionPerformed
+        // TODO add your handling code here:
+        if (jCmbEspecie.getSelectedItem() instanceof Perro) {
+            jCmbRaza.setModel(new DefaultComboBoxModel(arrayRazasPerros.toArray()));
+        }
+        else{
+            jCmbRaza.setModel(new DefaultComboBoxModel(arrayRazasGatos.toArray()));
+        }
+    }//GEN-LAST:event_jCmbEspecieActionPerformed
+
+    private void accionesDefinirDueño() {
+        jLblDuenoElegido.setText("Dueño: " + dueno.getNombre());
+        cambiarEstadoEspaciosDueno(false);
+        jBtnLimpiarDueno.setText("Cambiar dueño");
+        try {
+            modeloListaPacientes.addAll(Paciente.consultarPacientesPorDueño(dueno));
+        } catch (SQLException ex) {
+            Logger.getLogger(JInternalProcesoCita.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup buttonGroupEspecie;
-    private javax.swing.ButtonGroup buttonGroupSexo;
     private javax.swing.JButton jBtnAnadirNuevoDueno;
     private javax.swing.JButton jBtnAnadirNuevoPaciente;
     private javax.swing.JButton jBtnElegirDueno;
     private javax.swing.JButton jBtnElegirPaciente;
     private javax.swing.JButton jBtnLimpiarDueno;
+    private javax.swing.JComboBox<Especie> jCmbEspecie;
+    private javax.swing.JComboBox<Raza> jCmbRaza;
+    private javax.swing.JComboBox<Sexo> jCmbSexo;
     private javax.swing.JFormattedTextField jFTxtNumeroCedula;
     private javax.swing.JFormattedTextField jFTxtNumeroTelefono;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLblCedula;
     private javax.swing.JLabel jLblDireccion;
     private javax.swing.JLabel jLblDuenoElegido;
     private javax.swing.JLabel jLblDuenos;
     private javax.swing.JLabel jLblEdad;
+    private javax.swing.JLabel jLblEdad1;
     private javax.swing.JLabel jLblEspecie;
+    private javax.swing.JLabel jLblEspecie1;
     private javax.swing.JLabel jLblNombreDueno;
     private javax.swing.JLabel jLblNombrePaciente;
     private javax.swing.JLabel jLblNumeroTelefono;
     private javax.swing.JLabel jLblPacientes;
     private javax.swing.JLabel jLblSexoPaciente;
     private javax.swing.JList<Dueño> jListDueno;
-    private javax.swing.JList<String> jListPaciente;
+    private javax.swing.JList<Paciente> jListPaciente;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelCita;
     private javax.swing.JPanel jPanelDatosPaciente;
     private javax.swing.JPanel jPanelDueno;
     private javax.swing.JPanel jPanelPaciente;
-    private javax.swing.JRadioButton jRBnGato;
-    private javax.swing.JRadioButton jRBnHembra;
-    private javax.swing.JRadioButton jRBnMacho;
-    private javax.swing.JRadioButton jRBnPerro;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JSpinner jSprEdad;
     private javax.swing.JTabbedPane jTPlProcesoCita;
     private javax.swing.JTextField jTxtDireccionDueno;
-    private javax.swing.JTextField jTxtEdad;
     private javax.swing.JTextField jTxtNombreDueno;
     private javax.swing.JTextField jTxtNombrePaciente;
     // End of variables declaration//GEN-END:variables

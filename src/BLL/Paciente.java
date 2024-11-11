@@ -1,7 +1,11 @@
 package BLL;
 
+import DAO.PacienteDAO;
+import java.sql.SQLException;
+import java.util.List;
+
 public class Paciente {
-    private final int numeroPaciente;
+    private final int id_paciente;
     private String nombre;
     private Sexo sexo;
     private int edad;
@@ -9,7 +13,7 @@ public class Paciente {
     private Especie especie;
 
     public Paciente(String nombre, Sexo sexo, int edad, Dueño dueño, Especie especie) {
-        this.numeroPaciente = 0;
+        this.id_paciente = 0;
         this.nombre = nombre;
         this.sexo = sexo;
         this.edad = edad;
@@ -17,8 +21,8 @@ public class Paciente {
         this.especie = especie;
     }
 
-    public Paciente(int numeroPaciente, String nombre, Sexo sexo, int edad, Dueño dueño, Especie especie) {
-        this.numeroPaciente = numeroPaciente;
+    public Paciente(int id_paciente, String nombre, Sexo sexo, int edad, Dueño dueño, Especie especie) {
+        this.id_paciente = id_paciente;
         this.nombre = nombre;
         this.sexo = sexo;
         this.edad = edad;
@@ -66,10 +70,24 @@ public class Paciente {
         this.especie = especie;
     }
 
-    public int getNumeroPaciente() {
-        return numeroPaciente;
+    public int getId_paciente() {
+        return id_paciente;
+    }
+     
+    public static void agregar(Paciente paciente) throws SQLException{
+        new PacienteDAO().agregar(paciente);
     }
     
+    public static List<Paciente> consultarPacientes() throws SQLException{
+        return new PacienteDAO().consultarPacientes();
+    }
     
-    
+    public static List<Paciente> consultarPacientesPorDueño(Dueño dueño) throws SQLException{
+        return new PacienteDAO().consultarPacientesPorDueño(dueño);
+    }
+
+    @Override
+    public String toString() {
+        return nombre + ", " + especie.getNombreEspecie() + ", " + especie.getRaza().getNombreRaza() + ", "  + sexo;
+    }
 }
