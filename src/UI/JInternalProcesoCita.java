@@ -595,12 +595,14 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Debes ingresar el nombre del paciente", "Espacio en blanco", JOptionPane.ERROR_MESSAGE);
         } else {
             Especie especie = (Especie) jCmbEspecie.getSelectedItem();
-            especie.setRaza((Raza)jCmbRaza.getSelectedItem());
+            Raza raza = (Raza) jCmbRaza.getSelectedItem();
+            raza.setEspecieAQuePertenece(especie);
             Paciente paciente = new Paciente(nombrePaciente,
                     (Sexo) jCmbSexo.getSelectedItem(),
                     (int) jSprEdad.getValue(),
                     dueno,
-                    especie);
+                    especie,
+                    raza);
             try {
                 Paciente.agregar(paciente);
 
@@ -627,6 +629,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         cambiarEstadoEspaciosDueno(false);
         jBtnLimpiarDueno.setText("Cambiar dueño");
         try {
+            modeloListaPacientes.clear();
             modeloListaPacientes.addAll(Paciente.consultarPacientesPorDueño(dueno));
         } catch (SQLException ex) {
             Logger.getLogger(JInternalProcesoCita.class.getName()).log(Level.SEVERE, null, ex);

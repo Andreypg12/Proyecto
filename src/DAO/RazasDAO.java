@@ -13,7 +13,7 @@ public class RazasDAO {
 
     public void agregarRaza(Raza raza) throws Exception{
         try {
-            String sql = "INSERT INTO Razas (nombre_raza, id_especie) VALUES (?, ?)";
+            String sql = "INSERT INTO Raza (nombre_raza, id_especie) VALUES (?, ?)";
 
             try (Connection conexion = conectarBaseDatos(); 
                     PreparedStatement pstmt = conexion.prepareStatement(sql);) {
@@ -34,7 +34,7 @@ public class RazasDAO {
     public void modificarRaza(Raza raza) throws Exception{
         conectarBaseDatos();
         try {
-            String sql = "UPDATE Razas SET nombre_raza = ? WHERE id_raza = ?";
+            String sql = "UPDATE Raza SET nombre_raza = ? WHERE id_raza = ?";
             try (Connection conexion = conectarBaseDatos();
                     PreparedStatement pstmt = conexion.prepareStatement(sql)) {
 
@@ -51,7 +51,7 @@ public class RazasDAO {
     public List<Raza> consultarRazas() throws Exception{
         List<Raza> arrayRazas = new ArrayList<>();
         try {
-            String sql = "SELECT id_raza, nombre_raza, id_especie FROM Razas";
+            String sql = "SELECT id_raza, nombre_raza, id_especie FROM Raza";
 
             try (PreparedStatement pstm = ConeccionDB.conectarBaseDatos().prepareStatement(sql);
                     ResultSet rs = pstm.executeQuery()) {
@@ -83,7 +83,7 @@ public class RazasDAO {
 
     public void eliminarRaza(Raza raza) throws Exception{
         try {
-            String sql = "DELETE FROM Razas WHERE id_raza = ?";
+            String sql = "DELETE FROM Raza WHERE id_raza = ?";
 
             try (PreparedStatement pstm = ConeccionDB.conectarBaseDatos().prepareStatement(sql)) {
 
@@ -102,7 +102,7 @@ public class RazasDAO {
     public List<Especie> consultarEspecies() throws Exception{
         List<Especie> arrayEspecies = new ArrayList<>();
         try {
-            String sql = "SELECT nombre_especie, id_especie FROM Especies";
+            String sql = "SELECT nombre_especie, id_especie FROM Especie";
 
             try (PreparedStatement pstm = ConeccionDB.conectarBaseDatos().prepareStatement(sql);
                     ResultSet rs = pstm.executeQuery()) {

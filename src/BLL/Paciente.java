@@ -11,23 +11,26 @@ public class Paciente {
     private int edad;
     private Dueño dueño;
     private Especie especie;
+    private Raza raza;
 
-    public Paciente(String nombre, Sexo sexo, int edad, Dueño dueño, Especie especie) {
+    public Paciente(String nombre, Sexo sexo, int edad, Dueño dueño, Especie especie, Raza raza) {
         this.id_paciente = 0;
         this.nombre = nombre;
         this.sexo = sexo;
         this.edad = edad;
         this.dueño = dueño;
         this.especie = especie;
+        this.raza = raza;
     }
 
-    public Paciente(int id_paciente, String nombre, Sexo sexo, int edad, Dueño dueño, Especie especie) {
+    public Paciente(int id_paciente, String nombre, Sexo sexo, int edad, Dueño dueño, Especie especie, Raza raza) {
         this.id_paciente = id_paciente;
         this.nombre = nombre;
         this.sexo = sexo;
         this.edad = edad;
         this.dueño = dueño;
         this.especie = especie;
+        this.raza = raza;
     }
 
     public String getNombre() {
@@ -73,6 +76,14 @@ public class Paciente {
     public int getId_paciente() {
         return id_paciente;
     }
+
+    public Raza getRaza() {
+        return raza;
+    }
+
+    public void setRaza(Raza raza) {
+        this.raza = raza;
+    }
      
     public static void agregar(Paciente paciente) throws SQLException{
         new PacienteDAO().agregar(paciente);
@@ -88,6 +99,6 @@ public class Paciente {
 
     @Override
     public String toString() {
-        return nombre + ", " + especie.getNombreEspecie() + ", " + especie.getRaza().getNombreRaza() + ", "  + sexo;
+        return nombre + ", " + especie.getNombreEspecie() + " " + raza.getNombreRaza() + ", "  + sexo;
     }
 }
