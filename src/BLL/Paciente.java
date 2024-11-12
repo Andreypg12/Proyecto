@@ -2,6 +2,7 @@ package BLL;
 
 import DAO.PacienteDAO;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Paciente {
@@ -12,6 +13,7 @@ public class Paciente {
     private Dueño dueño;
     private Especie especie;
     private Raza raza;
+    private List<Cita> arrayCitas;
 
     public Paciente(String nombre, Sexo sexo, int edad, Dueño dueño, Especie especie, Raza raza) {
         this.id_paciente = 0;
@@ -21,6 +23,7 @@ public class Paciente {
         this.dueño = dueño;
         this.especie = especie;
         this.raza = raza;
+        arrayCitas = new ArrayList<>();
     }
 
     public Paciente(int id_paciente, String nombre, Sexo sexo, int edad, Dueño dueño, Especie especie, Raza raza) {
@@ -31,8 +34,12 @@ public class Paciente {
         this.dueño = dueño;
         this.especie = especie;
         this.raza = raza;
+        arrayCitas = new ArrayList<>();
     }
 
+    public void agregarCitas(Cita cita){
+        arrayCitas.add(cita);
+    }
     public String getNombre() {
         return nombre;
     }

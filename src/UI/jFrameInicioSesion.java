@@ -46,7 +46,7 @@ public class jFrameInicioSesion extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new PanelConFondo("/Imagenes/FondoInicioSesion.jpg");
+        jPanel1 = new UI.PanelConFondo("/Imagenes/FondoInicioSesion.png");
         jPwdContraseña = new javax.swing.JPasswordField();
         jLblContraseña = new javax.swing.JLabel();
         jTxtUsuario = new javax.swing.JTextField();
@@ -64,6 +64,7 @@ public class jFrameInicioSesion extends javax.swing.JFrame {
         });
 
         jLblContraseña.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLblContraseña.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/IconoContrasena.png"))); // NOI18N
         jLblContraseña.setText("Contraseña: ");
 
         jTxtUsuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -74,6 +75,7 @@ public class jFrameInicioSesion extends javax.swing.JFrame {
         });
 
         jLblUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLblUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/IconoUsuario.png"))); // NOI18N
         jLblUsuario.setText("Usuario: ");
 
         jBtnIngresar.setText("Ingresar");
@@ -87,26 +89,25 @@ public class jFrameInicioSesion extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLblUsuario)
-                        .addGap(26, 26, 26)
-                        .addComponent(jTxtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLblContraseña)
-                        .addGap(6, 6, 6)
-                        .addComponent(jPwdContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(227, 227, 227)
-                        .addComponent(jBtnIngresar)))
-                .addContainerGap(66, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(134, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jBtnIngresar)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLblUsuario)
+                            .addGap(26, 26, 26)
+                            .addComponent(jTxtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLblContraseña)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jPwdContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(132, 132, 132))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(58, 58, 58)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(201, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTxtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -116,7 +117,7 @@ public class jFrameInicioSesion extends javax.swing.JFrame {
                     .addComponent(jPwdContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jBtnIngresar)
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addGap(46, 46, 46))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
@@ -155,7 +156,7 @@ public class jFrameInicioSesion extends javax.swing.JFrame {
             }
         }
         if (existeNombre & existeContrasenia) {
-            JOptionPane.showMessageDialog(null, "Bienvenido " + nombreUsuario, "", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "¡Bienvenido " + nombreUsuario + "!", "Inicio de sesión", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
             MdiPrincipal ventanaPrincipal = new MdiPrincipal(nombreUsuario);
             ventanaPrincipal.setVisible(true);

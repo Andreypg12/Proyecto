@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Cita {
+    private final int id_cita;
     private List<Actitud> arrayActitud;
     private List<Condicion> arrayCondicion;
     private List<Evaluacion> arrayEvaluacion;
@@ -22,6 +23,23 @@ public class Cita {
     private int temperatura;
 
     public Cita(String diagnostico, String indicaciones, Date fechaCita, int frecuenciaCardiaca, int frecuenciaRespiratoria, int impulso, int temperatura) {
+        id_cita = 0;
+        this.arrayActitud = new ArrayList<>();
+        this.arrayCondicion = new ArrayList<>();
+        this.arrayEvaluacion = new ArrayList<>();
+        this.arrayMotivo = new ArrayList<>();
+        this.arrayPruebaLaboratorio = new ArrayList<>();
+        this.diagnostico = diagnostico;
+        this.indicaciones = indicaciones;
+        this.fechaCita = fechaCita;
+        this.frecuenciaCardiaca = frecuenciaCardiaca;
+        this.frecuenciaRespiratoria = frecuenciaRespiratoria;
+        this.pulso = impulso;
+        this.temperatura = temperatura;
+    }
+    
+    public Cita(int id_cita, String diagnostico, String indicaciones, Date fechaCita, int frecuenciaCardiaca, int frecuenciaRespiratoria, int impulso, int temperatura) {
+        this.id_cita = id_cita;
         this.arrayActitud = new ArrayList<>();
         this.arrayCondicion = new ArrayList<>();
         this.arrayEvaluacion = new ArrayList<>();
