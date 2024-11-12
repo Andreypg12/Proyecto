@@ -48,30 +48,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         jCmbRaza.setModel(new DefaultComboBoxModel(arrayRazasPerros.toArray()));
     }
     
-    private void actualizararrayDuenos(){
-        try {
-            arrayDueños = Dueño.cosultarDueños();
-        } catch (Exception ex) {
-            Logger.getLogger(JInternalProcesoCita.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
     
-    public void CrearListaRazas(){
-        try {
-            arrayRazasPerros = new ArrayList<>();
-            arrayRazasGatos = new ArrayList<>();
-            for (Raza raza : Raza.consultarRazas()) {
-                if (raza.getEspecieAQuePertenece().getId_especie() == 1) {
-                    arrayRazasPerros.add(raza);
-                }
-                else if (raza.getEspecieAQuePertenece().getId_especie() == 2) {
-                    arrayRazasGatos.add(raza);
-                }
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(JInternalMantenimientoEspeciesRazas.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -123,6 +100,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         jPanelCita = new PanelConFondo("/Imagenes/FondoCitas.png");
         jPanel3 = new javax.swing.JPanel();
         jSpinner1 = new javax.swing.JSpinner();
+        jLabel3 = new javax.swing.JLabel();
 
         setClosable(true);
         setTitle("Proceso de citas");
@@ -277,6 +255,12 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         jPanelDatosPaciente.setOpaque(false);
 
         jLblNombrePaciente.setText("Nombre");
+
+        jTxtNombrePaciente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTxtNombrePacienteKeyTyped(evt);
+            }
+        });
 
         jListPaciente.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(jListPaciente);
@@ -444,9 +428,11 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
 
         jTPlProcesoCita.addTab("Paciente", jPanelPaciente);
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Fecha para la cita"));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Datos de la cita"));
 
         jSpinner1.setModel(new javax.swing.SpinnerDateModel());
+
+        jLabel3.setText("Fecha");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -454,15 +440,19 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
                 .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(227, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(19, 19, 19)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(481, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanelCitaLayout = new javax.swing.GroupLayout(jPanelCita);
@@ -472,14 +462,14 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
             .addGroup(jPanelCitaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(969, Short.MAX_VALUE))
+                .addContainerGap(699, Short.MAX_VALUE))
         );
         jPanelCitaLayout.setVerticalGroup(
             jPanelCitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCitaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(642, Short.MAX_VALUE))
+                .addContainerGap(154, Short.MAX_VALUE))
         );
 
         jTPlProcesoCita.addTab("Cita", jPanelCita);
@@ -489,11 +479,37 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+     // <editor-fold defaultstate="collapsed" desc="Codigo de Dueño y paciente">
     private void jFTxtNumeroCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFTxtNumeroCedulaKeyTyped
         // TODO add your handling code here:
         
     }//GEN-LAST:event_jFTxtNumeroCedulaKeyTyped
 
+    private void actualizararrayDuenos(){
+        try {
+            arrayDueños = Dueño.cosultarDueños();
+        } catch (Exception ex) {
+            Logger.getLogger(JInternalProcesoCita.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void CrearListaRazas(){
+        try {
+            arrayRazasPerros = new ArrayList<>();
+            arrayRazasGatos = new ArrayList<>();
+            for (Raza raza : Raza.consultarRazas()) {
+                if (raza.getEspecieAQuePertenece().getId_especie() == 1) {
+                    arrayRazasPerros.add(raza);
+                }
+                else if (raza.getEspecieAQuePertenece().getId_especie() == 2) {
+                    arrayRazasGatos.add(raza);
+                }
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(JInternalMantenimientoEspeciesRazas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     private void jBtnAnadirNuevoDuenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAnadirNuevoDuenoActionPerformed
         // TODO add your handling code here:
         String cedula = jFTxtNumeroCedula.getText().replace("-", "").trim();
@@ -602,7 +618,9 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         modeloListaDuenos.addAll(arrayDueños);
         jLblDuenoElegido.setText("Dueño no elegido");
         dueno = null;
+        modeloListaPacientes.clear();
         if (jBtnLimpiarDueno.getText().equals("Cambiar dueño")) {
+            jBtnLimpiarPaciente.doClick();
             jBtnLimpiarDueno.setText("Limpiar");
             cambiarEstadoEspaciosDueno(true);
         }
@@ -613,6 +631,20 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         if (dueno != null) {
 
             String nombrePaciente = jTxtNombrePaciente.getText().trim();
+            for (int i = 0; i < modeloListaPacientes.getSize(); i++) {
+                Paciente paciente = modeloListaPacientes.getElementAt(i);
+                if (paciente.getNombre().trim().equalsIgnoreCase(nombrePaciente)) {
+                    int opcion = JOptionPane.showConfirmDialog(null, "Hay un paciente con el mismo nombre, ¿Seguro que quieres crear otro?", "Paciente con el mismo nombre",
+                            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    if (opcion == JOptionPane.YES_OPTION) {
+                        break;
+                    } else {
+                        jListPaciente.setSelectedValue(paciente, true);
+                        jBtnElegirPaciente.doClick();
+                        return;
+                    }
+                }
+            }
             if (nombrePaciente.isBlank()) {
                 JOptionPane.showMessageDialog(null, "Debes ingresar el nombre del paciente", "Espacio en blanco", JOptionPane.ERROR_MESSAGE);
             } else {
@@ -629,6 +661,8 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                     Paciente.agregar(paciente);
                     modeloListaPacientes.clear();
                     modeloListaPacientes.addAll(Paciente.consultarPacientesPorDueño(dueno));
+                    cambiarEstadoEspaciosPaciente(false);
+                    jBtnLimpiarPaciente.setText("Cambiar de paciente");
                     JOptionPane.showMessageDialog(null, "El paciente fue agreado", "¡Paciente agregado!", JOptionPane.INFORMATION_MESSAGE);
                 } catch (SQLException ex) {
                     Logger.getLogger(JInternalProcesoCita.class.getName()).log(Level.SEVERE, null, ex);
@@ -672,12 +706,25 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                         break;
                     }
                 }
+
             }
+            cambiarEstadoEspaciosPaciente(false);
+            jBtnLimpiarPaciente.setText("Cambiar de paciente");
+            JOptionPane.showMessageDialog(null, "El paciente fue elegido correctamente", "Paciente elegido", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(null, "Debes elegir un paciente de la lista", "Paciente no elegido", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jBtnElegirPacienteActionPerformed
 
+    private void cambiarEstadoEspaciosPaciente(boolean estado) {
+        jTxtNombrePaciente.setEditable(estado);
+        jSpinner1.setEnabled(estado);
+        jCmbSexo.setEnabled(estado);
+        jCmbEspecie.setEnabled(estado);
+        jCmbRaza.setEnabled(estado);
+        jBtnAnadirNuevoPaciente.setEnabled(estado);
+        jBtnElegirPaciente.setEnabled(estado);
+    }
     private void jBtnLimpiarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnLimpiarPacienteActionPerformed
         // TODO add your handling code here:
         jTxtNombrePaciente.setText("");
@@ -685,8 +732,16 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         jCmbSexo.setSelectedIndex(0);
         jCmbEspecie.setSelectedIndex(0);
         jCmbRaza.setSelectedIndex(0);
-        modeloListaPacientes.clear();
+        paciente = null;
+        if (jBtnLimpiarPaciente.getText().equals("Cambiar de paciente")) {
+            cambiarEstadoEspaciosPaciente(true);
+            jBtnLimpiarPaciente.setText("Limpiar");
+        }
     }//GEN-LAST:event_jBtnLimpiarPacienteActionPerformed
+
+    private void jTxtNombrePacienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtNombrePacienteKeyTyped
+        // TODO add your handling code here
+    }//GEN-LAST:event_jTxtNombrePacienteKeyTyped
 
     private void accionesDefinirDueño() {
         jLblDuenoElegido.setText("Dueño: " + dueno.getNombre());
@@ -699,6 +754,10 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
             Logger.getLogger(JInternalProcesoCita.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    // </editor-fold>
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnAnadirNuevoDueno;
@@ -714,6 +773,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
     private javax.swing.JFormattedTextField jFTxtNumeroTelefono;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLblCedula;
     private javax.swing.JLabel jLblDireccion;
     private javax.swing.JLabel jLblDuenoElegido;

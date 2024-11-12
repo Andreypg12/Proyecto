@@ -123,7 +123,4 @@ public class Cita {
         sb.append("\nTemperatura: ").append(temperatura);
         return sb.toString();
     }
-    
-    
-    
 }
