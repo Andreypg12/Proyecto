@@ -25,6 +25,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
     List<Raza> arrayRazasGatos;
     List<Dueño> arrayDueños;
     Dueño dueno;
+    Paciente paciente;
     
     /**
      * 
@@ -117,6 +118,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         jLblEdad1 = new javax.swing.JLabel();
         jLblEspecie1 = new javax.swing.JLabel();
         jCmbRaza = new javax.swing.JComboBox<>();
+        jBtnLimpiarPaciente = new javax.swing.JButton();
         jLblDuenoElegido = new javax.swing.JLabel();
         jPanelCita = new PanelConFondo("/Imagenes/FondoCitas.png");
         jPanel3 = new javax.swing.JPanel();
@@ -283,6 +285,11 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         jLblPacientes.setText("Lista de pacientes por dueño");
 
         jBtnElegirPaciente.setText("Elegir paciente seleccionado");
+        jBtnElegirPaciente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnElegirPacienteActionPerformed(evt);
+            }
+        });
 
         jBtnAnadirNuevoPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AgregarPaciente.png"))); // NOI18N
         jBtnAnadirNuevoPaciente.setText("Añadir nuevo paciente");
@@ -314,6 +321,13 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
 
         jLblEspecie1.setText("Raza");
 
+        jBtnLimpiarPaciente.setText("Limpiar");
+        jBtnLimpiarPaciente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnLimpiarPacienteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelDatosPacienteLayout = new javax.swing.GroupLayout(jPanelDatosPaciente);
         jPanelDatosPaciente.setLayout(jPanelDatosPacienteLayout);
         jPanelDatosPacienteLayout.setHorizontalGroup(
@@ -322,7 +336,9 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanelDatosPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
-                    .addComponent(jLblPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanelDatosPacienteLayout.createSequentialGroup()
+                        .addComponent(jLblPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDatosPacienteLayout.createSequentialGroup()
                         .addGroup(jPanelDatosPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLblNombrePaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -347,9 +363,11 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                             .addComponent(jTxtNombrePaciente)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDatosPacienteLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanelDatosPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jBtnElegirPaciente, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jBtnAnadirNuevoPaciente, javax.swing.GroupLayout.Alignment.TRAILING))))
+                        .addComponent(jBtnAnadirNuevoPaciente))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDatosPacienteLayout.createSequentialGroup()
+                        .addComponent(jBtnLimpiarPaciente)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBtnElegirPaciente)))
                 .addContainerGap())
         );
         jPanelDatosPacienteLayout.setVerticalGroup(
@@ -362,7 +380,9 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLblEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jLblSexoPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanelDatosPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLblSexoPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jCmbSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jLblEspecie, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
@@ -373,9 +393,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                         .addGroup(jPanelDatosPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jSprEdad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLblEdad1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jCmbSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(62, 62, 62)
                         .addGroup(jPanelDatosPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanelDatosPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel1)
@@ -390,7 +408,9 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtnElegirPaciente)
+                .addGroup(jPanelDatosPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBtnElegirPaciente)
+                    .addComponent(jBtnLimpiarPaciente))
                 .addContainerGap())
         );
 
@@ -590,27 +610,32 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
 
     private void jBtnAnadirNuevoPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAnadirNuevoPacienteActionPerformed
         // TODO add your handling code here:
-        String nombrePaciente = jTxtNombrePaciente.getText().trim();
-        if (nombrePaciente.isBlank()) {
-            JOptionPane.showMessageDialog(null, "Debes ingresar el nombre del paciente", "Espacio en blanco", JOptionPane.ERROR_MESSAGE);
-        } else {
-            Especie especie = (Especie) jCmbEspecie.getSelectedItem();
-            Raza raza = (Raza) jCmbRaza.getSelectedItem();
-            raza.setEspecieAQuePertenece(especie);
-            Paciente paciente = new Paciente(nombrePaciente,
-                    (Sexo) jCmbSexo.getSelectedItem(),
-                    (int) jSprEdad.getValue(),
-                    dueno,
-                    especie,
-                    raza);
-            try {
-                Paciente.agregar(paciente);
+        if (dueno != null) {
 
-                modeloListaPacientes.addAll(Paciente.consultarPacientesPorDueño(dueno));
-                JOptionPane.showMessageDialog(null, "El paciente fue agreado", "¡Paciente agregado!", JOptionPane.INFORMATION_MESSAGE);
-            } catch (SQLException ex) {
-                Logger.getLogger(JInternalProcesoCita.class.getName()).log(Level.SEVERE, null, ex);
+            String nombrePaciente = jTxtNombrePaciente.getText().trim();
+            if (nombrePaciente.isBlank()) {
+                JOptionPane.showMessageDialog(null, "Debes ingresar el nombre del paciente", "Espacio en blanco", JOptionPane.ERROR_MESSAGE);
+            } else {
+                Especie especie = (Especie) jCmbEspecie.getSelectedItem();
+                Raza raza = (Raza) jCmbRaza.getSelectedItem();
+                raza.setEspecieAQuePertenece(especie);
+                paciente = new Paciente(nombrePaciente,
+                        (Sexo) jCmbSexo.getSelectedItem(),
+                        (int) jSprEdad.getValue(),
+                        dueno,
+                        especie,
+                        raza);
+                try {
+                    Paciente.agregar(paciente);
+                    modeloListaPacientes.clear();
+                    modeloListaPacientes.addAll(Paciente.consultarPacientesPorDueño(dueno));
+                    JOptionPane.showMessageDialog(null, "El paciente fue agreado", "¡Paciente agregado!", JOptionPane.INFORMATION_MESSAGE);
+                } catch (SQLException ex) {
+                    Logger.getLogger(JInternalProcesoCita.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Primero debes crear o elegir un dueño", "¡Dueño no definido!", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jBtnAnadirNuevoPacienteActionPerformed
 
@@ -623,6 +648,45 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
             jCmbRaza.setModel(new DefaultComboBoxModel(arrayRazasGatos.toArray()));
         }
     }//GEN-LAST:event_jCmbEspecieActionPerformed
+
+    private void jBtnElegirPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnElegirPacienteActionPerformed
+        // TODO add your handling code here:
+        if (jListPaciente.getSelectedIndex() != -1) {
+            paciente = jListPaciente.getSelectedValue();
+            jTxtNombrePaciente.setText(paciente.getNombre());
+            jSprEdad.setValue(paciente.getEdad());
+            jCmbSexo.setSelectedItem(paciente.getSexo());
+            if (paciente.getEspecie().getId_especie() == 1) {
+                jCmbEspecie.setSelectedIndex(0);
+                for (Raza raza : arrayRazasPerros) {
+                    if (paciente.getRaza().getId_raza() == raza.getId_raza()) {
+                        jCmbRaza.setSelectedItem(raza);
+                        break;
+                    }
+                }
+            } else {
+                jCmbEspecie.setSelectedIndex(1);
+                for (Raza raza : arrayRazasGatos) {
+                    if (paciente.getRaza().getId_raza() == raza.getId_raza()) {
+                        jCmbRaza.setSelectedItem(raza);
+                        break;
+                    }
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Debes elegir un paciente de la lista", "Paciente no elegido", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jBtnElegirPacienteActionPerformed
+
+    private void jBtnLimpiarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnLimpiarPacienteActionPerformed
+        // TODO add your handling code here:
+        jTxtNombrePaciente.setText("");
+        jSprEdad.setValue(0);
+        jCmbSexo.setSelectedIndex(0);
+        jCmbEspecie.setSelectedIndex(0);
+        jCmbRaza.setSelectedIndex(0);
+        modeloListaPacientes.clear();
+    }//GEN-LAST:event_jBtnLimpiarPacienteActionPerformed
 
     private void accionesDefinirDueño() {
         jLblDuenoElegido.setText("Dueño: " + dueno.getNombre());
@@ -642,6 +706,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtnElegirDueno;
     private javax.swing.JButton jBtnElegirPaciente;
     private javax.swing.JButton jBtnLimpiarDueno;
+    private javax.swing.JButton jBtnLimpiarPaciente;
     private javax.swing.JComboBox<Especie> jCmbEspecie;
     private javax.swing.JComboBox<Raza> jCmbRaza;
     private javax.swing.JComboBox<Sexo> jCmbSexo;
