@@ -13,7 +13,7 @@ public class MotivosDAO {
 
     public void agregarMotivo(Motivo motivo) throws Exception {
         try {
-            String sql = "INSERT INTO Motivo (descripcion, precio, aplica_examen, id_vacuna) VALUES( ?, ?, ?, ?)";
+            String sql = "INSERT INTO Motivo (descripcion, precio, aplica_examen, tiene_vacuna) VALUES( ?, ?, ?, ?)";
 
             try (Connection conexion = conectarBaseDatos(); PreparedStatement pstm = conexion.prepareStatement(sql)) {
 
@@ -22,16 +22,19 @@ public class MotivosDAO {
                 boolean aplica_examen = motivo.isAplicaExamen();
 
                 pstm.setString(1, descripcion);
-                pstm.setDouble(2, precio);
+                if (precio == 0) {
+                    pstm.setNull(2, java.sql.Types.INTEGER);
+                } else {
+                    pstm.setDouble(2, precio);
+                }
                 pstm.setBoolean(3, aplica_examen);
-                
-                if (motivo instanceof Vacunacion) {
-                    pstm.setInt(4, ((Vacunacion)motivo).getVacuna().getId_vacuna());
-                }
-                else{
-                    pstm.setNull(4, java.sql.Types.INTEGER);
-                }
 
+                if (motivo instanceof Vacunacion) {
+                    pstm.setBoolean(4, true);
+                }else{
+                    pstm.setBoolean(4, false);
+                }
+                
                 pstm.executeUpdate();
             }
         } catch (SQLException e) {
@@ -42,10 +45,7 @@ public class MotivosDAO {
     public List<Motivo> consultarMotivos() throws Exception {
         List<Motivo> arrayMotivos = new ArrayList<>();
         try {
-            String sql = "SELECT m.id_motivo, m.descripcion, m.precio AS precio_motivo, m.aplica_examen"
-                    + ", v.id_vacuna, v.nombre, v.id_especie, v.precio AS precio_vacuna "
-                    + "FROM Motivo m "
-                    + "LEFT JOIN Vacuna v ON m.id_vacuna = v.id_vacuna";
+            String sql = "SELECT * from Motivo";
 
             try (PreparedStatement pstm = conectarBaseDatos().prepareStatement(sql); ResultSet rs = pstm.executeQuery()) {
 
@@ -54,23 +54,19 @@ public class MotivosDAO {
                     String descripcion = rs.getString("descripcion");
 
                     boolean aplica_examen = rs.getBoolean("aplica_examen");
-                    int id_vacuna = rs.getInt("id_vacuna");
+                    boolean tiene_vacuna = rs.getBoolean("tiene_vacuna");
+
                     Motivo motivo;
 
-                    if (rs.wasNull()) {
-                        double precio = rs.getDouble("precio_motivo");
-                        motivo = new Motivo(id_motivo, descripcion, precio, aplica_examen);
-
+                    if (tiene_vacuna) {
+                        motivo = new Vacunacion(id_motivo, descripcion, null);
                     } else {
-                        String nombreVacuna = rs.getString("nombre");
-                        double precioVacuna = rs.getDouble("precio_vacuna");
-                        int id_especie = rs.getInt("id_especie");
-                        
-                        Especie especie =(id_especie == 1) ? new Perro() : new Gato();
-
-                        Vacuna vacuna = new Vacuna(nombreVacuna, precioVacuna, id_vacuna, especie);
-
-                        motivo = new Vacunacion(id_motivo, descripcion, vacuna);
+                        double precio = rs.getDouble("precio");
+                        if (rs.wasNull()) {
+                            motivo = new Motivo(descripcion, aplica_examen);
+                        } else {
+                            motivo = new Motivo(descripcion, precio, aplica_examen);
+                        }
                     }
                     arrayMotivos.add(motivo);
                 }
@@ -96,9 +92,9 @@ public class MotivosDAO {
         }
     }
 
-    public boolean mofificarMotivo(Motivo motivo) throws Exception {
+    public void mofificarMotivo(Motivo motivo) throws Exception {
         try {
-            String sql = "UPDATE Motivo SET descripcion = ?, precio = ?, aplica_examen = ?, id_vacuna = ?  WHERE id_motivo = ?";
+            String sql = "UPDATE Motivo SET descripcion = ?, precio = ?, aplica_examen = ?, tiene_vacuna = ?  WHERE id_motivo = ?";
             try (Connection conexion = conectarBaseDatos(); PreparedStatement pstm = conexion.prepareStatement(sql)) {
 
                 int id_motivo = motivo.getId_motivo();
@@ -106,19 +102,19 @@ public class MotivosDAO {
                 pstm.setString(1, motivo.getDescripcion());
                 pstm.setDouble(2, motivo.getPrecio());
                 pstm.setBoolean(3, motivo.isAplicaExamen());
-                pstm.setInt(5, id_motivo);
-                
+
                 if (motivo instanceof Vacunacion) {
-                    pstm.setInt(4, ((Vacunacion)motivo).getVacuna().getId_vacuna());
-                }else{
-                    pstm.setNull(4, java.sql.Types.INTEGER);
+                    pstm.setBoolean(4, true);
+                } else {
+                    pstm.setBoolean(4, false);
                 }
 
+                pstm.setInt(5, id_motivo);
+
                 pstm.executeUpdate();
-                return true;
             }
         } catch (SQLException e) {
-            return false;
+            throw e;
         }
     }
 }

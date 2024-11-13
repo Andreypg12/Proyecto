@@ -4,12 +4,12 @@ public class Vacunacion extends Motivo{
     private Vacuna vacuna;
 
     public Vacunacion(int id_motivo, String descripcion, Vacuna vacuna) {
-        super(id_motivo, descripcion, vacuna.getPrecio(), false);
+        super(id_motivo, descripcion, 0, false);
         this.vacuna = vacuna;
     }
     
     public Vacunacion(String descripcion, Vacuna vacuna) {
-        super(descripcion, vacuna.getPrecio(), false);
+        super(descripcion,  false);
         this.vacuna = vacuna;
     }
 

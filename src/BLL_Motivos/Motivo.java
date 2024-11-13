@@ -21,6 +21,12 @@ public class Motivo {
         this.precio = precio;
         this.aplicaExamen = aplicaExamen;
     }
+    public Motivo(String descripcion, boolean aplicaExamen) {
+        this.id_motivo = 0;
+        this.descripcion = descripcion;
+        this.precio = 0;
+        this.aplicaExamen = aplicaExamen;
+    }
 
     @Override
     public String toString() {
@@ -78,7 +84,7 @@ public class Motivo {
         new MotivosDAO().eliminarMotivo(motivo);
     }
     
-    public static boolean modificarMotivo(Motivo motivo) throws Exception{
-        return new MotivosDAO().mofificarMotivo(motivo);
+    public static void modificarMotivo(Motivo motivo) throws Exception{
+        new MotivosDAO().mofificarMotivo(motivo);
     }
 }

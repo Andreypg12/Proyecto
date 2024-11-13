@@ -33,6 +33,7 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
         this.setModal(true);
         this.setLocationRelativeTo(null);
         this.tipoMantenimiento = tipoMantenimiento;
+        jCmbTipoMotivo.setModel(new DefaultComboBoxModel<>(TiposMotivos.values()));
         llenarComboBox();
 
         switch (tipoMantenimiento) {
@@ -105,7 +106,7 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
         jCmbTipoMotivo = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         jTxtDescripcion = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        jLblPrecio = new javax.swing.JLabel();
         jTxtPrecio = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jRBSiAplicaExamen = new javax.swing.JRadioButton();
@@ -126,7 +127,6 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Tipo de motivo");
 
-        jCmbTipoMotivo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Normal", "Vacunación" }));
         jCmbTipoMotivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCmbTipoMotivoActionPerformed(evt);
@@ -143,8 +143,8 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
             }
         });
 
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Precio");
+        jLblPrecio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLblPrecio.setText("Precio");
 
         jTxtPrecio.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTxtPrecio.addActionListener(new java.awt.event.ActionListener() {
@@ -251,7 +251,7 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
                                 .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jTxtPrecio, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jTxtDescripcion, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLblPrecio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jCmbTipoMotivo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -268,7 +268,7 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
                 .addGap(12, 12, 12)
                 .addComponent(jTxtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel3)
+                .addComponent(jLblPrecio)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTxtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -297,25 +297,44 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
 
     private void jCmbTipoMotivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCmbTipoMotivoActionPerformed
         // TODO add your handling code here:
-        if (jCmbTipoMotivo.getSelectedItem().equals("Normal")) {
-            jLblVacuna.setVisible(false);
-            jCmbVacunas.setVisible(false);
-            jTxtPrecio.setEditable(true);
-            jRBSiAplicaExamen.setEnabled(true);
-            jRBSiAplicaExamen.setSelected(true);
-            jRBNoAplicaExamen.setEnabled(true);
-            jPanelMantenimientoVacunas.setVisible(false);
-            jLblMantenimiento.setVisible(false);
-        } else if (jCmbTipoMotivo.getSelectedItem().equals("Vacunación")) {
-            jLblVacuna.setVisible(true);
-            jCmbVacunas.setVisible(true);
-            jTxtPrecio.setText(String.valueOf(((Vacuna) jCmbVacunas.getSelectedItem()).getPrecio()));
-            jTxtPrecio.setEditable(false);
-            jRBNoAplicaExamen.setSelected(true);
-            jRBSiAplicaExamen.setEnabled(false);
-            jRBNoAplicaExamen.setEnabled(false);
-            jPanelMantenimientoVacunas.setVisible(true);
-            jLblMantenimiento.setVisible(true);
+        switch ((TiposMotivos) jCmbTipoMotivo.getSelectedItem()) {
+            case PRECIO_PREESTABLECIDO -> {
+                jLblVacuna.setVisible(false);
+                jCmbVacunas.setVisible(false);
+                jTxtPrecio.setEditable(true);
+                jRBSiAplicaExamen.setEnabled(true);
+                jRBSiAplicaExamen.setSelected(true);
+                jRBNoAplicaExamen.setEnabled(true);
+                jPanelMantenimientoVacunas.setVisible(false);
+                jLblMantenimiento.setVisible(false);
+                jLblPrecio.setVisible(true);
+                jTxtPrecio.setVisible(true);
+            }
+            case PRECIO_NO_PREESTABLECIDO -> {
+                jLblVacuna.setVisible(false);
+                jCmbVacunas.setVisible(false);
+                jTxtPrecio.setEditable(true);
+                jRBSiAplicaExamen.setEnabled(true);
+                jRBSiAplicaExamen.setSelected(true);
+                jRBNoAplicaExamen.setEnabled(true);
+                jPanelMantenimientoVacunas.setVisible(false);
+                jLblMantenimiento.setVisible(false);
+                jLblPrecio.setVisible(false);
+                jTxtPrecio.setVisible(false);
+            }
+            case CON_VACUNA -> {
+                jLblVacuna.setVisible(true);
+                jCmbVacunas.setVisible(true);
+                jTxtPrecio.setText(String.valueOf(((Vacuna) jCmbVacunas.getSelectedItem()).getPrecio()));
+                jTxtPrecio.setEditable(false);
+                jRBNoAplicaExamen.setSelected(true);
+                jRBSiAplicaExamen.setEnabled(false);
+                jRBNoAplicaExamen.setEnabled(false);
+                jPanelMantenimientoVacunas.setVisible(true);
+                jLblMantenimiento.setVisible(true);
+                jLblPrecio.setVisible(true);
+                jTxtPrecio.setVisible(true);
+            }
         }
     }//GEN-LAST:event_jCmbTipoMotivoActionPerformed
 
@@ -333,18 +352,22 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
 
                 try {
                     String descripcion = jTxtDescripcion.getText();
-                    double precio;
 
-                    precio = Double.parseDouble(jTxtPrecio.getText());
                     boolean aplicaExamen = aplicaExamen();
-                    Motivo motivo;
+                    Motivo motivo = null;
 
-                    if (jCmbTipoMotivo.getSelectedItem().equals("Normal")) {
-                        motivo = new Motivo(descripcion, precio, aplicaExamen);
-                    } else {
-                        motivo = new Vacunacion(descripcion, (Vacuna) jCmbVacunas.getSelectedItem());
+                    switch ((TiposMotivos) jCmbTipoMotivo.getSelectedItem()) {
+                        case PRECIO_PREESTABLECIDO -> {
+                            motivo = new Motivo(descripcion, Double.parseDouble(jTxtPrecio.getText()), aplicaExamen);
+                        }
+                        case PRECIO_NO_PREESTABLECIDO -> {
+                            motivo = new Motivo(descripcion, aplicaExamen);
+                        }
+                        case CON_VACUNA -> {
+                            motivo = new Vacunacion(descripcion, null);
+                        }
                     }
-                    
+
                     Motivo.agregarMotivo(motivo);
                     JOptionPane.showMessageDialog(null, "El motivo fue agregado", "Motivo agregado", JOptionPane.INFORMATION_MESSAGE);
                     this.dispose();
@@ -353,26 +376,24 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
                 } catch (Exception ex) {
                     Logger.getLogger(JDialogMantenimientoMotivo.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
             }
             case MODIFICAR -> {
                 try {
                     motivo.setDescripcion(jTxtDescripcion.getText());
                     motivo.setPrecio(Double.parseDouble(jTxtPrecio.getText()));
                     if (motivo instanceof Vacunacion) {
-                        ((Vacunacion)motivo).setVacuna((Vacuna)jCmbVacunas.getSelectedItem());
+                        ((Vacunacion) motivo).setVacuna((Vacuna) jCmbVacunas.getSelectedItem());
                     }
                     motivo.setAplicaExamen(aplicaExamen());
 
-                    if (Motivo.modificarMotivo(motivo)) {
-                        JOptionPane.showMessageDialog(null, "El motivo fue modificado", "Motivo modificado", JOptionPane.INFORMATION_MESSAGE);
-                        this.dispose();
-                    }
+                    Motivo.modificarMotivo(motivo);
+                    JOptionPane.showMessageDialog(null, "El motivo fue modificado", "Motivo modificado", JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
+
                 } catch (Exception ex) {
                     Logger.getLogger(JDialogMantenimientoMotivo.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-
         }
     }//GEN-LAST:event_jBtnAceptarActionPerformed
 
@@ -446,13 +467,13 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
     private javax.swing.JButton jBtnConsultar;
     private javax.swing.JButton jBtnModificar;
     private javax.swing.JButton jBtnSalir;
-    private javax.swing.JComboBox<String> jCmbTipoMotivo;
+    private javax.swing.JComboBox<TiposMotivos> jCmbTipoMotivo;
     private javax.swing.JComboBox<Vacuna> jCmbVacunas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLblMantenimiento;
+    private javax.swing.JLabel jLblPrecio;
     private javax.swing.JLabel jLblVacuna;
     private javax.swing.JPanel jPanelMantenimientoVacunas;
     private javax.swing.JRadioButton jRBNoAplicaExamen;
