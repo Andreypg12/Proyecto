@@ -19,5 +19,6 @@ public class Vacunacion extends Motivo{
 
     public void setVacuna(Vacuna vacuna) {
         this.vacuna = vacuna;
+        precio = vacuna.getPrecio();
     }
 }

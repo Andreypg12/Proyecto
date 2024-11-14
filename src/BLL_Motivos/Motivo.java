@@ -7,7 +7,7 @@ public class Motivo {
     private final int id_motivo;
     private boolean aplicaExamen;
     private String descripcion;
-    private double precio;
+    protected double precio;
 
     public Motivo(int id_motivo, String descripcion, double precio, boolean aplicaExamen) {
         this.id_motivo = id_motivo;
@@ -23,6 +23,12 @@ public class Motivo {
     }
     public Motivo(String descripcion, boolean aplicaExamen) {
         this.id_motivo = 0;
+        this.descripcion = descripcion;
+        this.precio = 0;
+        this.aplicaExamen = aplicaExamen;
+    }
+    public Motivo(int id_motivo, String descripcion, boolean aplicaExamen) {
+        this.id_motivo = id_motivo;
         this.descripcion = descripcion;
         this.precio = 0;
         this.aplicaExamen = aplicaExamen;

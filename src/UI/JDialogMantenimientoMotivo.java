@@ -78,16 +78,13 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
             jTxtPrecio.setText(String.valueOf(motivo.getPrecio()));
             
             if (motivo instanceof Vacunacion) {
-                jCmbTipoMotivo.setSelectedIndex(1);
+                jCmbTipoMotivo.setSelectedIndex(2);
 
-                for (int i = 0; i < jCmbVacunas.getItemCount(); i++) {
-                    if (((Vacunacion) motivo).getVacuna().getId_vacuna() == jCmbVacunas.getItemAt(i).getId_vacuna()) {
-                        jCmbVacunas.setSelectedItem(jCmbVacunas.getItemAt(i));
-                        break;
-                    }
-                }
-            } else {
+            } else if(motivo.getPrecio() > 0){
                 jCmbTipoMotivo.setSelectedIndex(0);
+            }
+            else {
+                jCmbTipoMotivo.setSelectedIndex(1);
             }
         }
     }
@@ -381,9 +378,6 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
                 try {
                     motivo.setDescripcion(jTxtDescripcion.getText());
                     motivo.setPrecio(Double.parseDouble(jTxtPrecio.getText()));
-                    if (motivo instanceof Vacunacion) {
-                        ((Vacunacion) motivo).setVacuna((Vacuna) jCmbVacunas.getSelectedItem());
-                    }
                     motivo.setAplicaExamen(aplicaExamen());
 
                     Motivo.modificarMotivo(motivo);

@@ -63,9 +63,9 @@ public class MotivosDAO {
                     } else {
                         double precio = rs.getDouble("precio");
                         if (rs.wasNull()) {
-                            motivo = new Motivo(descripcion, aplica_examen);
+                            motivo = new Motivo(id_motivo, descripcion, aplica_examen);
                         } else {
-                            motivo = new Motivo(descripcion, precio, aplica_examen);
+                            motivo = new Motivo(id_motivo, descripcion, precio, aplica_examen);
                         }
                     }
                     arrayMotivos.add(motivo);
@@ -95,7 +95,7 @@ public class MotivosDAO {
     public void mofificarMotivo(Motivo motivo) throws Exception {
         try {
             String sql = "UPDATE Motivo SET descripcion = ?, precio = ?, aplica_examen = ?, tiene_vacuna = ?  WHERE id_motivo = ?";
-            try (Connection conexion = conectarBaseDatos(); PreparedStatement pstm = conexion.prepareStatement(sql)) {
+            try (PreparedStatement pstm = conectarBaseDatos().prepareStatement(sql)) {
 
                 int id_motivo = motivo.getId_motivo();
 
