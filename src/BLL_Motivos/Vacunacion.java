@@ -8,6 +8,8 @@ public class Vacunacion extends Motivo{
         this.vacuna = vacuna;
     }
     
+    
+    
     public Vacunacion(String descripcion, Vacuna vacuna) {
         super(descripcion,  false);
         this.vacuna = vacuna;
@@ -20,5 +22,9 @@ public class Vacunacion extends Motivo{
     public void setVacuna(Vacuna vacuna) {
         this.vacuna = vacuna;
         precio = vacuna.getPrecio();
+    }
+    
+    public Vacunacion clonar(){
+        return new Vacunacion(this.getId_motivo(), this.getDescripcion(), null);
     }
 }

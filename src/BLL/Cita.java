@@ -123,4 +123,102 @@ public class Cita {
         sb.append("\nTemperatura: ").append(temperatura);
         return sb.toString();
     }
+
+    public List<Actitud> getArrayActitud() {
+        return arrayActitud;
+    }
+
+    public void setArrayActitud(List<Actitud> arrayActitud) {
+        this.arrayActitud = arrayActitud;
+    }
+
+    public List<Condicion> getArrayCondicion() {
+        return arrayCondicion;
+    }
+
+    public void setArrayCondicion(List<Condicion> arrayCondicion) {
+        this.arrayCondicion = arrayCondicion;
+    }
+
+    public List<Evaluacion> getArrayEvaluacion() {
+        return arrayEvaluacion;
+    }
+
+    public void setArrayEvaluacion(List<Evaluacion> arrayEvaluacion) {
+        this.arrayEvaluacion = arrayEvaluacion;
+    }
+
+    public List<Motivo> getArrayMotivo() {
+        return arrayMotivo;
+    }
+
+    public void setArrayMotivo(List<Motivo> arrayMotivo) {
+        this.arrayMotivo = arrayMotivo;
+    }
+
+    public List<PruebaLaboratorio> getArrayPruebaLaboratorio() {
+        return arrayPruebaLaboratorio;
+    }
+
+    public void setArrayPruebaLaboratorio(List<PruebaLaboratorio> arrayPruebaLaboratorio) {
+        this.arrayPruebaLaboratorio = arrayPruebaLaboratorio;
+    }
+
+    public String getDiagnostico() {
+        return diagnostico;
+    }
+
+    public void setDiagnostico(String diagnostico) {
+        this.diagnostico = diagnostico;
+    }
+
+    public String getIndicaciones() {
+        return indicaciones;
+    }
+
+    public void setIndicaciones(String indicaciones) {
+        this.indicaciones = indicaciones;
+    }
+
+    public Date getFechaCita() {
+        return fechaCita;
+    }
+
+    public void setFechaCita(Date fechaCita) {
+        this.fechaCita = fechaCita;
+    }
+
+    public int getFrecuenciaCardiaca() {
+        return frecuenciaCardiaca;
+    }
+
+    public void setFrecuenciaCardiaca(int frecuenciaCardiaca) {
+        this.frecuenciaCardiaca = frecuenciaCardiaca;
+    }
+
+    public int getFrecuenciaRespiratoria() {
+        return frecuenciaRespiratoria;
+    }
+
+    public void setFrecuenciaRespiratoria(int frecuenciaRespiratoria) {
+        this.frecuenciaRespiratoria = frecuenciaRespiratoria;
+    }
+
+    public int getPulso() {
+        return pulso;
+    }
+
+    public void setPulso(int pulso) {
+        this.pulso = pulso;
+    }
+
+    public int getTemperatura() {
+        return temperatura;
+    }
+
+    public void setTemperatura(int temperatura) {
+        this.temperatura = temperatura;
+    }
+    
+    
 }

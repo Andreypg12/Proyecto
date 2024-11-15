@@ -33,6 +33,10 @@ public class Motivo {
         this.precio = 0;
         this.aplicaExamen = aplicaExamen;
     }
+    
+    public Motivo clonar(){
+            return new Motivo(this.getId_motivo(), this.getDescripcion(), this.getPrecio(), this.isAplicaExamen());
+    }
 
     @Override
     public String toString() {

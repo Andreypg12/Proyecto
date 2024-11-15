@@ -12,6 +12,7 @@ import BLL_PruebaLaboratorio.SubCategoriaPrueba;
 import BLL_PruebaLaboratorio.PruebaLaboratorio;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,12 +32,13 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
     DefaultListModel<SubCategoriaPrueba> modeloListaSubCategoriasPruebaLaboratorio = new DefaultListModel<>();
     
     DefaultTableModel modeloTablaMotivos;
+    DefaultTableModel modeloTablaSubCategorias;
     List<Raza> arrayRazasPerros;
     List<Raza> arrayRazasGatos;
     List<Dueño> arrayDueños;
-    List<Motivo> arrayMotivos;
+    List<Motivo> arrayMotivosElegidos;
     List<SubCategoriaPrueba> arrayTodasLasSubCategorias;
-    List<SubCategoriaPrueba> arraySubCategorias;
+    List<SubCategoriaPrueba> arraySubCategoriasElegidas;
     Dueño dueno;
     Paciente paciente;
     
@@ -70,9 +72,10 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         llenarListaMotivos();
         llenarComboBoxPruebasLaboratorio();
         llenarListaSubCategorias();
-        arrayMotivos = new ArrayList<>();
-        arraySubCategorias = new ArrayList<>();
+        arrayMotivosElegidos = new ArrayList<>();
+        arraySubCategoriasElegidas = new ArrayList<>();
         modeloTablaMotivos = (DefaultTableModel)jTableMotivosElegidos.getModel();
+        modeloTablaSubCategorias = (DefaultTableModel)jTablePruebasElegidas.getModel();
         
         jCmbVacunas.setVisible(false);
         jLblVacunas.setVisible(false);
@@ -130,7 +133,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         jLblDuenoElegido = new javax.swing.JLabel();
         jPanelCita = new PanelConFondo("/Imagenes/FondoCitas.png");
         jPanel3 = new javax.swing.JPanel();
-        jSpinner1 = new javax.swing.JSpinner();
+        jSprFechaCita = new javax.swing.JSpinner();
         jLabel3 = new javax.swing.JLabel();
         jPanelMotivo = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -146,7 +149,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         jListSubCategorias = new javax.swing.JList<>();
         jLabel6 = new javax.swing.JLabel();
         jCmbPruebasLaboratorio = new javax.swing.JComboBox<>();
-        jButton2 = new javax.swing.JButton();
+        jBtnAgregarPrueba = new javax.swing.JButton();
         jPanelMotivosElegidos = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTableMotivosElegidos = new javax.swing.JTable();
@@ -157,6 +160,31 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         jBtnEliminarPrueba = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jPanelDatosPaciente2 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jLblNombrePacienteDatos = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jRdbExitado = new javax.swing.JRadioButton();
+        jRdbDeprimido = new javax.swing.JRadioButton();
+        jRdbPostrado = new javax.swing.JRadioButton();
+        jRdbPesoNormal = new javax.swing.JRadioButton();
+        jRdbBajoPeso = new javax.swing.JRadioButton();
+        jRdbSobrePeso = new javax.swing.JRadioButton();
+        jLabel11 = new javax.swing.JLabel();
+        jSprFrecuenciaCardiaca = new javax.swing.JSpinner();
+        jLabel12 = new javax.swing.JLabel();
+        jSprFrecuenciaRespiratoria = new javax.swing.JSpinner();
+        jLabel13 = new javax.swing.JLabel();
+        jSprPulso = new javax.swing.JSpinner();
+        jSprTemperatura = new javax.swing.JSpinner();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jTxtDiagnostico = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        jTxtIndicaciones = new javax.swing.JTextField();
+        jBtncrearCita = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Proceso de citas");
@@ -462,7 +490,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         jPanelPacienteLayout.setHorizontalGroup(
             jPanelPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelPacienteLayout.createSequentialGroup()
-                .addContainerGap(252, Short.MAX_VALUE)
+                .addContainerGap(250, Short.MAX_VALUE)
                 .addComponent(jPanelDueno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanelPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -487,7 +515,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Datos de la cita"));
         jPanel3.setOpaque(false);
 
-        jSpinner1.setModel(new javax.swing.SpinnerDateModel());
+        jSprFechaCita.setModel(new javax.swing.SpinnerDateModel());
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setText("Fecha");
@@ -577,10 +605,10 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton2.setText("Agregar prueba");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jBtnAgregarPrueba.setText("Agregar prueba");
+        jBtnAgregarPrueba.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jBtnAgregarPruebaActionPerformed(evt);
             }
         });
 
@@ -591,16 +619,13 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
             .addGroup(jPanelPruebaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelPruebaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelPruebaLayout.createSequentialGroup()
-                        .addGroup(jPanelPruebaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane4))
-                        .addContainerGap())
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelPruebaLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton2)
-                        .addContainerGap())))
+                        .addComponent(jBtnAgregarPrueba)))
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelPruebaLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jCmbPruebasLaboratorio, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -618,7 +643,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(jBtnAgregarPrueba)
                 .addGap(106, 106, 106))
         );
 
@@ -689,14 +714,14 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Tipo prueba", "Precio"
+                "Prueba", "Tipo prueba", "Precio"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Double.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false
+                true, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -711,6 +736,11 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         jScrollPane6.setViewportView(jTablePruebasElegidas);
 
         jBtnEliminarPrueba.setText("Eliminar");
+        jBtnEliminarPrueba.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnEliminarPruebaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -745,7 +775,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
-                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jSprFechaCita, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanelPrueba, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanelMotivo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
@@ -760,7 +790,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSprFechaCita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanelMotivosElegidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -768,7 +798,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanelPrueba, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jPanelPrueba, javax.swing.GroupLayout.PREFERRED_SIZE, 328, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -786,30 +816,207 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
             }
         });
 
+        jPanelDatosPaciente2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Datos del paciente"));
+        jPanelDatosPaciente2.setOpaque(false);
+
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Nombre");
+
+        jLblNombrePacienteDatos.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLblNombrePacienteDatos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLblNombrePacienteDatos.setText(" ");
+
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setText("Actitud");
+
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("Estado");
+
+        jRdbExitado.setText("Exitado");
+
+        jRdbDeprimido.setText("Deprimido");
+
+        jRdbPostrado.setText("Postrado");
+
+        jRdbPesoNormal.setText("Peso normal");
+
+        jRdbBajoPeso.setText("Bajo peso");
+
+        jRdbSobrePeso.setText("Sobre peso");
+
+        jLabel11.setText("Frecuencia cardiaca");
+
+        jSprFrecuenciaCardiaca.setModel(new javax.swing.SpinnerNumberModel(100, 0, null, 1));
+
+        jLabel12.setText("Frecuencia respiratoria");
+
+        jSprFrecuenciaRespiratoria.setModel(new javax.swing.SpinnerNumberModel(10, 0, null, 1));
+
+        jLabel13.setText("Pulso");
+
+        jSprPulso.setModel(new javax.swing.SpinnerNumberModel(100, 0, null, 1));
+
+        jSprTemperatura.setModel(new javax.swing.SpinnerNumberModel(35, 0, null, 1));
+
+        jLabel14.setText("Temperatura");
+
+        jLabel15.setText("C°");
+
+        jLabel16.setText("Diagnostico");
+
+        jLabel17.setText("Indicaciones");
+
+        jBtncrearCita.setText("Crear cita");
+        jBtncrearCita.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtncrearCitaActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelDatosPaciente2Layout = new javax.swing.GroupLayout(jPanelDatosPaciente2);
+        jPanelDatosPaciente2.setLayout(jPanelDatosPaciente2Layout);
+        jPanelDatosPaciente2Layout.setHorizontalGroup(
+            jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelDatosPaciente2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLblNombrePacienteDatos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanelDatosPaciente2Layout.createSequentialGroup()
+                        .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanelDatosPaciente2Layout.createSequentialGroup()
+                                .addGap(68, 68, 68)
+                                .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jRdbExitado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jRdbPostrado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jRdbDeprimido, javax.swing.GroupLayout.Alignment.LEADING))))
+                        .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelDatosPaciente2Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDatosPaciente2Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                                .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jRdbBajoPeso, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jRdbPesoNormal, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jRdbSobrePeso, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(59, 59, 59))))
+                    .addGroup(jPanelDatosPaciente2Layout.createSequentialGroup()
+                        .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel14))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jSprFrecuenciaCardiaca, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                            .addComponent(jSprFrecuenciaRespiratoria)
+                            .addComponent(jSprPulso)
+                            .addComponent(jSprTemperatura))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel15)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanelDatosPaciente2Layout.createSequentialGroup()
+                        .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel17)
+                            .addComponent(jLabel16))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTxtDiagnostico)
+                            .addComponent(jTxtIndicaciones)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDatosPaciente2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jBtncrearCita)))
+                .addContainerGap())
+        );
+        jPanelDatosPaciente2Layout.setVerticalGroup(
+            jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelDatosPaciente2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLblNombrePacienteDatos)
+                .addGap(18, 18, 18)
+                .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelDatosPaciente2Layout.createSequentialGroup()
+                        .addComponent(jRdbExitado)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRdbDeprimido)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRdbPostrado))
+                    .addGroup(jPanelDatosPaciente2Layout.createSequentialGroup()
+                        .addComponent(jRdbBajoPeso)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRdbSobrePeso)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRdbPesoNormal)))
+                .addGap(47, 47, 47)
+                .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSprFrecuenciaCardiaca))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jSprFrecuenciaRespiratoria)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jSprPulso)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jSprTemperatura)
+                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(13, 13, 13)
+                .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTxtDiagnostico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
+                .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTxtIndicaciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(90, 90, 90)
+                .addComponent(jBtncrearCita)
+                .addGap(102, 102, 102))
+        );
+
         javax.swing.GroupLayout jPanelCitaLayout = new javax.swing.GroupLayout(jPanelCita);
         jPanelCita.setLayout(jPanelCitaLayout);
         jPanelCitaLayout.setHorizontalGroup(
             jPanelCitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCitaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 349, Short.MAX_VALUE)
                 .addGroup(jPanelCitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(jPanelCitaLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanelDatosPaciente2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanelCitaLayout.createSequentialGroup()
+                        .addGap(62, 62, 62)
+                        .addComponent(jButton3)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanelCitaLayout.setVerticalGroup(
             jPanelCitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCitaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelCitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 622, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanelCitaLayout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton3)))
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addGroup(jPanelCitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanelDatosPaciente2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 622, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addGroup(jPanelCitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton3)
+                    .addComponent(jButton1))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         jTPlProcesoCita.addTab("Cita", jPanelCita);
@@ -981,6 +1188,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                     } else {
                         jListPaciente.setSelectedValue(paciente, true);
                         jBtnElegirPaciente.doClick();
+                        jLblNombrePacienteDatos.setText(paciente.getNombre());
                         return;
                     }
                 }
@@ -1003,6 +1211,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                     modeloListaPacientes.addAll(Paciente.consultarPacientesPorDueño(dueno));
                     cambiarEstadoEspaciosPaciente(false);
                     jBtnLimpiarPaciente.setText("Cambiar de paciente");
+                    jLblNombrePacienteDatos.setText(paciente.getNombre());
                     JOptionPane.showMessageDialog(null, "El paciente fue agreado", "¡Paciente agregado!", JOptionPane.INFORMATION_MESSAGE);
                 } catch (SQLException ex) {
                     Logger.getLogger(JInternalProcesoCita.class.getName()).log(Level.SEVERE, null, ex);
@@ -1049,6 +1258,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
 
             }
             cambiarEstadoEspaciosPaciente(false);
+            jLblNombrePacienteDatos.setText(paciente.getNombre());
             jBtnLimpiarPaciente.setText("Cambiar de paciente");
             JOptionPane.showMessageDialog(null, "El paciente fue elegido correctamente", "Paciente elegido", JOptionPane.INFORMATION_MESSAGE);
         } else {
@@ -1058,7 +1268,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
 
     private void cambiarEstadoEspaciosPaciente(boolean estado) {
         jTxtNombrePaciente.setEditable(estado);
-        jSpinner1.setEnabled(estado);
+        jSprFechaCita.setEnabled(estado);
         jCmbSexo.setEnabled(estado);
         jCmbEspecie.setEnabled(estado);
         jCmbRaza.setEnabled(estado);
@@ -1114,19 +1324,22 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if (jListMotivos.getSelectedIndex() != -1) {
             Motivo motivoSeleccionado = jListMotivos.getSelectedValue();
+            Motivo motivoAgregar = null;
             if (motivoSeleccionado instanceof Vacunacion) {
-                ((Vacunacion)motivoSeleccionado).setVacuna((Vacuna)jCmbVacunas.getSelectedItem());
+                motivoAgregar = ((Vacunacion)motivoSeleccionado).clonar();
+                ((Vacunacion)motivoAgregar).setVacuna((Vacuna)jCmbVacunas.getSelectedItem());
             }
             else if (motivoSeleccionado.getPrecio() == 0) {
                 try {
-                    motivoSeleccionado.setPrecio(Double.parseDouble(jTxtPrecioMotivo.getText()));
+                    motivoAgregar = motivoSeleccionado.clonar();
+                    motivoAgregar.setPrecio(Double.parseDouble(jTxtPrecioMotivo.getText()));
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(null, "Debes ingresar un numero en el precio", "Espacio inválido", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
             }
-            arrayMotivos.add(motivoSeleccionado);
-            Object[] fila = {motivoSeleccionado, motivoSeleccionado.getPrecio()};
+            arrayMotivosElegidos.add(motivoAgregar);
+            Object[] fila = {motivoAgregar, motivoAgregar.getPrecio()};
             modeloTablaMotivos.addRow(fila);
         }
     }//GEN-LAST:event_jBtnAgregarMotivoActionPerformed
@@ -1134,8 +1347,12 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         String hilera = "";
-        for (Motivo motivo : arrayMotivos) {
-            hilera += motivo.getDescripcion() + " ----- "+ motivo.getPrecio() + "\n";
+        for (Motivo motivo : arrayMotivosElegidos) {
+            if (motivo instanceof Vacunacion) {
+                hilera += motivo.getDescripcion() + " ----- " + motivo.getPrecio() + " --- " + ((Vacunacion)motivo).getVacuna() + "\n";
+            } else {
+                hilera += motivo.getDescripcion() + " ----- " + motivo.getPrecio() + "\n";
+            }
         }
         JOptionPane.showMessageDialog(null, hilera);
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -1145,27 +1362,30 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         llenarListaSubCategorias();
     }//GEN-LAST:event_jCmbPruebasLaboratorioActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jBtnAgregarPruebaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAgregarPruebaActionPerformed
         // TODO add your handling code here:
         if (jListSubCategorias.getSelectedIndex() != -1) {
-            for (SubCategoriaPrueba subCategoria : arraySubCategorias) {
+            for (SubCategoriaPrueba subCategoria : arraySubCategoriasElegidas) {
                 if (jListSubCategorias.getSelectedValue().equals(subCategoria)) {
                     JOptionPane.showMessageDialog(null, "El tipo de prueba ya fue escogido", "Prueba ya elegida", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
             }
-            arraySubCategorias.add(jListSubCategorias.getSelectedValue());
+            SubCategoriaPrueba subCategoria = jListSubCategorias.getSelectedValue();
+            arraySubCategoriasElegidas.add(subCategoria);
+            Object[] fila = {jCmbPruebasLaboratorio.getSelectedItem(), subCategoria, subCategoria.getPrecio()};
+            modeloTablaSubCategorias.addRow(fila);
             JOptionPane.showMessageDialog(null, "El tipo de prueba fue elegido", "¡Prueba agregada!", JOptionPane.INFORMATION_MESSAGE);
 
         } else {
             JOptionPane.showMessageDialog(null, "Debes seleccionar un tipo de prueba", "Prueba no elegida", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jBtnAgregarPruebaActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         String hilera = "";
-        for (SubCategoriaPrueba subCategoria : arraySubCategorias) {
+        for (SubCategoriaPrueba subCategoria : arraySubCategoriasElegidas) {
             hilera += subCategoria.getNombre()+ " ----- "+ subCategoria.getPrecio() + "\n";
         }
         JOptionPane.showMessageDialog(null, hilera);
@@ -1173,8 +1393,79 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
 
     private void jBtnEliminarMotivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEliminarMotivoActionPerformed
         // TODO add your handling code here:
+        int fila = jTableMotivosElegidos.getSelectedRow();
+        if (fila != -1) {
+            int opcion = JOptionPane.showConfirmDialog(null, "¿Deseas eliminar el motivo?", "Eliminar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (opcion == JOptionPane.YES_OPTION) {
+                if (arrayMotivosElegidos.remove(jTableMotivosElegidos.getValueAt(fila, 0))) {
+                    modeloTablaMotivos.removeRow(fila);
+                    JOptionPane.showMessageDialog(null, "El elemento fue eliminado de la lista de motivos", "¡Elemento eliminado¡", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else {
+            JOptionPane.showMessageDialog(null, "Debes seleccionar un motivo de la tabla", "Motivo no elegida", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jBtnEliminarMotivoActionPerformed
 
+    private void jBtnEliminarPruebaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEliminarPruebaActionPerformed
+        // TODO add your handling code here:
+        int fila = jTablePruebasElegidas.getSelectedRow();
+        if (fila != -1) {
+            int opcion = JOptionPane.showConfirmDialog(null, "¿Deseas eliminar el tipo de prueba?", "Eliminar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (opcion == JOptionPane.YES_OPTION) {
+                if (arraySubCategoriasElegidas.remove(jTablePruebasElegidas.getValueAt(fila, 1))) {
+                    modeloTablaSubCategorias.removeRow(fila);
+                    JOptionPane.showMessageDialog(null, "El elemento fue eliminado de la lista de pruebas", "¡Elemento eliminado¡", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else {
+            JOptionPane.showMessageDialog(null, "Debes seleccionar una prueba de la tabla", "Prueba no elegida", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jBtnEliminarPruebaActionPerformed
+
+    private void jBtncrearCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtncrearCitaActionPerformed
+        // TODO add your handling code here:
+        Date fechacita = (Date)jSprFechaCita.getValue();
+        Cita cita = new Cita(jTxtDiagnostico.getText(),
+                jTxtIndicaciones.getText(),
+                fechacita,
+                (int)jSprFrecuenciaCardiaca.getValue(),
+                (int)jSprFrecuenciaRespiratoria.getValue(),
+                (int)jSprPulso.getValue(),
+                (int)jSprTemperatura.getValue());
+       cita.setArrayActitud(crearArrayActitudes());
+       cita.setArrayCondicion(crearArrayCondiciones());
+    }//GEN-LAST:event_jBtncrearCitaActionPerformed
+
+    private List<Actitud> crearArrayActitudes(){
+        List<Actitud> arrayListActitud = new ArrayList<>();
+        if (jRdbExitado.isSelected()) {
+            arrayListActitud.add(Actitud.EXCITADO);
+        }
+        if (jRdbDeprimido.isSelected()) {
+            arrayListActitud.add(Actitud.DEPRIMIDO);
+        }
+        if (jRdbPostrado.isSelected()) {
+            arrayListActitud.add(Actitud.POSTRADO);
+        }
+        
+        return arrayListActitud;
+    }
+    
+    private List<Condicion> crearArrayCondiciones(){
+        List<Condicion> arrayListActitud = new ArrayList<>();
+        if (jRdbBajoPeso.isSelected()) {
+            arrayListActitud.add(Condicion.BAJO_DE_PESO);
+        }
+        if (jRdbSobrePeso.isSelected()) {
+            arrayListActitud.add(Condicion.SOBREPESO);
+        }
+        if (jRdbPesoNormal.isSelected()) {
+            arrayListActitud.add(Condicion.NORMAL);
+        }
+        
+        return arrayListActitud;
+    }
     private void llenarListaSubCategorias() {
         modeloListaSubCategoriasPruebaLaboratorio.clear();
         for (SubCategoriaPrueba subCategoria : arrayTodasLasSubCategorias) {
@@ -1216,6 +1507,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnAgregarMotivo;
+    private javax.swing.JButton jBtnAgregarPrueba;
     private javax.swing.JButton jBtnAnadirNuevoDueno;
     private javax.swing.JButton jBtnAnadirNuevoPaciente;
     private javax.swing.JButton jBtnElegirDueno;
@@ -1224,8 +1516,8 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtnEliminarPrueba;
     private javax.swing.JButton jBtnLimpiarDueno;
     private javax.swing.JButton jBtnLimpiarPaciente;
+    private javax.swing.JButton jBtncrearCita;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<Especie> jCmbEspecie;
     private javax.swing.JComboBox<PruebaLaboratorio> jCmbPruebasLaboratorio;
@@ -1235,11 +1527,21 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
     private javax.swing.JFormattedTextField jFTxtNumeroCedula;
     private javax.swing.JFormattedTextField jFTxtNumeroTelefono;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLblCedula;
     private javax.swing.JLabel jLblDireccion;
     private javax.swing.JLabel jLblDuenoElegido;
@@ -1250,6 +1552,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLblEspecie1;
     private javax.swing.JLabel jLblNombreDueno;
     private javax.swing.JLabel jLblNombrePaciente;
+    private javax.swing.JLabel jLblNombrePacienteDatos;
     private javax.swing.JLabel jLblNumeroTelefono;
     private javax.swing.JLabel jLblPacientes;
     private javax.swing.JLabel jLblSexoPaciente;
@@ -1262,23 +1565,36 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelCita;
     private javax.swing.JPanel jPanelDatosPaciente;
+    private javax.swing.JPanel jPanelDatosPaciente2;
     private javax.swing.JPanel jPanelDueno;
     private javax.swing.JPanel jPanelMotivo;
     private javax.swing.JPanel jPanelMotivosElegidos;
     private javax.swing.JPanel jPanelPaciente;
     private javax.swing.JPanel jPanelPrueba;
+    private javax.swing.JRadioButton jRdbBajoPeso;
+    private javax.swing.JRadioButton jRdbDeprimido;
+    private javax.swing.JRadioButton jRdbExitado;
+    private javax.swing.JRadioButton jRdbPesoNormal;
+    private javax.swing.JRadioButton jRdbPostrado;
+    private javax.swing.JRadioButton jRdbSobrePeso;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JSpinner jSprEdad;
+    private javax.swing.JSpinner jSprFechaCita;
+    private javax.swing.JSpinner jSprFrecuenciaCardiaca;
+    private javax.swing.JSpinner jSprFrecuenciaRespiratoria;
+    private javax.swing.JSpinner jSprPulso;
+    private javax.swing.JSpinner jSprTemperatura;
     private javax.swing.JTabbedPane jTPlProcesoCita;
     private javax.swing.JTable jTableMotivosElegidos;
     private javax.swing.JTable jTablePruebasElegidas;
+    private javax.swing.JTextField jTxtDiagnostico;
     private javax.swing.JTextField jTxtDireccionDueno;
+    private javax.swing.JTextField jTxtIndicaciones;
     private javax.swing.JTextField jTxtNombreDueno;
     private javax.swing.JTextField jTxtNombrePaciente;
     private javax.swing.JTextField jTxtPrecioMotivo;
