@@ -69,30 +69,28 @@ public class VacunasDAO {
         }
     }
     
-    public List<Vacuna> consultarVacunas() throws Exception{
+    public List<Vacuna> consultarVacunas() throws Exception {
         List<Vacuna> arrayVacunas = new ArrayList<>();
-        
+
         try {
             String sql = "SELECT * FROM Vacuna";
-            
-            try(PreparedStatement pstm = ConeccionDB.conectarBaseDatos().prepareStatement(sql);
-                    ResultSet rs = pstm.executeQuery()){
+
+            try (PreparedStatement pstm = ConeccionDB.conectarBaseDatos().prepareStatement(sql); ResultSet rs = pstm.executeQuery()) {
 
                 while (rs.next()) {
-                    
+
                     int id_vacuna = rs.getInt("id_vacuna");
                     int id_especie = rs.getInt("id_especie");
                     double precio = rs.getDouble("precio");
                     String tipo_vacuna = rs.getString("nombre");
                     Especie especie;
-                    
+
                     if (id_especie == 1) {
                         especie = new Perro();
-                    }
-                    else{
+                    } else {
                         especie = new Gato();
                     }
-                    
+
                     arrayVacunas.add(new Vacuna(tipo_vacuna, precio, id_vacuna, especie));
                 }
             }
