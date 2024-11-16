@@ -136,7 +136,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         jCmbRaza = new javax.swing.JComboBox<>();
         jBtnLimpiarPaciente = new javax.swing.JButton();
         jLblDuenoElegido = new javax.swing.JLabel();
-        jPanelCita = new PanelConFondo("/Imagenes/FondoCitas.png");
+        jPanelCita = new PanelConFondo("/Imagenes/FondoCreacionCita.png");
         jPanel3 = new javax.swing.JPanel();
         jSprFechaCita = new javax.swing.JSpinner();
         jLabel3 = new javax.swing.JLabel();
@@ -197,7 +197,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         jRadioButton2 = new javax.swing.JRadioButton();
         jLabel18 = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
-        jListTiposEvaluaciones1 = new javax.swing.JList<>();
+        jListTiposEvaluacionesHechas = new javax.swing.JList<>();
         jBtnAgregarEvaluación = new javax.swing.JButton();
         jBtnEliminarEvaluacion = new javax.swing.JButton();
         jBtncrearCita = new javax.swing.JButton();
@@ -765,7 +765,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jBtnEliminarPrueba)))
@@ -775,10 +775,10 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtnEliminarPrueba)
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -813,7 +813,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                     .addComponent(jPanelMotivo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, Short.MAX_VALUE)
                     .addComponent(jPanelPrueba, javax.swing.GroupLayout.PREFERRED_SIZE, 328, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -898,7 +898,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel18.setText("Evaluaciones hechas");
 
-        jScrollPane8.setViewportView(jListTiposEvaluaciones1);
+        jScrollPane8.setViewportView(jListTiposEvaluacionesHechas);
 
         jBtnAgregarEvaluación.setText("Agregar evaluación");
 
@@ -1084,19 +1084,17 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
             .addGroup(jPanelCitaLayout.createSequentialGroup()
                 .addGroup(jPanelCitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelCitaLayout.createSequentialGroup()
-                        .addGroup(jPanelCitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanelCitaLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanelCitaLayout.createSequentialGroup()
-                                .addGap(60, 60, 60)
-                                .addComponent(jButton3)
-                                .addGap(37, 37, 37)
-                                .addComponent(jButton1)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                        .addContainerGap()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelCitaLayout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(jButton3)
+                        .addGap(37, 37, 37)
+                        .addComponent(jButton1))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCitaLayout.createSequentialGroup()
-                        .addComponent(jBtncrearCita)
-                        .addGap(65, 65, 65)))
+                        .addContainerGap()
+                        .addComponent(jBtncrearCita)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelDatosPaciente2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -1694,7 +1692,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
     private javax.swing.JList<Paciente> jListPaciente;
     private javax.swing.JList<SubCategoriaPrueba> jListSubCategorias;
     private javax.swing.JList<TiposEvaluaciones> jListTiposEvaluaciones;
-    private javax.swing.JList<TiposEvaluaciones> jListTiposEvaluaciones1;
+    private javax.swing.JList<TiposEvaluaciones> jListTiposEvaluacionesHechas;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
