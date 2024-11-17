@@ -58,11 +58,21 @@ public abstract class PruebaLaboratorio{
         return new PruebaLaboratorioDAO().consultarPruebasLaboratorio();
     }
 
+    public String informacion() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(nombrePrueba).append(" --");
+        for (SubCategoriaPrueba subCategoria : arraySubCategorias) {
+            sb.append(subCategoria.getNombre()).append(", ");
+        }
+        sb.append("Precio total: ");
+        sb.append(calcularPrecio());
+        return sb.toString();
+    }
+    
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(nombrePrueba);
         return sb.toString();
     }
-    
 }

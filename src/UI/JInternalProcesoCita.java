@@ -41,7 +41,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
     List<Dueño> arrayDueños;
     List<Motivo> arrayMotivosElegidos;
     List<SubCategoriaPrueba> arrayTodasLasSubCategorias;
-    List<SubCategoriaPrueba> arraySubCategoriasElegidas;
+    List<PruebaLaboratorio> arrayPruebasLaboratorioElegidas;
     List<Evaluacion> arrayEvaluacionesElegidas;
     Dueño dueno;
     Paciente paciente;
@@ -77,7 +77,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         llenarComboBoxPruebasLaboratorio();
         llenarListaSubCategorias();
         arrayMotivosElegidos = new ArrayList<>();
-        arraySubCategoriasElegidas = new ArrayList<>();
+        arrayPruebasLaboratorioElegidas = new ArrayList<>();
         arrayEvaluacionesElegidas = new ArrayList<>();
         modeloTablaMotivos = (DefaultTableModel)jTableMotivosElegidos.getModel();
         modeloTablaSubCategorias = (DefaultTableModel)jTablePruebasElegidas.getModel();
@@ -787,7 +787,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtnEliminarPrueba)
+                .addComponent(jBtnEliminarPrueba, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1511,17 +1511,40 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
     private void jBtnAgregarPruebaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAgregarPruebaActionPerformed
         // TODO add your handling code here:
         if (jListSubCategorias.getSelectedIndex() != -1) {
-            for (SubCategoriaPrueba subCategoria : arraySubCategoriasElegidas) {
-                if (jListSubCategorias.getSelectedValue().equals(subCategoria)) {
-                    JOptionPane.showMessageDialog(null, "El tipo de prueba ya fue escogido", "Prueba ya elegida", JOptionPane.ERROR_MESSAGE);
+            PruebaLaboratorio pruebaLaboratorioElegida = ((PruebaLaboratorio) jCmbPruebasLaboratorio.getSelectedItem());
+            SubCategoriaPrueba subCategoriaElegida = jListSubCategorias.getSelectedValue();
+
+            for (PruebaLaboratorio pruebaLaboratorio : arrayPruebasLaboratorioElegidas) {
+                if (pruebaLaboratorioElegida.getId_prueba() == pruebaLaboratorio.getId_prueba()) {
+                    for (SubCategoriaPrueba subCategoria : pruebaLaboratorio.getArraySubCategorias()) {
+                        if (subCategoria.getId_subCategoria() == subCategoriaElegida.getId_subCategoria()) {
+                            JOptionPane.showMessageDialog(null, "La sub categoria ya fue añadida", "¡Sub categoria existente!", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+                    }
+                    pruebaLaboratorio.agregarSubCategoria(subCategoriaElegida);
+                    Object[] fila = {pruebaLaboratorioElegida, subCategoriaElegida, subCategoriaElegida.getPrecio()};
+                    modeloTablaSubCategorias.addRow(fila);
+                    JOptionPane.showMessageDialog(null, "La sub categoria fue añadida correctamente", "¡Sub categoria agregada!", JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
             }
-            SubCategoriaPrueba subCategoria = jListSubCategorias.getSelectedValue();
-            arraySubCategoriasElegidas.add(subCategoria);
-            Object[] fila = {jCmbPruebasLaboratorio.getSelectedItem(), subCategoria, subCategoria.getPrecio()};
+            arrayPruebasLaboratorioElegidas.add(pruebaLaboratorioElegida);
+            pruebaLaboratorioElegida.agregarSubCategoria(subCategoriaElegida);
+            Object[] fila = {pruebaLaboratorioElegida, subCategoriaElegida, subCategoriaElegida.getPrecio()};
             modeloTablaSubCategorias.addRow(fila);
-            JOptionPane.showMessageDialog(null, "El tipo de prueba fue elegido", "¡Prueba agregada!", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "La sub categoria fue añadida correctamente", "¡Sub categoria agregada!", JOptionPane.INFORMATION_MESSAGE);
+//            for (SubCategoriaPrueba subCategoria : arraySubCategoriasElegidas) {
+//                if (jListSubCategorias.getSelectedValue().equals(subCategoria)) {
+//                    JOptionPane.showMessageDialog(null, "El tipo de prueba ya fue escogido", "Prueba ya elegida", JOptionPane.ERROR_MESSAGE);
+//                    return;
+//                }
+//            }
+//            SubCategoriaPrueba subCategoria = jListSubCategorias.getSelectedValue();
+//            arraySubCategoriasElegidas.add(subCategoria);
+//            Object[] fila = {jCmbPruebasLaboratorio.getSelectedItem(), subCategoria, subCategoria.getPrecio()};
+//            modeloTablaSubCategorias.addRow(fila);
+//            JOptionPane.showMessageDialog(null, "El tipo de prueba fue elegido", "¡Prueba agregada!", JOptionPane.INFORMATION_MESSAGE);
 
         } else {
             JOptionPane.showMessageDialog(null, "Debes seleccionar un tipo de prueba", "Prueba no elegida", JOptionPane.ERROR_MESSAGE);
@@ -1531,8 +1554,8 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         String hilera = "";
-        for (SubCategoriaPrueba subCategoria : arraySubCategoriasElegidas) {
-            hilera += subCategoria.getNombre()+ " ----- "+ subCategoria.getPrecio() + "\n";
+        for (PruebaLaboratorio prueba : arrayPruebasLaboratorioElegidas) {
+            hilera += prueba.informacion() + "\n";
         }
         JOptionPane.showMessageDialog(null, hilera);
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -1557,14 +1580,19 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         int fila = jTablePruebasElegidas.getSelectedRow();
         if (fila != -1) {
-            int opcion = JOptionPane.showConfirmDialog(null, "¿Deseas eliminar el tipo de prueba?", "Eliminar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            int opcion = JOptionPane.showConfirmDialog(null, "¿Deseas eliminar la prueba?", "Eliminar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (opcion == JOptionPane.YES_OPTION) {
-                if (arraySubCategoriasElegidas.remove(jTablePruebasElegidas.getValueAt(fila, 1))) {
+                PruebaLaboratorio pruebaElegida = (PruebaLaboratorio) jTablePruebasElegidas.getValueAt(fila, 0);
+                if (pruebaElegida.getArraySubCategorias().remove((SubCategoriaPrueba) jTablePruebasElegidas.getValueAt(fila, 1))) {
                     modeloTablaSubCategorias.removeRow(fila);
                     JOptionPane.showMessageDialog(null, "El elemento fue eliminado de la lista de pruebas", "¡Elemento eliminado¡", JOptionPane.ERROR_MESSAGE);
+
+                    if (pruebaElegida.getArraySubCategorias().isEmpty()) {
+                        arrayPruebasLaboratorioElegidas.remove(pruebaElegida);
+                    }
                 }
             }
-        }else {
+        } else {
             JOptionPane.showMessageDialog(null, "Debes seleccionar una prueba de la tabla", "Prueba no elegida", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jBtnEliminarPruebaActionPerformed
@@ -1581,6 +1609,10 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                 (int)jSprTemperatura.getValue());
        cita.setArrayActitud(crearArrayActitudes());
        cita.setArrayCondicion(crearArrayCondiciones());
+       cita.setArrayEvaluacion(arrayEvaluacionesElegidas);
+       cita.setArrayMotivo(arrayMotivosElegidos);
+       cita.setArrayPruebaLaboratorio(arrayPruebasLaboratorioElegidas);
+       JOptionPane.showMessageDialog(null, cita.toString(), "Prueba no elegida", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_jBtncrearCitaActionPerformed
 
     private void jBtnAgregarEvaluaciónActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAgregarEvaluaciónActionPerformed
