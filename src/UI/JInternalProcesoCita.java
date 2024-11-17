@@ -32,6 +32,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
     DefaultListModel<Motivo> modeloListaMotivos = new DefaultListModel<>();
     DefaultListModel<SubCategoriaPrueba> modeloListaSubCategoriasPruebaLaboratorio = new DefaultListModel<>();
     DefaultListModel<TiposEvaluaciones> modeloListaTiposEvaluaciones = new DefaultListModel<>();
+    DefaultListModel<Evaluacion> modeloListaEvaluacionesHechas = new DefaultListModel<>();
     
     DefaultTableModel modeloTablaMotivos;
     DefaultTableModel modeloTablaSubCategorias;
@@ -41,6 +42,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
     List<Motivo> arrayMotivosElegidos;
     List<SubCategoriaPrueba> arrayTodasLasSubCategorias;
     List<SubCategoriaPrueba> arraySubCategoriasElegidas;
+    List<Evaluacion> arrayEvaluacionesElegidas;
     Dueño dueno;
     Paciente paciente;
     
@@ -76,8 +78,11 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         llenarListaSubCategorias();
         arrayMotivosElegidos = new ArrayList<>();
         arraySubCategoriasElegidas = new ArrayList<>();
+        arrayEvaluacionesElegidas = new ArrayList<>();
         modeloTablaMotivos = (DefaultTableModel)jTableMotivosElegidos.getModel();
         modeloTablaSubCategorias = (DefaultTableModel)jTablePruebasElegidas.getModel();
+        
+        jListEvaluacionesHechas.setModel(modeloListaEvaluacionesHechas);
         
         jCmbVacunas.setVisible(false);
         jLblVacunas.setVisible(false);
@@ -193,11 +198,11 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         jScrollPane7 = new javax.swing.JScrollPane();
         jListTiposEvaluaciones = new javax.swing.JList<>();
         jLabel8 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        jRbdNormal = new javax.swing.JRadioButton();
+        jRbdAnormal = new javax.swing.JRadioButton();
         jLabel18 = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
-        jListTiposEvaluacionesHechas = new javax.swing.JList<>();
+        jListEvaluacionesHechas = new javax.swing.JList<>();
         jBtnAgregarEvaluación = new javax.swing.JButton();
         jBtnEliminarEvaluacion = new javax.swing.JButton();
         jBtncrearCita = new javax.swing.JButton();
@@ -551,6 +556,11 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         jLabel4.setText("Precio");
 
         jTxtPrecioMotivo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTxtPrecioMotivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTxtPrecioMotivoActionPerformed(evt);
+            }
+        });
 
         jCmbVacunas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -885,24 +895,38 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Evaluaciones"));
         jPanel2.setOpaque(false);
 
+        jListTiposEvaluaciones.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane7.setViewportView(jListTiposEvaluaciones);
 
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Tipos de evaluación");
 
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setText("Normal");
+        buttonGroup1.add(jRbdNormal);
+        jRbdNormal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jRbdNormal.setText("Normal");
 
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("Anormal");
+        buttonGroup1.add(jRbdAnormal);
+        jRbdAnormal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jRbdAnormal.setText("Anormal");
 
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel18.setText("Evaluaciones hechas");
 
-        jScrollPane8.setViewportView(jListTiposEvaluacionesHechas);
+        jScrollPane8.setViewportView(jListEvaluacionesHechas);
 
         jBtnAgregarEvaluación.setText("Agregar evaluación");
+        jBtnAgregarEvaluación.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnAgregarEvaluaciónActionPerformed(evt);
+            }
+        });
 
         jBtnEliminarEvaluacion.setText("Eliminar");
+        jBtnEliminarEvaluacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnEliminarEvaluacionActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -916,32 +940,31 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jBtnEliminarEvaluacion))
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jRbdAnormal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jRbdNormal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jRadioButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jRadioButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addComponent(jLabel8))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+                            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel18))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel8))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(43, 43, 43)
-                        .addComponent(jRadioButton1)
+                        .addComponent(jRbdNormal)
                         .addGap(18, 18, 18)
-                        .addComponent(jRadioButton2))
+                        .addComponent(jRbdAnormal))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -1560,6 +1583,42 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
        cita.setArrayCondicion(crearArrayCondiciones());
     }//GEN-LAST:event_jBtncrearCitaActionPerformed
 
+    private void jBtnAgregarEvaluaciónActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAgregarEvaluaciónActionPerformed
+        // TODO add your handling code here:
+        if (jListTiposEvaluaciones.getSelectedIndex() != -1) {
+            Estado estado = (jRbdNormal.isSelected()) ? Estado.NORMAL
+                    : (jRbdAnormal.isSelected()) ? Estado.ANORMAL : null;
+            if (estado == null) {
+                JOptionPane.showMessageDialog(null, "Debes elegir si el tipo de evaluacion fue normal o anormal", "Estado de evaluacion no elegido", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            TiposEvaluaciones tipoEvaluacion = jListTiposEvaluaciones.getSelectedValue();
+            Evaluacion evaluacion = new Evaluacion(estado, tipoEvaluacion);
+            arrayEvaluacionesElegidas.add(evaluacion);
+            modeloListaEvaluacionesHechas.addElement(evaluacion);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Debes elegir un tipo de evaluación de la lista", "Tipo de evaluación no elegido", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jBtnAgregarEvaluaciónActionPerformed
+
+    private void jBtnEliminarEvaluacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEliminarEvaluacionActionPerformed
+        // TODO add your handling code here:
+        int fila = jListEvaluacionesHechas.getSelectedIndex();
+        if (fila != -1) {
+            Evaluacion evaluacion = jListEvaluacionesHechas.getSelectedValue();
+            if (arrayEvaluacionesElegidas.remove(evaluacion)) {
+                modeloListaEvaluacionesHechas.remove(fila);
+            } else {
+                JOptionPane.showMessageDialog(null, "Debes elegir una de las evaluaciones hechas", "Evaluación no elegida", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jBtnEliminarEvaluacionActionPerformed
+
+    private void jTxtPrecioMotivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtPrecioMotivoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTxtPrecioMotivoActionPerformed
+
     private List<Actitud> crearArrayActitudes(){
         List<Actitud> arrayListActitud = new ArrayList<>();
         if (jRdbExitado.isSelected()) {
@@ -1578,10 +1637,10 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
     private List<Condicion> crearArrayCondiciones(){
         List<Condicion> arrayListActitud = new ArrayList<>();
         if (jRdbBajoPeso.isSelected()) {
-            arrayListActitud.add(Condicion.BAJO_DE_PESO);
+            arrayListActitud.add(Condicion.BAJO_PESO);
         }
         if (jRdbSobrePeso.isSelected()) {
-            arrayListActitud.add(Condicion.SOBREPESO);
+            arrayListActitud.add(Condicion.SOBRE_PESO);
         }
         if (jRdbPesoNormal.isSelected()) {
             arrayListActitud.add(Condicion.NORMAL);
@@ -1688,11 +1747,11 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLblSexoPaciente;
     private javax.swing.JLabel jLblVacunas;
     private javax.swing.JList<Dueño> jListDueno;
+    private javax.swing.JList<Evaluacion> jListEvaluacionesHechas;
     private javax.swing.JList<Motivo> jListMotivos;
     private javax.swing.JList<Paciente> jListPaciente;
     private javax.swing.JList<SubCategoriaPrueba> jListSubCategorias;
     private javax.swing.JList<TiposEvaluaciones> jListTiposEvaluaciones;
-    private javax.swing.JList<TiposEvaluaciones> jListTiposEvaluacionesHechas;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -1704,8 +1763,8 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanelMotivosElegidos;
     private javax.swing.JPanel jPanelPaciente;
     private javax.swing.JPanel jPanelPrueba;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRbdAnormal;
+    private javax.swing.JRadioButton jRbdNormal;
     private javax.swing.JRadioButton jRdbBajoPeso;
     private javax.swing.JRadioButton jRdbDeprimido;
     private javax.swing.JRadioButton jRdbExitado;

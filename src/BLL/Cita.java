@@ -219,6 +219,8 @@ public class Cita {
     public void setTemperatura(int temperatura) {
         this.temperatura = temperatura;
     }
-    
-    
+
+    public int getId_cita() {
+        return id_cita;
+    }
 }
