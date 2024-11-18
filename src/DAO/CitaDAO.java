@@ -1,6 +1,8 @@
 package DAO;
 
+import BLL.Actitud;
 import BLL.Cita;
+import BLL.Condicion;
 import BLL.Evaluacion;
 import BLL_Motivos.*;
 import BLL.Paciente;
@@ -22,6 +24,10 @@ public class CitaDAO {
         String sqlInsertarEvaluacion = "INSERT INTO Evaluacion (id_tipo_evaluacion, id_estado) VALUES (?, ?)";
 
         String sqlInsertarCita_Evaluacion = "INSERT INTO Cita_Evaluacion (id_cita, id_evaluacion) VALUES (?, ?)";
+        
+        String sqlInsertarCita_Actitud = "INSERT INTO Cita_Actitud (id_cita, id_actitud) VALUES (?, ?)";
+        
+        String sqlInsertarCita_Condicion = "INSERT INTO Cita_Cnodicion (id_cita, id_condicion) VALUES (?, ?)";
 
         try (Connection conexion = ConeccionDB.conectarBaseDatos()) {
             conexion.setAutoCommit(false); // Iniciar la transacción
@@ -96,6 +102,23 @@ public class CitaDAO {
                                 }
                                 pstmCita_Evaluacion.executeBatch(); // Ejecutar los inserts en Cita_Evaluacion
                             }
+                        }
+                        try(PreparedStatement pstmCita_Actitud = conexion.prepareStatement(sqlInsertarCita_Actitud)){
+                            for (Actitud actitud : cita.getArrayActitud()) {
+                                pstmCita_Actitud.setInt(1, id_cita);
+                                pstmCita_Actitud.setInt(2, actitud.getId_actitud());
+                                pstmCita_Actitud.addBatch();
+                            }
+                            pstmCita_Actitud.executeBatch();
+                        }
+                        
+                        try(PreparedStatement pstmCita_Condicion = conexion.prepareStatement(sqlInsertarCita_Condicion)){
+                            for (Condicion condicion : cita.getArrayCondicion()) {
+                                pstmCita_Condicion.setInt(1, id_cita);
+                                pstmCita_Condicion.setInt(2, condicion.getId_condicion());
+                                pstmCita_Condicion.addBatch();
+                            }
+                            pstmCita_Condicion.executeBatch();
                         }
                     }
                 }
