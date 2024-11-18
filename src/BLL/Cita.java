@@ -2,6 +2,8 @@ package BLL;
 
 import BLL_PruebaLaboratorio.PruebaLaboratorio;
 import BLL_Motivos.Motivo;
+import DAO.CitaDAO;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -222,5 +224,9 @@ public class Cita {
 
     public int getId_cita() {
         return id_cita;
+    }
+    
+    public static void agregarCita(Cita cita, Paciente paciente) throws SQLException{
+        new CitaDAO().agregarCita(cita, paciente);
     }
 }

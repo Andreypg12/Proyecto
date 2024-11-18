@@ -1458,7 +1458,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
 
     private void jCmbVacunasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCmbVacunasActionPerformed
         // TODO add your handling code here:
-        if (jCmbVacunas.getSelectedIndex() != -1 && jListMotivos.getSelectedIndex() == 1) {
+        if (jCmbVacunas.getSelectedIndex() != -1 && jListMotivos.getSelectedIndex() == 1 && paciente != null) {
             jTxtPrecioMotivo.setText(((Vacuna)jCmbVacunas.getSelectedItem()).getPrecio() + "");
         }
     }//GEN-LAST:event_jCmbVacunasActionPerformed
@@ -1533,19 +1533,6 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
             pruebaLaboratorioElegida.agregarSubCategoria(subCategoriaElegida);
             Object[] fila = {pruebaLaboratorioElegida, subCategoriaElegida, subCategoriaElegida.getPrecio()};
             modeloTablaSubCategorias.addRow(fila);
-            JOptionPane.showMessageDialog(null, "La sub categoria fue añadida correctamente", "¡Sub categoria agregada!", JOptionPane.INFORMATION_MESSAGE);
-//            for (SubCategoriaPrueba subCategoria : arraySubCategoriasElegidas) {
-//                if (jListSubCategorias.getSelectedValue().equals(subCategoria)) {
-//                    JOptionPane.showMessageDialog(null, "El tipo de prueba ya fue escogido", "Prueba ya elegida", JOptionPane.ERROR_MESSAGE);
-//                    return;
-//                }
-//            }
-//            SubCategoriaPrueba subCategoria = jListSubCategorias.getSelectedValue();
-//            arraySubCategoriasElegidas.add(subCategoria);
-//            Object[] fila = {jCmbPruebasLaboratorio.getSelectedItem(), subCategoria, subCategoria.getPrecio()};
-//            modeloTablaSubCategorias.addRow(fila);
-//            JOptionPane.showMessageDialog(null, "El tipo de prueba fue elegido", "¡Prueba agregada!", JOptionPane.INFORMATION_MESSAGE);
-
         } else {
             JOptionPane.showMessageDialog(null, "Debes seleccionar un tipo de prueba", "Prueba no elegida", JOptionPane.ERROR_MESSAGE);
         }
@@ -1612,7 +1599,12 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
        cita.setArrayEvaluacion(arrayEvaluacionesElegidas);
        cita.setArrayMotivo(arrayMotivosElegidos);
        cita.setArrayPruebaLaboratorio(arrayPruebasLaboratorioElegidas);
-       JOptionPane.showMessageDialog(null, cita.toString(), "Prueba no elegida", JOptionPane.ERROR_MESSAGE);
+       JOptionPane.showMessageDialog(null, cita.toString(), "", JOptionPane.ERROR_MESSAGE);
+        try {
+            Cita.agregarCita(cita, paciente);
+        } catch (SQLException ex) {
+            Logger.getLogger(JInternalProcesoCita.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jBtncrearCitaActionPerformed
 
     private void jBtnAgregarEvaluaciónActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAgregarEvaluaciónActionPerformed

@@ -37,22 +37,16 @@ public class PruebaLaboratorioDAO {
 
                 while (rs.next()) {
                     int id_prueba = rs.getInt("id_prueba");
-
+                    
                     PruebaLaboratorio prueba = switch (id_prueba) {
-                        case 1 ->
-                            new Sangre();
-                        case 2 ->
-                            new Heces();
-                        case 3 ->
-                            new Orina();
-                        case 4 ->
-                            new Cultivos();
-                        default ->
-                            null;
+                        case 1 -> new Sangre();
+                        case 2 -> new Heces();
+                        case 3 -> new Orina();
+                        case 4 -> new Cultivos();
+                        default -> null;
                     };
                     arrayPruebas.add(prueba);
                 }
-
             }
         } catch (SQLException e) {
             throw e;
