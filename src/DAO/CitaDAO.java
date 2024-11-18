@@ -1,6 +1,7 @@
 package DAO;
 
 import BLL.Cita;
+import BLL.Evaluacion;
 import BLL_Motivos.*;
 import BLL.Paciente;
 import BLL_PruebaLaboratorio.*;
@@ -16,8 +17,11 @@ public class CitaDAO {
 
         String sqlInsertCitaMotivo = "INSERT INTO Cita_Motivo (id_cita, id_motivo, id_vacuna, precio) VALUES (?, ?, ?, ?)";
 
-        String sqlInsertarCitaPruebaLaboratorio = "INSERT INTO Cita_PruebaLaboratorio (id_cita, id_pruebaLaboratoio) VALUES (?, ?)";
-        String sqlInsertarPruebaLaboratorio_SubCategoria = "INSERT INTO PruebaLaboratorio_SubCategoria (id_PruebaLaboratorio, id_SubCategoria) VALUES (?, ?)";
+        String sqlInsertarCita_PruebaLaboratorio_SubCategoria = "INSERT INTO Cita_PruebaLaboratorio (id_cita, id_pruebaLaboratoio, id_subCategoria) VALUES (?, ?, ?)";
+
+        String sqlInsertarEvaluacion = "INSERT INTO Evaluacion (id_tipo_evaluacion, id_estado) VALUES (?, ?)";
+
+        String sqlInsertarCita_Evaluacion = "INSERT INTO Cita_Evaluacion (id_cita, id_evaluacion) VALUES (?, ?)";
 
         try (Connection conexion = ConeccionDB.conectarBaseDatos()) {
             conexion.setAutoCommit(false); // Iniciar la transacción
@@ -41,7 +45,7 @@ public class CitaDAO {
                         int id_cita = generatedKeys.getInt(1);
 
                         // Insertar en la tabla Cita_Motivo
-                        if (!cita.getArrayPruebaLaboratorio().isEmpty()) {
+                        if (!cita.getArrayMotivo().isEmpty()) {
 
                             try (PreparedStatement pstmtCitaMotivo = conexion.prepareStatement(sqlInsertCitaMotivo)) {
                                 for (Motivo motivo : cita.getArrayMotivo()) {
@@ -60,31 +64,48 @@ public class CitaDAO {
                             }
                         }
                         if (!cita.getArrayPruebaLaboratorio().isEmpty()) {
-
-                            try (PreparedStatement pstmtCitaPruebaLaboratorio = conexion.prepareStatement(sqlInsertarCitaPruebaLaboratorio)) {
-                                if (true) {
-
-                                }
+                            try (PreparedStatement pstmtCitaPruebaLaboratorio = conexion.prepareStatement(sqlInsertarCita_PruebaLaboratorio_SubCategoria)) {
                                 for (PruebaLaboratorio pruebaLaboratorio : cita.getArrayPruebaLaboratorio()) {
-                                    pstmtCitaPruebaLaboratorio.setInt(1, id_cita);
-                                    pstmtCitaPruebaLaboratorio.setInt(2, pruebaLaboratorio.getId_prueba());
-                                    try(PreparedStatement pstmtPruebaLaboratorio_SubCategoria = conexion.prepareStatement(sqlInsertarPruebaLaboratorio_SubCategoria)){
-                                        for (SubCategoriaPrueba subCategoria : pruebaLaboratorio.getArraySubCategorias()) {
-                                            pstmtPruebaLaboratorio_SubCategoria.setInt(1, pruebaLaboratorio.getId_prueba());
-                                            pstmtPruebaLaboratorio_SubCategoria.setInt(2, subCategoria.getId_subCategoria());
+                                    for (SubCategoriaPrueba subCategoria : pruebaLaboratorio.getArraySubCategorias()) {
+                                        pstmtCitaPruebaLaboratorio.setInt(1, id_cita);
+                                        pstmtCitaPruebaLaboratorio.setInt(2, pruebaLaboratorio.getId_prueba());
+                                        pstmtCitaPruebaLaboratorio.setInt(3, subCategoria.getId_subCategoria());
+                                        pstmtCitaPruebaLaboratorio.addBatch();
+                                    }
+                                }
+                                pstmtCitaPruebaLaboratorio.executeBatch();
+                            }
+                        }
+                        if (!cita.getArrayEvaluacion().isEmpty()) {
+                            try (PreparedStatement pstmtEvaluacion = conexion.prepareStatement(sqlInsertarEvaluacion, Statement.RETURN_GENERATED_KEYS);
+                                    PreparedStatement pstmCita_Evaluacion = conexion.prepareStatement(sqlInsertarCita_Evaluacion)) {
+
+                                for (Evaluacion evaluacion : cita.getArrayEvaluacion()) {
+                                    pstmtEvaluacion.setInt(1, evaluacion.getTipoEvaluacion().getId_tipo_evaluacion());
+                                    pstmtEvaluacion.setInt(2, evaluacion.getEstado().getId_estado());
+                                    pstmtEvaluacion.executeUpdate();
+                                    
+                                    try (ResultSet rsEvaluacion = pstmtEvaluacion.getGeneratedKeys()) {
+                                        if (rsEvaluacion.next()) {
+                                            int id_evaluacion = rsEvaluacion.getInt(1);
+                                            pstmCita_Evaluacion.setInt(1, id_cita);
+                                            pstmCita_Evaluacion.setInt(2, id_evaluacion);
+                                            pstmCita_Evaluacion.addBatch();
                                         }
                                     }
                                 }
+                                pstmCita_Evaluacion.executeBatch(); // Ejecutar los inserts en Cita_Evaluacion
                             }
                         }
                     }
                 }
-
-                conexion.commit(); // Confirmar la transacción
+                conexion.commit();
                 System.out.println("La cita y los motivos fueron insertados exitosamente.");
             } catch (SQLException e) {
-                conexion.rollback(); // Deshacer la transacción en caso de error
+                conexion.rollback();
                 throw e;
+            } finally {
+                conexion.setAutoCommit(true);
             }
         }
     }
