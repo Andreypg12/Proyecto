@@ -3,15 +3,22 @@ package DAO;
 import BLL.Actitud;
 import BLL.Cita;
 import BLL.Condicion;
+import BLL.Especie;
+import BLL.Estado;
 import BLL.Evaluacion;
+import BLL.Gato;
 import BLL_Motivos.*;
 import BLL.Paciente;
+import BLL.Perro;
 import BLL.Sexo;
+import BLL.TiposEvaluaciones;
 import BLL_PruebaLaboratorio.*;
 import DAO.ConeccionDB;
 import  java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CitaDAO {
     
@@ -155,12 +162,12 @@ public class CitaDAO {
 
                     Cita cita = new Cita(id_cita, disgnostico, indicaciones, fechaCita, frecuenciaCardiaca, frecuenciaRespiratoria, pulso, temperatura);
 
-                    List<Actitud> arrayActitudes = new ArrayList<>();
                     
                     String sqlConsultaActitudes = "SELECT a.id_actitud, a.descripcion "
                             + "FROM Actitud a "
                             + "INNER JOIN Cita_Actitud ca ON a.id_actitud = ca.id_actitud "
                             + "WHERE ca.id_cita = " + id_cita;
+                    List<Actitud> arrayActitudes = new ArrayList<>();
 
                     try (PreparedStatement pstmConsultarActitudes = conexion.prepareStatement(sqlConsultaActitudes);
                             ResultSet rsActitudes = pstmConsultarActitudes.executeQuery()) {
@@ -171,12 +178,12 @@ public class CitaDAO {
                         cita.setArrayActitud(arrayActitudes);
                     }
                     
-                    List<Condicion> arrayCondiciones = new ArrayList<>();
                     
                     String sqlConsultaCondiciones = "SELECT co.id_condicion, co.descripcion "
                             + "FROM Condicion co "
                             + "INNER JOIN Cita_Condicion cc ON co.id_condicion = cc.id_condicion "
                             + "WHERE cc.id_cita = " + id_cita;
+                    List<Condicion> arrayCondiciones = new ArrayList<>();
                     
                     try (PreparedStatement pstmConsultarActitudes = conexion.prepareStatement(sqlConsultaCondiciones);
                             ResultSet rsCondiciones = pstmConsultarActitudes.executeQuery()) {
@@ -186,6 +193,104 @@ public class CitaDAO {
                         }
                         cita.setArrayCondicion(arrayCondiciones);
                     }
+
+                    String sqlCunsultaEvaluaciones = "SELECT e.id_evaluacion, te.tipo_evaluacion, es.estado "
+                            + "FROM Evaluacion e "
+                            + "JOIN Cita_Evaluacion ce ON e.id_evaluacion = ce.id_evaluacion "
+                            + "JOIN Tipo_Evaluacion te ON e.id_tipo_evaluacion = te.id_tipo_evaluacion "
+                            + "JOIN Estado es ON e.id_estado = es.id_estado "
+                            + "WHERE ce.id_cita = " + id_cita;
+                    List<Evaluacion> arrayEvaluaciones = new ArrayList<>();
+                    
+                    try(PreparedStatement pstmConsultarEvaluaciones = conexion.prepareStatement(sqlCunsultaEvaluaciones);
+                            ResultSet rsEvaluaciones = pstmConsultarEvaluaciones.executeQuery()){
+                        while (rsEvaluaciones.next()) {
+                            TiposEvaluaciones tipoEvaluacion = TiposEvaluaciones.valueOf(rsEvaluaciones.getString("tipo_evaluacion").trim());
+                            Estado estado = Estado.valueOf(rsEvaluaciones.getString("estado").trim());
+                            
+                            Evaluacion evaluacion = new Evaluacion(rsEvaluaciones.getInt("id_evaluacion"), estado, tipoEvaluacion);
+                            arrayEvaluaciones.add(evaluacion);
+                        }
+                        cita.setArrayEvaluacion(arrayEvaluaciones);
+                    }
+
+                    String sqlConsultarMotivos = "SELECT m.id_motivo, m.descripcion, m.aplica_examen, m.tiene_vacuna, "
+                            + "cm.precio AS precio_cita_motivo, v.id_vacuna, v.id_especie, v.precio AS precio_vacuna, v.nombre "
+                            + "FROM Motivo m "
+                            + "JOIN Cita_Motivo cm ON m.id_motivo = cm.id_motivo "
+                            + "LEFT JOIN Vacuna v ON cm.id_vacuna = v.id_vacuna "
+                            + "WHERE cm.id_cita = " + id_cita;
+                    
+                    List<Motivo> arrayMotivos = new ArrayList<>();
+                    
+                    try(PreparedStatement pstmConsultarMotivos = conexion.prepareStatement(sqlConsultarMotivos);
+                            ResultSet rsMotivos = pstmConsultarMotivos.executeQuery()){
+                        while (rsMotivos.next()) {
+                            int id_motivo = rsMotivos.getInt("id_motivo");
+                            String descripcion = rsMotivos.getString("descripcion");
+                            double precio = rsMotivos.getDouble("precio_cita_motivo");
+                            boolean aplica_examen = rsMotivos.getBoolean("aplica_examen");
+                            Motivo motivo;
+                            
+                            if (rsMotivos.getBoolean("tiene_vacuna")) {
+                                Especie especie = (rsMotivos.getInt("id_especie") == 1) ? new Perro() : new Gato();
+                                int id_vacuna = rsMotivos.getInt("id_vacuna");
+                                double precioVacuna = rsMotivos.getDouble("precio_vacuna");
+                                String nombreVacuna = rsMotivos.getString("nombre");
+                                Vacuna vacuna = new Vacuna(nombreVacuna, precioVacuna, id_vacuna, especie);
+                                
+                                motivo = new Vacunacion(id_motivo, descripcion, vacuna, vacuna.getPrecio());
+                            }
+                            else{
+                                motivo = new Motivo(id_motivo, descripcion, precio, aplica_examen);
+                            }
+                            arrayMotivos.add(motivo);
+                        }
+                        cita.setArrayMotivo(arrayMotivos);
+                    }
+                    
+                    String sqlConsultarPruebas = "SELECT pl.id_prueba, "
+                            + "sp.id_subCategoria, sp.nombre AS nombre_subCategoria, sp.precio AS precio_subcategoria "
+                            + "FROM PruebaLaboratorio pl "
+                            + "JOIN Cita_PruebaLaboratorio cpl ON pl.id_prueba = cpl.id_pruebaLaboratorio "
+                            + "JOIN SubCategoriaPrueba sp ON cpl.id_subCategoria = sp.id_subCategoria "
+                            + "WHERE cpl.id_cita = " + id_cita;
+                    
+                    List<PruebaLaboratorio> arrayPruebas = new ArrayList<>();
+                    
+                    try(PreparedStatement pstmConsultarPruebasLaboratorio = conexion.prepareStatement(sqlConsultarPruebas);
+                            ResultSet rsPruebasLaboratorio = pstmConsultarPruebasLaboratorio.executeQuery()){
+                        
+                        Map<Integer, PruebaLaboratorio> arrayPruebasHashMap = new HashMap<>();
+                    
+                        while (rsPruebasLaboratorio.next()) {
+                            int id_prueba = rsPruebasLaboratorio.getInt("id_prueba");
+                            
+                            PruebaLaboratorio prueba = arrayPruebasHashMap.get(id_prueba);
+                            
+                            if (prueba == null) {
+                                prueba = switch (id_prueba) {
+                                    case 1 -> new Sangre();
+                                    case 2 -> new Heces();
+                                    case 3 -> new Orina();
+                                    case 4 -> new Cultivos();
+                                    default -> null;
+                                };
+                            }
+                            
+                            int id_subCategoria = rsPruebasLaboratorio.getInt("id_subCategoria");
+                            String nombre = rsPruebasLaboratorio.getString("nombre_subCategoria");
+                            double precio_subCategoria = rsPruebasLaboratorio.getDouble("precio_subCategoria");
+                            
+                            SubCategoriaPrueba subCategoria = new SubCategoriaPrueba(nombre, precio_subCategoria, id_prueba, id_subCategoria);
+                            
+                            prueba.getArraySubCategorias().add(subCategoria);
+                        }
+                        
+                        arrayPruebas.addAll(arrayPruebasHashMap.values());
+                        cita.setArrayPruebaLaboratorio(arrayPruebas);
+                    }
+                    
                     arrayCitas.add(cita);
                 }
             }
