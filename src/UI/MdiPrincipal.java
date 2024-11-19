@@ -36,7 +36,7 @@ public class MdiPrincipal extends javax.swing.JFrame {
         ProcesosMenu = new javax.swing.JMenu();
         openMenuItem = new javax.swing.JMenuItem();
         ReportesMenu = new javax.swing.JMenu();
-        cutMenuItem = new javax.swing.JMenuItem();
+        MnItemListaPacientes = new javax.swing.JMenuItem();
         copyMenuItem = new javax.swing.JMenuItem();
         pasteMenuItem = new javax.swing.JMenuItem();
         deleteMenuItem = new javax.swing.JMenuItem();
@@ -81,9 +81,14 @@ public class MdiPrincipal extends javax.swing.JFrame {
         ReportesMenu.setMnemonic('e');
         ReportesMenu.setText("Reportes");
 
-        cutMenuItem.setMnemonic('t');
-        cutMenuItem.setText("Cut");
-        ReportesMenu.add(cutMenuItem);
+        MnItemListaPacientes.setMnemonic('t');
+        MnItemListaPacientes.setText("Lista de pacientes");
+        MnItemListaPacientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnItemListaPacientesActionPerformed(evt);
+            }
+        });
+        ReportesMenu.add(MnItemListaPacientes);
 
         copyMenuItem.setMnemonic('y');
         copyMenuItem.setText("Copy");
@@ -178,13 +183,20 @@ public class MdiPrincipal extends javax.swing.JFrame {
         ventana.setVisible(true);
     }//GEN-LAST:event_openMenuItemActionPerformed
 
+    private void MnItemListaPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnItemListaPacientesActionPerformed
+        // TODO add your handling code here:
+        JInternalFrameListaPacientes ventana = new JInternalFrameListaPacientes();
+        desktopPane.add(ventana);
+        ventana.setVisible(true);
+    }//GEN-LAST:event_MnItemListaPacientesActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu MantenimientoMenu;
+    private javax.swing.JMenuItem MnItemListaPacientes;
     private javax.swing.JMenu ProcesosMenu;
     private javax.swing.JMenu ReportesMenu;
     private javax.swing.JMenuItem copyMenuItem;
-    private javax.swing.JMenuItem cutMenuItem;
     private javax.swing.JMenuItem deleteMenuItem;
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenuItem jMItemEspeciesRazas;

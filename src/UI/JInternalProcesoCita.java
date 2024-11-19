@@ -1529,7 +1529,6 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                 if (pruebaLaboratorioElegida.getId_prueba() == pruebaLaboratorio.getId_prueba()) {
                     for (SubCategoriaPrueba subCategoria : pruebaLaboratorio.getArraySubCategorias()) {
                         if (subCategoria.getId_subCategoria() == subCategoriaElegida.getId_subCategoria()) {
-                            JOptionPane.showMessageDialog(null, "La sub categoria ya fue añadida", "¡Sub categoria existente!", JOptionPane.ERROR_MESSAGE);
                             return;
                         }
                     }

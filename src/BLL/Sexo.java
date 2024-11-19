@@ -4,10 +4,14 @@ public enum Sexo {
     MACHO("Macho"),
     HEMBRA("Hembra");
     
-    private String nombreSexo;
+    private final String nombreSexo;
 
     private Sexo(String nombreSexo) {
         this.nombreSexo = nombreSexo;
+    }
+
+    public String getNombreSexo() {
+        return nombreSexo;
     }
 
     @Override

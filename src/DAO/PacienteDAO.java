@@ -50,7 +50,7 @@ public class PacienteDAO {
             String sql = "SELECT p.id_paciente, p.nombre AS nombre_paciente, p.sexo, p.edad"
                     + ", d.cedula, d.nombre AS nombre_dueño, d.direccion, d.numero_telefono"
                     + ", e.id_especie "
-                    + ", r.id_raza, r.nombre_raza"
+                    + ", r.id_raza, r.nombre_raza "
                     + "FROM Paciente p "
                     + "LEFT JOIN Dueño d ON p.cedula_dueño = d.cedula "
                     + "LEFT JOIN Especie e ON p.id_especie = e.id_especie "
