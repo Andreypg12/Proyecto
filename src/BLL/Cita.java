@@ -102,7 +102,7 @@ public class Cita {
         if (!arrayMotivo.isEmpty()) {
             sb.append("\n");
             for (Motivo motivo : arrayMotivo) {
-                sb.append(motivo).append("\n");
+                sb.append(motivo.toStringInformacion()).append("\n");
             }
         }
         if (!arrayPruebaLaboratorio.isEmpty()) {

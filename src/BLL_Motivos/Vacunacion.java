@@ -8,7 +8,10 @@ public class Vacunacion extends Motivo{
         this.vacuna = vacuna;
     }
     
-    
+    public Vacunacion(int id_motivo, String descripcion, Vacuna vacuna, double precio) {
+        super(id_motivo, descripcion, precio, false);
+        this.vacuna = vacuna;
+    }
     
     public Vacunacion(String descripcion, Vacuna vacuna) {
         super(descripcion,  false);
@@ -26,5 +29,12 @@ public class Vacunacion extends Motivo{
     
     public Vacunacion clonar(){
         return new Vacunacion(this.getId_motivo(), this.getDescripcion(), null);
+    }
+    
+    public String toStringInformacion() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.toStringInformacion());
+        sb.append("Vacuna: ").append(vacuna.getNombre()).append("\n");
+        return sb.toString();
     }
 }
