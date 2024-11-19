@@ -206,6 +206,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         jBtnAgregarEvaluación = new javax.swing.JButton();
         jBtnEliminarEvaluacion = new javax.swing.JButton();
         jBtncrearCita = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Proceso de citas");
@@ -1100,6 +1101,13 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton2.setText("Revisar citas");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelCitaLayout = new javax.swing.GroupLayout(jPanelCita);
         jPanelCita.setLayout(jPanelCitaLayout);
         jPanelCitaLayout.setHorizontalGroup(
@@ -1113,7 +1121,9 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                         .addGap(60, 60, 60)
                         .addComponent(jButton3)
                         .addGap(37, 37, 37)
-                        .addComponent(jButton1))
+                        .addComponent(jButton1)
+                        .addGap(66, 66, 66)
+                        .addComponent(jButton2))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCitaLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jBtncrearCita)))
@@ -1132,7 +1142,8 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanelCitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton1)
-                            .addComponent(jButton3))
+                            .addComponent(jButton3)
+                            .addComponent(jButton2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jBtncrearCita)))
                 .addGap(14, 14, 14))
@@ -1643,6 +1654,16 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTxtPrecioMotivoActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try {
+            for (Cita cita : Cita.consultarCitasPorPaciente(paciente.getId_paciente())) {
+                JOptionPane.showMessageDialog(null, cita.toString());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(JInternalProcesoCita.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     private List<Actitud> crearArrayActitudes(){
         List<Actitud> arrayListActitud = new ArrayList<>();
         if (jRdbExitado.isSelected()) {
@@ -1729,6 +1750,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtnLimpiarPaciente;
     private javax.swing.JButton jBtncrearCita;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<Especie> jCmbEspecie;
     private javax.swing.JComboBox<PruebaLaboratorio> jCmbPruebasLaboratorio;

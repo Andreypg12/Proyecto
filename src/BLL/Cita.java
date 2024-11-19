@@ -24,7 +24,7 @@ public class Cita {
     private int pulso;
     private int temperatura;
 
-    public Cita(String diagnostico, String indicaciones, Date fechaCita, int frecuenciaCardiaca, int frecuenciaRespiratoria, int impulso, int temperatura) {
+    public Cita(String diagnostico, String indicaciones, Date fechaCita, int frecuenciaCardiaca, int frecuenciaRespiratoria, int pulso, int temperatura) {
         id_cita = 0;
         this.arrayActitud = new ArrayList<>();
         this.arrayCondicion = new ArrayList<>();
@@ -36,11 +36,11 @@ public class Cita {
         this.fechaCita = fechaCita;
         this.frecuenciaCardiaca = frecuenciaCardiaca;
         this.frecuenciaRespiratoria = frecuenciaRespiratoria;
-        this.pulso = impulso;
+        this.pulso = pulso;
         this.temperatura = temperatura;
     }
     
-    public Cita(int id_cita, String diagnostico, String indicaciones, Date fechaCita, int frecuenciaCardiaca, int frecuenciaRespiratoria, int impulso, int temperatura) {
+    public Cita(int id_cita, String diagnostico, String indicaciones, Date fechaCita, int frecuenciaCardiaca, int frecuenciaRespiratoria, int pulso, int temperatura) {
         this.id_cita = id_cita;
         this.arrayActitud = new ArrayList<>();
         this.arrayCondicion = new ArrayList<>();
@@ -52,7 +52,7 @@ public class Cita {
         this.fechaCita = fechaCita;
         this.frecuenciaCardiaca = frecuenciaCardiaca;
         this.frecuenciaRespiratoria = frecuenciaRespiratoria;
-        this.pulso = impulso;
+        this.pulso = pulso;
         this.temperatura = temperatura;
     }
     
@@ -228,5 +228,9 @@ public class Cita {
     
     public static void agregarCita(Cita cita, Paciente paciente) throws SQLException{
         new CitaDAO().agregarCita(cita, paciente);
+    }
+    
+    public static List<Cita> consultarCitasPorPaciente(int id_paciente) throws SQLException{
+        return new CitaDAO().consultarCitasPorPaciente(id_paciente);
     }
 }
