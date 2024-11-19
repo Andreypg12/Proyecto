@@ -1,43 +1,28 @@
 package DAO;
 
-import BLL.Actitud;
-import BLL.Cita;
-import BLL.Condicion;
-import BLL.Especie;
-import BLL.Estado;
-import BLL.Evaluacion;
-import BLL.Gato;
-import BLL_Motivos.*;
-import BLL.Paciente;
-import BLL.Perro;
-import BLL.Sexo;
-import BLL.TiposEvaluaciones;
-import BLL_PruebaLaboratorio.*;
-import DAO.ConeccionDB;
-import  java.sql.*;
+import BLL.*;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class CitaDAO {
-    
+
     public void agregarCita(Cita cita, Paciente paciente) throws SQLException {
         String sqlInsertCita = "INSERT INTO Cita (id_Paciente, diagnostico, indicaciones, fechaCita, "
-                + "frecuenciaCardiaca, frecuenciaRespiratoria, pulso, temperatura) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                + "frecuenciaCardiaca, frecuenciaRespiratoria, pulso, temperatura, id_condicion) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         String sqlInsertCitaMotivo = "INSERT INTO Cita_Motivo (id_cita, id_motivo, id_vacuna, precio) VALUES (?, ?, ?, ?)";
 
-        String sqlInsertarCita_PruebaLaboratorio_SubCategoria = "INSERT INTO Cita_PruebaLaboratorio (id_cita, id_pruebaLaboratoio, id_subCategoria) VALUES (?, ?, ?)";
+        String sqlInsertarCita_PruebaLaboratorio_SubCategoria = "INSERT INTO Cita_PruebaLaboratorio (id_cita, id_pruebaLaboratorio, id_subCategoria) VALUES (?, ?, ?)";
 
         String sqlInsertarEvaluacion = "INSERT INTO Evaluacion (id_tipo_evaluacion, id_estado) VALUES (?, ?)";
 
         String sqlInsertarCita_Evaluacion = "INSERT INTO Cita_Evaluacion (id_cita, id_evaluacion) VALUES (?, ?)";
-        
+
         String sqlInsertarCita_Actitud = "INSERT INTO Cita_Actitud (id_cita, id_actitud) VALUES (?, ?)";
-        
-        String sqlInsertarCita_Condicion = "INSERT INTO Cita_Condicion (id_cita, id_condicion) VALUES (?, ?)";
 
         try (Connection conexion = ConeccionDB.conectarBaseDatos()) {
             conexion.setAutoCommit(false);
@@ -52,6 +37,7 @@ public class CitaDAO {
                 pstmtCita.setInt(6, cita.getFrecuenciaRespiratoria());
                 pstmtCita.setInt(7, cita.getPulso());
                 pstmtCita.setInt(8, cita.getTemperatura());
+                pstmtCita.setInt(9, cita.getCondicion().getId_condicion());
 
                 pstmtCita.executeUpdate();
 
@@ -91,14 +77,13 @@ public class CitaDAO {
                             }
                         }
                         if (!cita.getArrayEvaluacion().isEmpty()) {
-                            try (PreparedStatement pstmtEvaluacion = conexion.prepareStatement(sqlInsertarEvaluacion, Statement.RETURN_GENERATED_KEYS);
-                                    PreparedStatement pstmCita_Evaluacion = conexion.prepareStatement(sqlInsertarCita_Evaluacion)) {
+                            try (PreparedStatement pstmtEvaluacion = conexion.prepareStatement(sqlInsertarEvaluacion, Statement.RETURN_GENERATED_KEYS); PreparedStatement pstmCita_Evaluacion = conexion.prepareStatement(sqlInsertarCita_Evaluacion)) {
 
                                 for (Evaluacion evaluacion : cita.getArrayEvaluacion()) {
                                     pstmtEvaluacion.setInt(1, evaluacion.getTipoEvaluacion().getId_tipo_evaluacion());
                                     pstmtEvaluacion.setInt(2, evaluacion.getEstado().getId_estado());
                                     pstmtEvaluacion.executeUpdate();
-                                    
+
                                     try (ResultSet rsEvaluacion = pstmtEvaluacion.getGeneratedKeys()) {
                                         if (rsEvaluacion.next()) {
                                             int id_evaluacion = rsEvaluacion.getInt(1);
@@ -111,22 +96,13 @@ public class CitaDAO {
                                 pstmCita_Evaluacion.executeBatch();
                             }
                         }
-                        try(PreparedStatement pstmCita_Actitud = conexion.prepareStatement(sqlInsertarCita_Actitud)){
+                        try (PreparedStatement pstmCita_Actitud = conexion.prepareStatement(sqlInsertarCita_Actitud)) {
                             for (Actitud actitud : cita.getArrayActitud()) {
                                 pstmCita_Actitud.setInt(1, id_cita);
                                 pstmCita_Actitud.setInt(2, actitud.getId_actitud());
                                 pstmCita_Actitud.addBatch();
                             }
                             pstmCita_Actitud.executeBatch();
-                        }
-                        
-                        try(PreparedStatement pstmCita_Condicion = conexion.prepareStatement(sqlInsertarCita_Condicion)){
-                            for (Condicion condicion : cita.getArrayCondicion()) {
-                                pstmCita_Condicion.setInt(1, id_cita);
-                                pstmCita_Condicion.setInt(2, condicion.getId_condicion());
-                                pstmCita_Condicion.addBatch();
-                            }
-                            pstmCita_Condicion.executeBatch();
                         }
                     }
                 }
@@ -140,16 +116,18 @@ public class CitaDAO {
             }
         }
     }
-    
+
     public List<Cita> consultarCitasPorPaciente(int id_paciente) throws SQLException {
         List<Cita> arrayCitas = new ArrayList<>();
-        String sqlConsultarCita = "SELECT id_cita, diagnostico, indicaciones, fechaCita, frecuenciaCardiaca, frecuenciaRespiratoria, pulso, temperatura from Cita where id_Paciente = " + id_paciente;
+        String sqlConsultarCita = "SELECT c.id_cita, c.diagnostico, c.indicaciones, c.fechaCita, c.frecuenciaCardiaca, c.frecuenciaRespiratoria, c.pulso, c.temperatura"
+                + ", co.descripcion "
+                + "FROM Cita c "
+                + "JOIN Condicion co ON c.id_condicion = co.id_condicion "
+                + "WHERE id_Paciente = " + id_paciente;
 
         try {
-            try (Connection conexion = ConeccionDB.conectarBaseDatos();
-                    PreparedStatement pstmConsultarCita = conexion.prepareStatement(sqlConsultarCita);
-                    ResultSet rsCitas = pstmConsultarCita.executeQuery()) {
-                
+            try (Connection conexion = ConeccionDB.conectarBaseDatos(); PreparedStatement pstmConsultarCita = conexion.prepareStatement(sqlConsultarCita); ResultSet rsCitas = pstmConsultarCita.executeQuery()) {
+
                 while (rsCitas.next()) {
                     int id_cita = rsCitas.getInt("id_cita");
                     String disgnostico = rsCitas.getString("diagnostico").trim();
@@ -159,39 +137,22 @@ public class CitaDAO {
                     int frecuenciaRespiratoria = rsCitas.getInt("frecuenciaRespiratoria");
                     int pulso = rsCitas.getInt("pulso");
                     int temperatura = rsCitas.getInt("temperatura");
+                    Condicion condicion = Condicion.valueOf(rsCitas.getString("descripcion").trim());
 
-                    Cita cita = new Cita(id_cita, disgnostico, indicaciones, fechaCita, frecuenciaCardiaca, frecuenciaRespiratoria, pulso, temperatura);
+                    Cita cita = new Cita(id_cita, disgnostico, indicaciones, fechaCita, frecuenciaCardiaca, frecuenciaRespiratoria, pulso, temperatura, condicion);
 
-                    
                     String sqlConsultaActitudes = "SELECT a.id_actitud, a.descripcion "
                             + "FROM Actitud a "
                             + "INNER JOIN Cita_Actitud ca ON a.id_actitud = ca.id_actitud "
                             + "WHERE ca.id_cita = " + id_cita;
                     List<Actitud> arrayActitudes = new ArrayList<>();
 
-                    try (PreparedStatement pstmConsultarActitudes = conexion.prepareStatement(sqlConsultaActitudes);
-                            ResultSet rsActitudes = pstmConsultarActitudes.executeQuery()) {
+                    try (PreparedStatement pstmConsultarActitudes = conexion.prepareStatement(sqlConsultaActitudes); ResultSet rsActitudes = pstmConsultarActitudes.executeQuery()) {
                         while (rsActitudes.next()) {
                             Actitud actitud = Actitud.valueOf(rsActitudes.getString("descripcion").trim());
                             arrayActitudes.add(actitud);
                         }
                         cita.setArrayActitud(arrayActitudes);
-                    }
-                    
-                    
-                    String sqlConsultaCondiciones = "SELECT co.id_condicion, co.descripcion "
-                            + "FROM Condicion co "
-                            + "INNER JOIN Cita_Condicion cc ON co.id_condicion = cc.id_condicion "
-                            + "WHERE cc.id_cita = " + id_cita;
-                    List<Condicion> arrayCondiciones = new ArrayList<>();
-                    
-                    try (PreparedStatement pstmConsultarActitudes = conexion.prepareStatement(sqlConsultaCondiciones);
-                            ResultSet rsCondiciones = pstmConsultarActitudes.executeQuery()) {
-                        while (rsCondiciones.next()) {
-                            Condicion condicion = Condicion.valueOf(rsCondiciones.getString("descripcion").trim());
-                            arrayCondiciones.add(condicion);
-                        }
-                        cita.setArrayCondicion(arrayCondiciones);
                     }
 
                     String sqlCunsultaEvaluaciones = "SELECT e.id_evaluacion, te.tipo_evaluacion, es.estado "
@@ -201,13 +162,12 @@ public class CitaDAO {
                             + "JOIN Estado es ON e.id_estado = es.id_estado "
                             + "WHERE ce.id_cita = " + id_cita;
                     List<Evaluacion> arrayEvaluaciones = new ArrayList<>();
-                    
-                    try(PreparedStatement pstmConsultarEvaluaciones = conexion.prepareStatement(sqlCunsultaEvaluaciones);
-                            ResultSet rsEvaluaciones = pstmConsultarEvaluaciones.executeQuery()){
+
+                    try (PreparedStatement pstmConsultarEvaluaciones = conexion.prepareStatement(sqlCunsultaEvaluaciones); ResultSet rsEvaluaciones = pstmConsultarEvaluaciones.executeQuery()) {
                         while (rsEvaluaciones.next()) {
                             TiposEvaluaciones tipoEvaluacion = TiposEvaluaciones.valueOf(rsEvaluaciones.getString("tipo_evaluacion").trim());
                             Estado estado = Estado.valueOf(rsEvaluaciones.getString("estado").trim());
-                            
+
                             Evaluacion evaluacion = new Evaluacion(rsEvaluaciones.getInt("id_evaluacion"), estado, tipoEvaluacion);
                             arrayEvaluaciones.add(evaluacion);
                         }
@@ -220,77 +180,79 @@ public class CitaDAO {
                             + "JOIN Cita_Motivo cm ON m.id_motivo = cm.id_motivo "
                             + "LEFT JOIN Vacuna v ON cm.id_vacuna = v.id_vacuna "
                             + "WHERE cm.id_cita = " + id_cita;
-                    
+
                     List<Motivo> arrayMotivos = new ArrayList<>();
-                    
-                    try(PreparedStatement pstmConsultarMotivos = conexion.prepareStatement(sqlConsultarMotivos);
-                            ResultSet rsMotivos = pstmConsultarMotivos.executeQuery()){
+
+                    try (PreparedStatement pstmConsultarMotivos = conexion.prepareStatement(sqlConsultarMotivos); ResultSet rsMotivos = pstmConsultarMotivos.executeQuery()) {
                         while (rsMotivos.next()) {
                             int id_motivo = rsMotivos.getInt("id_motivo");
                             String descripcion = rsMotivos.getString("descripcion");
                             double precio = rsMotivos.getDouble("precio_cita_motivo");
                             boolean aplica_examen = rsMotivos.getBoolean("aplica_examen");
                             Motivo motivo;
-                            
+
                             if (rsMotivos.getBoolean("tiene_vacuna")) {
                                 Especie especie = (rsMotivos.getInt("id_especie") == 1) ? new Perro() : new Gato();
                                 int id_vacuna = rsMotivos.getInt("id_vacuna");
                                 double precioVacuna = rsMotivos.getDouble("precio_vacuna");
                                 String nombreVacuna = rsMotivos.getString("nombre");
                                 Vacuna vacuna = new Vacuna(nombreVacuna, precioVacuna, id_vacuna, especie);
-                                
+
                                 motivo = new Vacunacion(id_motivo, descripcion, vacuna, vacuna.getPrecio());
-                            }
-                            else{
+                            } else {
                                 motivo = new Motivo(id_motivo, descripcion, precio, aplica_examen);
                             }
                             arrayMotivos.add(motivo);
                         }
                         cita.setArrayMotivo(arrayMotivos);
                     }
-                    
+
                     String sqlConsultarPruebas = "SELECT pl.id_prueba, "
                             + "sp.id_subCategoria, sp.nombre AS nombre_subCategoria, sp.precio AS precio_subcategoria "
                             + "FROM PruebaLaboratorio pl "
                             + "JOIN Cita_PruebaLaboratorio cpl ON pl.id_prueba = cpl.id_pruebaLaboratorio "
                             + "JOIN SubCategoriaPrueba sp ON cpl.id_subCategoria = sp.id_subCategoria "
                             + "WHERE cpl.id_cita = " + id_cita;
-                    
+
                     List<PruebaLaboratorio> arrayPruebas = new ArrayList<>();
-                    
-                    try(PreparedStatement pstmConsultarPruebasLaboratorio = conexion.prepareStatement(sqlConsultarPruebas);
-                            ResultSet rsPruebasLaboratorio = pstmConsultarPruebasLaboratorio.executeQuery()){
-                        
+
+                    try (PreparedStatement pstmConsultarPruebasLaboratorio = conexion.prepareStatement(sqlConsultarPruebas); ResultSet rsPruebasLaboratorio = pstmConsultarPruebasLaboratorio.executeQuery()) {
+
                         Map<Integer, PruebaLaboratorio> arrayPruebasHashMap = new HashMap<>();
-                    
+
                         while (rsPruebasLaboratorio.next()) {
                             int id_prueba = rsPruebasLaboratorio.getInt("id_prueba");
-                            
+
                             PruebaLaboratorio prueba = arrayPruebasHashMap.get(id_prueba);
-                            
+
                             if (prueba == null) {
                                 prueba = switch (id_prueba) {
-                                    case 1 -> new Sangre();
-                                    case 2 -> new Heces();
-                                    case 3 -> new Orina();
-                                    case 4 -> new Cultivos();
-                                    default -> null;
+                                    case 1 ->
+                                        new Sangre();
+                                    case 2 ->
+                                        new Heces();
+                                    case 3 ->
+                                        new Orina();
+                                    case 4 ->
+                                        new Cultivos();
+                                    default ->
+                                        null;
                                 };
                             }
-                            
+
                             int id_subCategoria = rsPruebasLaboratorio.getInt("id_subCategoria");
                             String nombre = rsPruebasLaboratorio.getString("nombre_subCategoria");
                             double precio_subCategoria = rsPruebasLaboratorio.getDouble("precio_subCategoria");
-                            
+
                             SubCategoriaPrueba subCategoria = new SubCategoriaPrueba(nombre, precio_subCategoria, id_prueba, id_subCategoria);
-                            
+
                             prueba.getArraySubCategorias().add(subCategoria);
                         }
-                        
+
                         arrayPruebas.addAll(arrayPruebasHashMap.values());
                         cita.setArrayPruebaLaboratorio(arrayPruebas);
                     }
-                    
+
                     arrayCitas.add(cita);
                 }
             }
