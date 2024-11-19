@@ -3,7 +3,7 @@ package DAO;
 import BLL.Especie;
 import BLL.Gato;
 import BLL.Perro;
-import BLL_Motivos.Vacuna;
+import BLL.Vacuna;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

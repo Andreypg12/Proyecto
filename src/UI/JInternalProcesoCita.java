@@ -5,11 +5,6 @@
 package UI;
 
 import BLL.*;
-import BLL_Motivos.Motivo;
-import BLL_Motivos.Vacuna;
-import BLL_Motivos.Vacunacion;
-import BLL_PruebaLaboratorio.SubCategoriaPrueba;
-import BLL_PruebaLaboratorio.PruebaLaboratorio;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,7 +13,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 /**
@@ -1535,7 +1529,6 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                     pruebaLaboratorio.agregarSubCategoria(subCategoriaElegida);
                     Object[] fila = {pruebaLaboratorioElegida, subCategoriaElegida, subCategoriaElegida.getPrecio()};
                     modeloTablaSubCategorias.addRow(fila);
-                    JOptionPane.showMessageDialog(null, "La sub categoria fue añadida correctamente", "¡Sub categoria agregada!", JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
             }
@@ -1596,16 +1589,16 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
 
     private void jBtncrearCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtncrearCitaActionPerformed
         // TODO add your handling code here:
-        Date fechacita = (Date)jSprFechaCita.getValue();
+        Date fechacita = (Date) jSprFechaCita.getValue();
         Cita cita = new Cita(jTxtDiagnostico.getText(),
                 jTxtIndicaciones.getText(),
                 fechacita,
-                (int)jSprFrecuenciaCardiaca.getValue(),
-                (int)jSprFrecuenciaRespiratoria.getValue(),
-                (int)jSprPulso.getValue(),
-                (int)jSprTemperatura.getValue());
+                (int) jSprFrecuenciaCardiaca.getValue(),
+                (int) jSprFrecuenciaRespiratoria.getValue(),
+                (int) jSprPulso.getValue(),
+                (int) jSprTemperatura.getValue(),
+                crearCondicion());
        cita.setArrayActitud(crearArrayActitudes());
-       cita.setArrayCondicion(crearArrayCondiciones());
        cita.setArrayEvaluacion(arrayEvaluacionesElegidas);
        cita.setArrayMotivo(arrayMotivosElegidos);
        cita.setArrayPruebaLaboratorio(arrayPruebasLaboratorioElegidas);
@@ -1678,25 +1671,25 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         return arrayListActitud;
     }
     
-    private List<Condicion> crearArrayCondiciones(){
-        List<Condicion> arrayListActitud = new ArrayList<>();
+    private Condicion crearCondicion(){
+        Condicion condicion = null;
         if (jRdbBajoPeso.isSelected()) {
-            arrayListActitud.add(Condicion.BAJO_PESO);
+            condicion = Condicion.BAJO_PESO;
         }
         if (jRdbSobrePeso.isSelected()) {
-            arrayListActitud.add(Condicion.SOBRE_PESO);
+            condicion = Condicion.SOBRE_PESO;
         }
         if (jRdbPesoNormal.isSelected()) {
-            arrayListActitud.add(Condicion.NORMAL);
+            condicion = Condicion.NORMAL;
         }
         
-        return arrayListActitud;
+        return condicion;
     }
     private void llenarListaSubCategorias() {
         jListSubCategorias.setModel(modeloListaSubCategoriasPruebaLaboratorio);
         modeloListaSubCategoriasPruebaLaboratorio.clear();
         for (SubCategoriaPrueba subCategoria : arrayTodasLasSubCategorias) {
-            if (subCategoria.getId_prueba() == ((BLL_PruebaLaboratorio.PruebaLaboratorio) jCmbPruebasLaboratorio.getSelectedItem()).getId_prueba()) {
+            if (subCategoria.getId_prueba() == ((BLL.PruebaLaboratorio) jCmbPruebasLaboratorio.getSelectedItem()).getId_prueba()) {
                 modeloListaSubCategoriasPruebaLaboratorio.addElement(subCategoria);
             }
         }

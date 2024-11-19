@@ -5,8 +5,8 @@
 package UI;
 
 import BLL.TipoMantenimiento;
-import BLL_PruebaLaboratorio.PruebaLaboratorio;
-import BLL_PruebaLaboratorio.SubCategoriaPrueba;
+import BLL.PruebaLaboratorio;
+import BLL.SubCategoriaPrueba;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

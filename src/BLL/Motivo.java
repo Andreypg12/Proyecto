@@ -1,4 +1,4 @@
-package BLL_Motivos;
+package BLL;
 
 import DAO.MotivosDAO;
 import java.util.List;

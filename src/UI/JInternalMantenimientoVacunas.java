@@ -1,7 +1,7 @@
 package UI;
 
 import BLL.*;
-import BLL_Motivos.Vacuna;
+import BLL.Vacuna;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;

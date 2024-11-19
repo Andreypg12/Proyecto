@@ -58,6 +58,8 @@ public class JInternalFrameListaPacientes extends javax.swing.JInternalFrame {
         jTablePacientes = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
 
+        setClosable(true);
+
         jTablePacientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 

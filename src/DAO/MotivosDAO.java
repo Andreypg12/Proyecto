@@ -1,9 +1,7 @@
 package DAO;
 
-import BLL.Especie;
-import BLL.Gato;
-import BLL.Perro;
-import BLL_Motivos.*;
+import BLL.Motivo;
+import BLL.Vacunacion;
 import java.sql.*;
 import static DAO.ConeccionDB.conectarBaseDatos;
 import java.util.ArrayList;

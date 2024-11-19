@@ -4,8 +4,11 @@
  */
 package UI;
 
+import BLL.Vacuna;
+import BLL.Motivo;
+import BLL.Vacunacion;
+import BLL.TiposMotivos;
 import BLL.TipoMantenimiento;
-import BLL_Motivos.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;

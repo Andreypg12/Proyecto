@@ -1,4 +1,4 @@
-package BLL_Motivos;
+package BLL;
 
 import BLL.Especie;
 import DAO.VacunasDAO;

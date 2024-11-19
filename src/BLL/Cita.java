@@ -1,7 +1,5 @@
 package BLL;
 
-import BLL_PruebaLaboratorio.PruebaLaboratorio;
-import BLL_Motivos.Motivo;
 import DAO.CitaDAO;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -12,7 +10,7 @@ import java.util.List;
 public class Cita {
     private final int id_cita;
     private List<Actitud> arrayActitud;
-    private List<Condicion> arrayCondicion;
+    private Condicion condicion;
     private List<Evaluacion> arrayEvaluacion;
     private List<Motivo> arrayMotivo;
     private List<PruebaLaboratorio> arrayPruebaLaboratorio;
@@ -24,10 +22,10 @@ public class Cita {
     private int pulso;
     private int temperatura;
 
-    public Cita(String diagnostico, String indicaciones, Date fechaCita, int frecuenciaCardiaca, int frecuenciaRespiratoria, int pulso, int temperatura) {
+    public Cita(String diagnostico, String indicaciones, Date fechaCita, int frecuenciaCardiaca, int frecuenciaRespiratoria, int pulso, int temperatura, Condicion condicion) {
         id_cita = 0;
         this.arrayActitud = new ArrayList<>();
-        this.arrayCondicion = new ArrayList<>();
+        this.condicion = condicion;
         this.arrayEvaluacion = new ArrayList<>();
         this.arrayMotivo = new ArrayList<>();
         this.arrayPruebaLaboratorio = new ArrayList<>();
@@ -40,10 +38,10 @@ public class Cita {
         this.temperatura = temperatura;
     }
     
-    public Cita(int id_cita, String diagnostico, String indicaciones, Date fechaCita, int frecuenciaCardiaca, int frecuenciaRespiratoria, int pulso, int temperatura) {
+    public Cita(int id_cita, String diagnostico, String indicaciones, Date fechaCita, int frecuenciaCardiaca, int frecuenciaRespiratoria, int pulso, int temperatura, Condicion condicion) {
         this.id_cita = id_cita;
         this.arrayActitud = new ArrayList<>();
-        this.arrayCondicion = new ArrayList<>();
+        this.condicion = condicion;
         this.arrayEvaluacion = new ArrayList<>();
         this.arrayMotivo = new ArrayList<>();
         this.arrayPruebaLaboratorio = new ArrayList<>();
@@ -58,10 +56,6 @@ public class Cita {
     
     public void agregarActitud(Actitud actitud) {
         this.arrayActitud.add(actitud);
-    }
-
-    public void agregarCondicion(Condicion condicion) {
-        this.arrayCondicion.add(condicion);
     }
 
     public void agregarEvaluacion(Evaluacion evaluacion) {
@@ -81,16 +75,11 @@ public class Cita {
         DateFormat formato = DateFormat.getDateInstance(); 
         StringBuilder sb = new StringBuilder();
         sb.append("Cita");
+        sb.append("\nCondición: ").append(condicion);
         if (!arrayActitud.isEmpty()) {
             sb.append("\n");
             for (Actitud actitud : arrayActitud) {
                 sb.append(actitud).append("\n");
-            }
-        }
-        if (!arrayCondicion.isEmpty()) {
-            sb.append("\n");
-            for (Condicion condicion : arrayCondicion) {
-                sb.append(condicion).append("\n");
             }
         }
         if (!arrayEvaluacion.isEmpty()) {
@@ -132,14 +121,6 @@ public class Cita {
 
     public void setArrayActitud(List<Actitud> arrayActitud) {
         this.arrayActitud = arrayActitud;
-    }
-
-    public List<Condicion> getArrayCondicion() {
-        return arrayCondicion;
-    }
-
-    public void setArrayCondicion(List<Condicion> arrayCondicion) {
-        this.arrayCondicion = arrayCondicion;
     }
 
     public List<Evaluacion> getArrayEvaluacion() {
@@ -224,6 +205,14 @@ public class Cita {
 
     public int getId_cita() {
         return id_cita;
+    }
+
+    public Condicion getCondicion() {
+        return condicion;
+    }
+
+    public void setCondicion(Condicion condicion) {
+        this.condicion = condicion;
     }
     
     public static void agregarCita(Cita cita, Paciente paciente) throws SQLException{

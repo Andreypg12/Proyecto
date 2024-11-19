@@ -1,4 +1,4 @@
-package BLL_Motivos;
+package BLL;
 
 public class Vacunacion extends Motivo{
     private Vacuna vacuna;

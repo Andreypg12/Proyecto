@@ -1,4 +1,4 @@
-package BLL_PruebaLaboratorio;
+package BLL;
 
 import DAO.PruebaLaboratorioDAO;
 import java.sql.SQLException;

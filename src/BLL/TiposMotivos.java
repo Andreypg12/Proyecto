@@ -1,4 +1,4 @@
-package BLL_Motivos;
+package BLL;
 
 public enum TiposMotivos {
     PRECIO_PREESTABLECIDO("Precio preestablecido"),

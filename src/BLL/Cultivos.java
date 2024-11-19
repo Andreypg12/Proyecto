@@ -1,4 +1,4 @@
-package BLL_PruebaLaboratorio;
+package BLL;
 
 public class Cultivos extends PruebaLaboratorio{
 

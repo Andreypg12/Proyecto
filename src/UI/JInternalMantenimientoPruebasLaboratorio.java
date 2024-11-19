@@ -4,8 +4,9 @@
  */
 package UI;
 
+import BLL.SubCategoriaPrueba;
+import BLL.PruebaLaboratorio;
 import BLL.TipoMantenimiento;
-import BLL_PruebaLaboratorio.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;

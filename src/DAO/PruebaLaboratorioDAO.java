@@ -1,6 +1,11 @@
 package DAO;
 
-import BLL_PruebaLaboratorio.*;
+import BLL.Cultivos;
+import BLL.Sangre;
+import BLL.SubCategoriaPrueba;
+import BLL.Heces;
+import BLL.PruebaLaboratorio;
+import BLL.Orina;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

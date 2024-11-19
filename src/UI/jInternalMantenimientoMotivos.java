@@ -5,9 +5,9 @@
 package UI;
 
 import BLL.TipoMantenimiento;
-import BLL_Motivos.Motivo;
-import BLL_Motivos.Vacuna;
-import BLL_Motivos.Vacunacion;
+import BLL.Motivo;
+import BLL.Vacuna;
+import BLL.Vacunacion;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;

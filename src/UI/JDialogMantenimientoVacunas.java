@@ -8,7 +8,7 @@ import BLL.Especie;
 import BLL.Gato;
 import BLL.Perro;
 import BLL.TipoMantenimiento;
-import BLL_Motivos.Vacuna;
+import BLL.Vacuna;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
