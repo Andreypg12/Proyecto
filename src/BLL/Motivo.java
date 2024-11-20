@@ -47,8 +47,7 @@ public class Motivo {
 
     public String toStringInformacion() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Motivo:");
-        sb.append("\nDescripcion: ").append(descripcion);
+        sb.append(descripcion);
         sb.append("\nAplica examen: ").append((aplicaExamen) ? "Si" : "No");
         sb.append("\nPrecio: ").append(precio).append("\n");
         return sb.toString();

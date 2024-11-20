@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -56,6 +57,7 @@ public class JInternalListaCitasPorPaciente extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableCitas = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -100,12 +102,19 @@ public class JInternalListaCitasPorPaciente extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Fecha", "Motivo", "Evaluaciones", "Pruebas de laboratorio", "id_cita"
+                "Fecha", "Motivo", "Evaluaciones", "Pruebas de laboratorio", "Costo", "id_cita"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Object.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -116,6 +125,13 @@ public class JInternalListaCitasPorPaciente extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Citas");
+
+        jButton2.setText("Mostrar mas informacion");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -132,9 +148,11 @@ public class JInternalListaCitasPorPaciente extends javax.swing.JInternalFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton2))
                 .addGap(79, 79, 79))
         );
         layout.setVerticalGroup(
@@ -149,7 +167,9 @@ public class JInternalListaCitasPorPaciente extends javax.swing.JInternalFrame {
                     .addComponent(jScrollPane2)
                     .addComponent(jScrollPane1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
                 .addContainerGap(202, Short.MAX_VALUE))
         );
 
@@ -163,7 +183,7 @@ public class JInternalListaCitasPorPaciente extends javax.swing.JInternalFrame {
             try {
                 Paciente paciente = (Paciente) jTablePacientes.getValueAt(jTablePacientes.getSelectedRow(), 2);
                 for (Cita cita : Cita.consultarCitasPorPaciente(paciente.getId_paciente())) {
-                    Object [] fila = new Object[5];
+                    Object [] fila = new Object[6];
                     SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
                     String formattedDate = sdf.format( cita.getFechaCita());
                     fila[0] = formattedDate;
@@ -186,18 +206,35 @@ public class JInternalListaCitasPorPaciente extends javax.swing.JInternalFrame {
                         fila[3] = cita.getArrayPruebaLaboratorio().size();
                     }
                     
-                    fila[4] = cita;
+                    fila[4] = cita.calcularCostoCita();
+                    
+                    fila[5] = cita;
                     modeloTablaCitas.addRow(fila);
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(JInternalListaCitasPorPaciente.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        else{
+            JOptionPane.showMessageDialog(null, "Debes elegir un paciente de la lista", "Paciente no elegido", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        int fila = jTableCitas.getSelectedRow();
+        if (fila != -1) {
+            JOptionPane.showMessageDialog(null, ((Cita)modeloTablaCitas.getValueAt(fila, 5)).toStringInformacion());
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Debes elegir una cita de la lista", "Cita no elegida", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

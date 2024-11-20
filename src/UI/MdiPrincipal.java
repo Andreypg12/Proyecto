@@ -100,7 +100,12 @@ public class MdiPrincipal extends javax.swing.JFrame {
         ReportesMenu.add(MnItemListaCitasPorPaciente);
 
         pasteMenuItem.setMnemonic('p');
-        pasteMenuItem.setText("Paste");
+        pasteMenuItem.setText("Lista de citas por fecha");
+        pasteMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pasteMenuItemActionPerformed(evt);
+            }
+        });
         ReportesMenu.add(pasteMenuItem);
 
         deleteMenuItem.setMnemonic('d');
@@ -201,6 +206,13 @@ public class MdiPrincipal extends javax.swing.JFrame {
         desktopPane.add(ventana);
         ventana.setVisible(true);
     }//GEN-LAST:event_MnItemListaCitasPorPacienteActionPerformed
+
+    private void pasteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pasteMenuItemActionPerformed
+        // TODO add your handling code here:
+        JInternalListaCitasPorFecha ventana = new JInternalListaCitasPorFecha();
+        desktopPane.add(ventana);
+        ventana.setVisible(true);
+    }//GEN-LAST:event_pasteMenuItemActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

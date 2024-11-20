@@ -23,11 +23,10 @@ public abstract class PruebaLaboratorio{
     }
     
     public double calcularPrecio(){
-        double precioTotal = 0;
         for (SubCategoriaPrueba SubCategoria : arraySubCategorias) {
-            precioTotal += SubCategoria.getPrecio();
+            precio += SubCategoria.getPrecio();
         }
-        return precioTotal;
+        return precio;
     }
 
     public String getNombrePrueba() {

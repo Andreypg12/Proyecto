@@ -3,6 +3,7 @@ package BLL;
 import DAO.CitaDAO;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -54,6 +55,25 @@ public class Cita {
         this.temperatura = temperatura;
     }
     
+    public double calcularCostoCita(){
+        double costo = 0;
+        for (Motivo motivo : arrayMotivo) {
+            if (motivo.getDescripcion().trim().equals("Chequeo general")) {
+                if (!motivo.isAplicaExamen()) {
+                    costo += motivo.getPrecio();
+                }
+            }
+            else{
+                costo += motivo.getPrecio();
+            }
+        }
+        for (PruebaLaboratorio prueba : arrayPruebaLaboratorio) {
+            costo += prueba.calcularPrecio();
+        }
+        
+        return costo;
+    }
+    
     public void agregarActitud(Actitud actitud) {
         this.arrayActitud.add(actitud);
     }
@@ -71,15 +91,21 @@ public class Cita {
     }
 
     public String toStringInformacion() {
-        DateFormat formato = DateFormat.getDateInstance(); 
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        String fechaCitaConFormato = sdf.format( fechaCita);
         StringBuilder sb = new StringBuilder();
         sb.append("Cita");
-        sb.append("\nCondición: ").append(condicion);
+        sb.append("\nCondición: ").append(condicion).append("\n");
         if (!arrayActitud.isEmpty()) {
-            sb.append("\n");
-            for (Actitud actitud : arrayActitud) {
-                sb.append(actitud).append("\n");
+            if (arrayActitud.size() == 1) {
+                sb.append("Actitud: ").append(arrayActitud.get(0));
+            } else {
+                sb.append("Actitudes: ");
+                for (Actitud actitud : arrayActitud) {
+                    sb.append(actitud).append(", ");
+                }
             }
+
         }
         if (!arrayEvaluacion.isEmpty()) {
             sb.append("\n");
@@ -88,32 +114,38 @@ public class Cita {
             }
         }
         if (!arrayMotivo.isEmpty()) {
-            sb.append("\n");
-            for (Motivo motivo : arrayMotivo) {
-                sb.append(motivo.toStringInformacion()).append("\n");
+            if (arrayMotivo.size() == 1) {
+                sb.append("El motivo fue: ").append(arrayMotivo.get(0).toStringInformacion());
+            } else {
+                sb.append("\nLos motivos fueron ( \n");
+                for (Motivo motivo : arrayMotivo) {
+                    sb.append("➤").append(motivo.toStringInformacion());
+                }
+                sb.append(")");
             }
         }
         if (!arrayPruebaLaboratorio.isEmpty()) {
             if (arrayPruebaLaboratorio.size() == 1) {
-                sb.append("\nPrueba de laboratorio:\n");
+                sb.append("\nPrueba de laboratorio:");
             }else{
                 sb.append("\nPruebas de laboratorio:\n");
             }
             sb.append("\n");
             for (PruebaLaboratorio pruebaLaboratorio : arrayPruebaLaboratorio) {
-                sb.append(pruebaLaboratorio.getNombrePrueba()).append("\n");
+                sb.append("➤").append(pruebaLaboratorio.getNombrePrueba()).append("\n");
                 for (SubCategoriaPrueba subCategoria : pruebaLaboratorio.getArraySubCategorias()) {
-                    sb.append(subCategoria.getNombre()).append("\n");
+                    sb.append("▹").append(subCategoria.getNombre()).append("\n");
                 }
             }
         }
+        sb.append("\nEl costo total de la cita fue: ").append(String.format("%.2f¢", calcularCostoCita()));
         sb.append("\nDiagnostico: ").append(diagnostico);
         sb.append("\nIndicaciones: ").append(indicaciones);
-        sb.append("\nFecha de la cita: ").append(formato.format(fechaCita));
+        sb.append("\nFecha de la cita: ").append(fechaCitaConFormato);
         sb.append("\nFrecuencia cardiaca: ").append(frecuenciaCardiaca);
         sb.append("\nFrecuencia respiratoria: ").append(frecuenciaRespiratoria);
         sb.append("\nPulso: ").append(pulso);
-        sb.append("\nTemperatura: ").append(temperatura);
+        sb.append("\nTemperatura: ").append(temperatura).append("°C");
         return sb.toString();
     }
 
@@ -232,5 +264,9 @@ public class Cita {
     
     public static List<Cita> consultarCitasPorPaciente(int id_paciente) throws SQLException{
         return new CitaDAO().consultarCitasPorPaciente(id_paciente);
+    }
+    
+    public static List<Cita> consultarCitasPorFecha(Date fecha) throws SQLException{
+        return new CitaDAO().consultarCitasPorFecha(fecha);
     }
 }
