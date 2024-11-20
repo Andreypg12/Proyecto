@@ -33,7 +33,7 @@ public class JInternalListaCitasPorPaciente extends javax.swing.JInternalFrame {
 
     private void llenarTablaPacientes(){
         try {
-            for (Paciente paciente : Paciente.consultarPacientes()) {
+            for (Paciente paciente : Cita.consultarPacientesConCita()) {
                 Object [] fila = {paciente.getDueño().getNombre(), paciente.getDueño().getCedula(), paciente};
                 modeloTablaPacientes.addRow(fila);
             }
@@ -53,11 +53,11 @@ public class JInternalListaCitasPorPaciente extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTablePacientes = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jBtnElegirPaciente = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableCitas = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        jBtnMostarInformacion = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -90,10 +90,10 @@ public class JInternalListaCitasPorPaciente extends javax.swing.JInternalFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Pacientes");
 
-        jButton1.setText("Elegir paciente");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jBtnElegirPaciente.setText("Elegir paciente");
+        jBtnElegirPaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jBtnElegirPacienteActionPerformed(evt);
             }
         });
 
@@ -102,19 +102,12 @@ public class JInternalListaCitasPorPaciente extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Fecha", "Motivo", "Evaluaciones", "Pruebas de laboratorio", "Costo", "id_cita"
+                "Fecha", "Motivo", "Evaluaciones", "Pruebas de laboratorio", "Costo"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Object.class
-            };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -126,10 +119,10 @@ public class JInternalListaCitasPorPaciente extends javax.swing.JInternalFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Citas");
 
-        jButton2.setText("Mostrar mas informacion");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jBtnMostarInformacion.setText("Mostrar mas informacion");
+        jBtnMostarInformacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jBtnMostarInformacionActionPerformed(evt);
             }
         });
 
@@ -139,21 +132,18 @@ public class JInternalListaCitasPorPaciente extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE))
+                        .addComponent(jBtnElegirPaciente))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jButton2))
-                .addGap(79, 79, 79))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 604, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 604, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtnMostarInformacion))
+                .addGap(26, 26, 26))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,73 +158,70 @@ public class JInternalListaCitasPorPaciente extends javax.swing.JInternalFrame {
                     .addComponent(jScrollPane1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jBtnElegirPaciente)
+                    .addComponent(jBtnMostarInformacion))
                 .addContainerGap(202, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jBtnElegirPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnElegirPacienteActionPerformed
         // TODO add your handling code here:
         modeloTablaCitas.setRowCount(0);
         if (jTablePacientes.getSelectedRow() != -1) {
-            try {
-                Paciente paciente = (Paciente) jTablePacientes.getValueAt(jTablePacientes.getSelectedRow(), 2);
-                for (Cita cita : Cita.consultarCitasPorPaciente(paciente.getId_paciente())) {
-                    Object [] fila = new Object[6];
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-                    String formattedDate = sdf.format( cita.getFechaCita());
-                    fila[0] = formattedDate;
-                    if (cita.getArrayMotivo().isEmpty()) {
-                        fila[1] = "No hay motivos";
-                    }
-                    else{
-                        fila[1] = cita.getArrayMotivo().size();
-                    }
-                    if (cita.getArrayEvaluacion().isEmpty()) {
-                        fila[2] = "No hay evaluaciones";
-                    }
-                    else{
-                        fila[2] = cita.getArrayEvaluacion().size();
-                    }
-                    if (cita.getArrayPruebaLaboratorio().isEmpty()) {
-                        fila[3] = "No hay pruebas de laboratorio";
-                    }
-                    else{
-                        fila[3] = cita.getArrayPruebaLaboratorio().size();
-                    }
-                    
-                    fila[4] = cita.calcularCostoCita();
-                    
-                    fila[5] = cita;
-                    modeloTablaCitas.addRow(fila);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+
+            Paciente paciente = (Paciente) jTablePacientes.getValueAt(jTablePacientes.getSelectedRow(), 2);
+
+            for (Cita cita : paciente.getArrayCitas()) {
+
+                Object[] fila = new Object[5];
+                
+                
+                String formattedDate = sdf.format(cita.getFechaCita());
+                
+                fila[0] = formattedDate;
+                if (cita.getArrayMotivo().isEmpty()) {
+                    fila[1] = "No hay motivos";
+                } else {
+                    fila[1] = cita.getArrayMotivo().size();
                 }
-            } catch (SQLException ex) {
-                Logger.getLogger(JInternalListaCitasPorPaciente.class.getName()).log(Level.SEVERE, null, ex);
+                if (cita.getArrayEvaluacion().isEmpty()) {
+                    fila[2] = "No hay evaluaciones";
+                } else {
+                    fila[2] = cita.getArrayEvaluacion().size();
+                }
+                if (cita.getArrayPruebaLaboratorio().isEmpty()) {
+                    fila[3] = "No hay pruebas de laboratorio";
+                } else {
+                    fila[3] = cita.getArrayPruebaLaboratorio().size();
+                }
+
+                fila[4] = cita;
+
+                modeloTablaCitas.addRow(fila);
             }
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(null, "Debes elegir un paciente de la lista", "Paciente no elegido", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jBtnElegirPacienteActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jBtnMostarInformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnMostarInformacionActionPerformed
         // TODO add your handling code here:
         int fila = jTableCitas.getSelectedRow();
         if (fila != -1) {
-            JOptionPane.showMessageDialog(null, ((Cita)modeloTablaCitas.getValueAt(fila, 5)).toStringInformacion());
+            JOptionPane.showMessageDialog(null, ((Cita)modeloTablaCitas.getValueAt(fila, 4)).toStringInformacion());
         }
         else{
             JOptionPane.showMessageDialog(null, "Debes elegir una cita de la lista", "Cita no elegida", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jBtnMostarInformacionActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jBtnElegirPaciente;
+    private javax.swing.JButton jBtnMostarInformacion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

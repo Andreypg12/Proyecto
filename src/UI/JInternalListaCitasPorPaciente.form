@@ -24,26 +24,21 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jBtnElegirPaciente" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="jLabel1" min="-2" pref="401" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
-                  <Component id="jScrollPane1" alignment="0" pref="513" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" alignment="1" pref="566" max="32767" attributes="0"/>
+                  <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jScrollPane2" pref="604" max="32767" attributes="0"/>
-                      <Component id="jLabel2" max="32767" attributes="0"/>
-                  </Group>
-                  <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel2" min="-2" pref="604" max="-2" attributes="0"/>
+                  <Component id="jScrollPane2" min="-2" pref="604" max="-2" attributes="0"/>
+                  <Component id="jBtnMostarInformacion" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -62,8 +57,8 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jBtnElegirPaciente" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jBtnMostarInformacion" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="202" max="32767" attributes="0"/>
           </Group>
@@ -100,12 +95,12 @@
         <Property name="text" type="java.lang.String" value="Pacientes"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="jBtnElegirPaciente">
       <Properties>
         <Property name="text" type="java.lang.String" value="Elegir paciente"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnElegirPacienteActionPerformed"/>
       </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane2">
@@ -118,13 +113,12 @@
         <Component class="javax.swing.JTable" name="jTableCitas">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="6" rowCount="0">
+              <Table columnCount="5" rowCount="0">
                 <Column editable="false" title="Fecha" type="java.lang.Object"/>
                 <Column editable="false" title="Motivo" type="java.lang.Object"/>
                 <Column editable="false" title="Evaluaciones" type="java.lang.Object"/>
                 <Column editable="false" title="Pruebas de laboratorio" type="java.lang.Object"/>
-                <Column editable="false" title="Costo" type="java.lang.Double"/>
-                <Column editable="false" title="id_cita" type="java.lang.Object"/>
+                <Column editable="false" title="Costo" type="java.lang.Object"/>
               </Table>
             </Property>
           </Properties>
@@ -140,12 +134,12 @@
         <Property name="text" type="java.lang.String" value="Citas"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="jBtnMostarInformacion">
       <Properties>
         <Property name="text" type="java.lang.String" value="Mostrar mas informacion"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnMostarInformacionActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

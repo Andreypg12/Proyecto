@@ -68,7 +68,7 @@ public class Cita {
             }
         }
         for (PruebaLaboratorio prueba : arrayPruebaLaboratorio) {
-            costo += prueba.calcularPrecio();
+            costo += prueba.getPrecio();
         }
         
         return costo;
@@ -102,7 +102,7 @@ public class Cita {
             } else {
                 sb.append("Actitudes: ");
                 for (Actitud actitud : arrayActitud) {
-                    sb.append(actitud).append(", ");
+                    sb.append("•").append(actitud);
                 }
             }
 
@@ -110,7 +110,7 @@ public class Cita {
         if (!arrayEvaluacion.isEmpty()) {
             sb.append("\n");
             for (Evaluacion evaluacion : arrayEvaluacion) {
-                sb.append(evaluacion.toString()).append("\n");
+                sb.append("•").append(evaluacion.toString()).append("\n");
             }
         }
         if (!arrayMotivo.isEmpty()) {
@@ -138,7 +138,7 @@ public class Cita {
                 }
             }
         }
-        sb.append("\nEl costo total de la cita fue: ").append(String.format("%.2f¢", calcularCostoCita()));
+        sb.append("\nEl costo total de la cita fue: ").append(calcularCostoCita());
         sb.append("\nDiagnostico: ").append(diagnostico);
         sb.append("\nIndicaciones: ").append(indicaciones);
         sb.append("\nFecha de la cita: ").append(fechaCitaConFormato);
@@ -152,7 +152,7 @@ public class Cita {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(id_cita);
+        sb.append(calcularCostoCita());
         return sb.toString();
     }
     
@@ -268,5 +268,9 @@ public class Cita {
     
     public static List<Cita> consultarCitasPorFecha(Date fecha) throws SQLException{
         return new CitaDAO().consultarCitasPorFecha(fecha);
+    }
+    
+    public static List<Paciente> consultarPacientesConCita() throws SQLException{
+        return new CitaDAO().consultarPacientesConCita();
     }
 }

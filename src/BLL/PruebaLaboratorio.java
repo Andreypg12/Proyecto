@@ -22,11 +22,10 @@ public abstract class PruebaLaboratorio{
         arraySubCategorias.add(subCategoria);
     }
     
-    public double calcularPrecio(){
+    public void calcularPrecio(){
         for (SubCategoriaPrueba SubCategoria : arraySubCategorias) {
             precio += SubCategoria.getPrecio();
         }
-        return precio;
     }
 
     public String getNombrePrueba() {
@@ -64,7 +63,7 @@ public abstract class PruebaLaboratorio{
             sb.append(subCategoria.getNombre()).append(", ");
         }
         sb.append("Precio total: ");
-        sb.append(calcularPrecio());
+        sb.append(precio);
         return sb.toString();
     }
     

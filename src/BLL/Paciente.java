@@ -37,6 +37,10 @@ public class Paciente {
         arrayCitas = new ArrayList<>();
     }
 
+    public List<Cita> getArrayCitas() {
+        return arrayCitas;
+    }
+    
     public void agregarCitas(Cita cita){
         arrayCitas.add(cita);
     }
