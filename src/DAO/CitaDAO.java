@@ -32,7 +32,7 @@ public class CitaDAO {
                 pstmtCita.setInt(1, paciente.getId_paciente());
                 pstmtCita.setString(2, cita.getDiagnostico());
                 pstmtCita.setString(3, cita.getIndicaciones());
-                pstmtCita.setDate(4, new java.sql.Date(cita.getFechaCita().getTime()));
+                pstmtCita.setTimestamp(4, new java.sql.Timestamp(cita.getFechaCita().getTime()));
                 pstmtCita.setInt(5, cita.getFrecuenciaCardiaca());
                 pstmtCita.setInt(6, cita.getFrecuenciaRespiratoria());
                 pstmtCita.setInt(7, cita.getPulso());
@@ -132,7 +132,8 @@ public class CitaDAO {
                     int id_cita = rsCitas.getInt("id_cita");
                     String disgnostico = rsCitas.getString("diagnostico").trim();
                     String indicaciones = rsCitas.getString("indicaciones").trim();
-                    Date fechaCita = rsCitas.getDate("fechaCita");
+                    Timestamp fechaCitaTime = rsCitas.getTimestamp("fechaCita");
+                    Date fechaCita = new Date(fechaCitaTime.getTime());
                     int frecuenciaCardiaca = rsCitas.getInt("frecuenciaCardiaca");
                     int frecuenciaRespiratoria = rsCitas.getInt("frecuenciaRespiratoria");
                     int pulso = rsCitas.getInt("pulso");
@@ -216,7 +217,8 @@ public class CitaDAO {
 
                     List<PruebaLaboratorio> arrayPruebas = new ArrayList<>();
 
-                    try (PreparedStatement pstmConsultarPruebasLaboratorio = conexion.prepareStatement(sqlConsultarPruebas); ResultSet rsPruebasLaboratorio = pstmConsultarPruebasLaboratorio.executeQuery()) {
+                    try (PreparedStatement pstmConsultarPruebasLaboratorio = conexion.prepareStatement(sqlConsultarPruebas);
+                            ResultSet rsPruebasLaboratorio = pstmConsultarPruebasLaboratorio.executeQuery()) {
 
                         Map<Integer, PruebaLaboratorio> arrayPruebasHashMap = new HashMap<>();
 
@@ -238,6 +240,7 @@ public class CitaDAO {
                                     default ->
                                         null;
                                 };
+                                arrayPruebasHashMap.put(id_prueba, prueba);
                             }
 
                             int id_subCategoria = rsPruebasLaboratorio.getInt("id_subCategoria");
