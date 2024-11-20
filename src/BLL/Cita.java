@@ -70,8 +70,7 @@ public class Cita {
         this.arrayPruebaLaboratorio.add(pruebaLaboratorio);
     }
 
-    @Override
-    public String toString() {
+    public String toStringInformacion() {
         DateFormat formato = DateFormat.getDateInstance(); 
         StringBuilder sb = new StringBuilder();
         sb.append("Cita");
@@ -102,7 +101,10 @@ public class Cita {
             }
             sb.append("\n");
             for (PruebaLaboratorio pruebaLaboratorio : arrayPruebaLaboratorio) {
-                sb.append(pruebaLaboratorio).append("\n");
+                sb.append(pruebaLaboratorio.getNombrePrueba()).append("\n");
+                for (SubCategoriaPrueba subCategoria : pruebaLaboratorio.getArraySubCategorias()) {
+                    sb.append(subCategoria.getNombre()).append("\n");
+                }
             }
         }
         sb.append("\nDiagnostico: ").append(diagnostico);
@@ -114,6 +116,15 @@ public class Cita {
         sb.append("\nTemperatura: ").append(temperatura);
         return sb.toString();
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(id_cita);
+        return sb.toString();
+    }
+    
+    
 
     public List<Actitud> getArrayActitud() {
         return arrayActitud;

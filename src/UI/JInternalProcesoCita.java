@@ -97,6 +97,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jTPlProcesoCita = new javax.swing.JTabbedPane();
         jPanelPaciente = new PanelConFondo("/Imagenes/FondoCitas.png");
         jPanelDueno = new javax.swing.JPanel();
@@ -272,6 +273,9 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         jFTxtNumeroCedula.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jFTxtNumeroCedulaKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jFTxtNumeroCedulaKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jFTxtNumeroCedulaKeyTyped(evt);
@@ -532,6 +536,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         jPanel3.setOpaque(false);
 
         jSprFechaCita.setModel(new javax.swing.SpinnerDateModel());
+        jSprFechaCita.setEditor(new javax.swing.JSpinner.DateEditor(jSprFechaCita, "dd-MM-yyyy HH:mm"));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setText("Fecha");
@@ -859,10 +864,13 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
 
         jRdbPostrado.setText("Postrado");
 
+        buttonGroup2.add(jRdbPesoNormal);
         jRdbPesoNormal.setText("Peso normal");
 
+        buttonGroup2.add(jRdbBajoPeso);
         jRdbBajoPeso.setText("Bajo peso");
 
+        buttonGroup2.add(jRdbSobrePeso);
         jRdbSobrePeso.setText("Sobre peso");
 
         jLabel11.setText("Frecuencia cardiaca");
@@ -1255,13 +1263,6 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
 
     private void jFTxtNumeroCedulaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFTxtNumeroCedulaKeyPressed
 
-        modeloListaDuenos.clear();
-        for (Dueño dueno : arrayDueños) {
-            if (dueno.getCedula().contains(jFTxtNumeroCedula.getText().replace("-", "").trim())) {
-                modeloListaDuenos.addElement(dueno);
-
-            }
-        }
     }//GEN-LAST:event_jFTxtNumeroCedulaKeyPressed
 
     private void jFTxtNumeroCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFTxtNumeroCedulaActionPerformed
@@ -1656,6 +1657,17 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jFTxtNumeroCedulaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFTxtNumeroCedulaKeyReleased
+        // TODO add your handling code here:
+        modeloListaDuenos.clear();
+        for (Dueño dueno : arrayDueños) {
+            if (dueno.getCedula().contains(jFTxtNumeroCedula.getText().replace("-", "").trim())) {
+                modeloListaDuenos.addElement(dueno);
+
+            }
+        }
+    }//GEN-LAST:event_jFTxtNumeroCedulaKeyReleased
+
     private List<Actitud> crearArrayActitudes(){
         List<Actitud> arrayListActitud = new ArrayList<>();
         if (jRdbExitado.isSelected()) {
@@ -1728,6 +1740,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JButton jBtnAgregarEvaluación;
     private javax.swing.JButton jBtnAgregarMotivo;
     private javax.swing.JButton jBtnAgregarPrueba;

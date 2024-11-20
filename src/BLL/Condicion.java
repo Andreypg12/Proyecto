@@ -19,6 +19,6 @@ public enum Condicion {
     
     @Override
     public String toString() {
-        return "Condición: " + estado;
+        return estado;
     }
 }
