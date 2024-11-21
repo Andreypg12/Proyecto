@@ -163,8 +163,6 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         jScrollPane6 = new javax.swing.JScrollPane();
         jTablePruebasElegidas = new javax.swing.JTable();
         jBtnEliminarPrueba = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jPanelDatosPaciente2 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLblNombrePacienteDatos = new javax.swing.JLabel();
@@ -201,7 +199,6 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         jBtnAgregarEvaluación = new javax.swing.JButton();
         jBtnEliminarEvaluacion = new javax.swing.JButton();
         jBtncrearCita = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Proceso de citas");
@@ -527,7 +524,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                 .addGroup(jPanelPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanelDueno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanelDatosPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(136, Short.MAX_VALUE))
+                .addContainerGap(122, Short.MAX_VALUE))
         );
 
         jTPlProcesoCita.addTab("Paciente", jPanelPaciente);
@@ -828,20 +825,6 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jButton1.setText("Probar motivos");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton3.setText("Probar pruebas");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
         jPanelDatosPaciente2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Datos del paciente"));
         jPanelDatosPaciente2.setOpaque(false);
 
@@ -1010,17 +993,6 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                                     .addComponent(jRdbSobrePeso, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(59, 59, 59))))
                     .addGroup(jPanelDatosPaciente2Layout.createSequentialGroup()
-                        .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanelDatosPaciente2Layout.createSequentialGroup()
-                                .addComponent(jLabel16)
-                                .addGap(13, 13, 13))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDatosPaciente2Layout.createSequentialGroup()
-                                .addComponent(jLabel17)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                        .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTxtDiagnostico)
-                            .addComponent(jTxtIndicaciones)))
-                    .addGroup(jPanelDatosPaciente2Layout.createSequentialGroup()
                         .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanelDatosPaciente2Layout.createSequentialGroup()
                                 .addComponent(jLabel14)
@@ -1039,7 +1011,18 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel15)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanelDatosPaciente2Layout.createSequentialGroup()
+                        .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelDatosPaciente2Layout.createSequentialGroup()
+                                .addComponent(jLabel16)
+                                .addGap(13, 13, 13))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDatosPaciente2Layout.createSequentialGroup()
+                                .addComponent(jLabel17)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                        .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTxtDiagnostico)
+                            .addComponent(jTxtIndicaciones))))
                 .addContainerGap())
         );
         jPanelDatosPaciente2Layout.setVerticalGroup(
@@ -1084,6 +1067,8 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                     .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSprTemperatura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTxtDiagnostico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1091,22 +1076,13 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                 .addGap(19, 19, 19)
                 .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTxtIndicaciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jBtncrearCita.setText("Crear cita");
         jBtncrearCita.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtncrearCitaActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("Revisar citas");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
             }
         });
 
@@ -1119,15 +1095,8 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                     .addGroup(jPanelCitaLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelCitaLayout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(jButton3)
-                        .addGap(37, 37, 37)
-                        .addComponent(jButton1)
-                        .addGap(66, 66, 66)
-                        .addComponent(jButton2))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCitaLayout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(392, 392, 392)
                         .addComponent(jBtncrearCita)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelDatosPaciente2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1135,20 +1104,15 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         );
         jPanelCitaLayout.setVerticalGroup(
             jPanelCitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCitaLayout.createSequentialGroup()
+            .addGroup(jPanelCitaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelCitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanelDatosPaciente2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanelCitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanelCitaLayout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 622, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanelCitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(jButton3)
-                            .addComponent(jButton2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBtncrearCita)))
-                .addGap(14, 14, 14))
+                        .addComponent(jBtncrearCita))
+                    .addComponent(jPanelDatosPaciente2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         jTPlProcesoCita.addTab("Cita", jPanelCita);
@@ -1354,6 +1318,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                     Paciente.agregar(paciente);
                     modeloListaPacientes.clear();
                     modeloListaPacientes.addAll(Paciente.consultarPacientesPorDueño(dueno));
+                    
                     cambiarEstadoEspaciosPaciente(false);
                     jBtnLimpiarPaciente.setText("Cambiar de paciente");
                     jLblNombrePacienteDatos.setText(paciente.getNombre());
@@ -1444,10 +1409,13 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         Motivo motivoSeleccionado = jListMotivos.getSelectedValue();
         if (motivoSeleccionado instanceof Vacunacion) {
-            jTxtPrecioMotivo.setEditable(false);
-            jCmbVacunas.setVisible(true);
-            jLblVacunas.setVisible(true);
-            jTxtPrecioMotivo.setText(((Vacuna)jCmbVacunas.getSelectedItem()).getPrecio() + "");
+            if (paciente != null) {
+                jTxtPrecioMotivo.setEditable(false);
+                jCmbVacunas.setVisible(true);
+                jLblVacunas.setVisible(true);
+                jTxtPrecioMotivo.setText(((Vacuna) jCmbVacunas.getSelectedItem()).getPrecio() + "");
+            }
+
         }
         else if (motivoSeleccionado.getPrecio() != 0) {
             jTxtPrecioMotivo.setEditable(false);
@@ -1496,19 +1464,6 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jBtnAgregarMotivoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        String hilera = "";
-        for (Motivo motivo : arrayMotivosElegidos) {
-            if (motivo instanceof Vacunacion) {
-                hilera += motivo.getDescripcion() + " ----- " + motivo.getPrecio() + " --- " + ((Vacunacion)motivo).getVacuna() + "\n";
-            } else {
-                hilera += motivo.getDescripcion() + " ----- " + motivo.getPrecio() + "\n";
-            }
-        }
-        JOptionPane.showMessageDialog(null, hilera);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jCmbPruebasLaboratorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCmbPruebasLaboratorioActionPerformed
         // TODO add your handling code here:
         llenarListaSubCategorias();
@@ -1542,15 +1497,6 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jBtnAgregarPruebaActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        String hilera = "";
-        for (PruebaLaboratorio prueba : arrayPruebasLaboratorioElegidas) {
-            hilera += prueba.informacion() + "\n";
-        }
-        JOptionPane.showMessageDialog(null, hilera);
-    }//GEN-LAST:event_jButton3ActionPerformed
-
     private void jBtnEliminarMotivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEliminarMotivoActionPerformed
         // TODO add your handling code here:
         int fila = jTableMotivosElegidos.getSelectedRow();
@@ -1559,7 +1505,6 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
             if (opcion == JOptionPane.YES_OPTION) {
                 if (arrayMotivosElegidos.remove(jTableMotivosElegidos.getValueAt(fila, 0))) {
                     modeloTablaMotivos.removeRow(fila);
-                    JOptionPane.showMessageDialog(null, "El elemento fue eliminado de la lista de motivos", "¡Elemento eliminado¡", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }else {
@@ -1576,8 +1521,6 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                 PruebaLaboratorio pruebaElegida = (PruebaLaboratorio) jTablePruebasElegidas.getValueAt(fila, 0);
                 if (pruebaElegida.getArraySubCategorias().remove((SubCategoriaPrueba) jTablePruebasElegidas.getValueAt(fila, 1))) {
                     modeloTablaSubCategorias.removeRow(fila);
-                    JOptionPane.showMessageDialog(null, "El elemento fue eliminado de la lista de pruebas", "¡Elemento eliminado¡", JOptionPane.ERROR_MESSAGE);
-
                     if (pruebaElegida.getArraySubCategorias().isEmpty()) {
                         arrayPruebasLaboratorioElegidas.remove(pruebaElegida);
                     }
@@ -1646,16 +1589,6 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
     private void jTxtPrecioMotivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtPrecioMotivoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTxtPrecioMotivoActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        try {
-            for (Cita cita : Cita.consultarCitasPorPaciente(paciente.getId_paciente())) {
-                JOptionPane.showMessageDialog(null, cita.toString());
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(JInternalProcesoCita.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jFTxtNumeroCedulaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFTxtNumeroCedulaKeyReleased
         // TODO add your handling code here:
@@ -1754,9 +1687,6 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtnLimpiarDueno;
     private javax.swing.JButton jBtnLimpiarPaciente;
     private javax.swing.JButton jBtncrearCita;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<Especie> jCmbEspecie;
     private javax.swing.JComboBox<PruebaLaboratorio> jCmbPruebasLaboratorio;
     private javax.swing.JComboBox<Raza> jCmbRaza;

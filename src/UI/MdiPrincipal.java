@@ -109,7 +109,12 @@ public class MdiPrincipal extends javax.swing.JFrame {
         ReportesMenu.add(pasteMenuItem);
 
         deleteMenuItem.setMnemonic('d');
-        deleteMenuItem.setText("Delete");
+        deleteMenuItem.setText("Resumen de cita por paciente");
+        deleteMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteMenuItemActionPerformed(evt);
+            }
+        });
         ReportesMenu.add(deleteMenuItem);
 
         menuBar.add(ReportesMenu);
@@ -213,6 +218,13 @@ public class MdiPrincipal extends javax.swing.JFrame {
         desktopPane.add(ventana);
         ventana.setVisible(true);
     }//GEN-LAST:event_pasteMenuItemActionPerformed
+
+    private void deleteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteMenuItemActionPerformed
+        // TODO add your handling code here:
+        JInternalResumenCitaPorPaciente ventana = new JInternalResumenCitaPorPaciente();
+        desktopPane.add(ventana);
+        ventana.setVisible(true);
+    }//GEN-LAST:event_deleteMenuItemActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
