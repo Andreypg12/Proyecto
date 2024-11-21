@@ -1546,6 +1546,10 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
        cita.setArrayEvaluacion(arrayEvaluacionesElegidas);
        cita.setArrayMotivo(arrayMotivosElegidos);
        cita.setArrayPruebaLaboratorio(arrayPruebasLaboratorioElegidas);
+       String[] opciones = {"1 semana", "2 semanas", "1 mes", "2 meses"};
+       JOptionPane.showInputDialog(null, "¡Para cuando deseas agendar la próxima cita?", "Agendar próxima cita", JOptionPane.QUESTION_MESSAGE,
+               null, opciones, 0);
+               
        JOptionPane.showMessageDialog(null, cita.toString(), "", JOptionPane.ERROR_MESSAGE);
         try {
             Cita.agregarCita(cita, paciente);
