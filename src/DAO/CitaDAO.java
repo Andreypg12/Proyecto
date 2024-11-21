@@ -529,8 +529,7 @@ public class CitaDAO {
 
                         List<PruebaLaboratorio> arrayPruebas = new ArrayList<>();
 
-                        try (PreparedStatement pstmConsultarPruebasLaboratorio = conexion.prepareStatement(sqlConsultarPruebas);
-                                ResultSet rsPruebasLaboratorio = pstmConsultarPruebasLaboratorio.executeQuery()) {
+                        try (PreparedStatement pstmConsultarPruebasLaboratorio = conexion.prepareStatement(sqlConsultarPruebas); ResultSet rsPruebasLaboratorio = pstmConsultarPruebasLaboratorio.executeQuery()) {
 
                             Map<Integer, PruebaLaboratorio> arrayPruebasHashMap = new HashMap<>();
 
@@ -568,8 +567,22 @@ public class CitaDAO {
                             arrayPruebas.addAll(arrayPruebasHashMap.values());
                             cita.setArrayPruebaLaboratorio(arrayPruebas);
                         }
-                        
+
                         //Agregar aqui la parte de las citas
+                        String sqlConsultarFechas_Citas = "SELECT f.fecha "
+                                + "FROM FechaProximaCita f "
+                                + "JOIN Cita c ON f.id_cita = c.id_cita "
+                                + "WHERE f.id_cita = " + id_cita;
+                        List<Date> arrayListFechaProximas = new ArrayList<>();
+
+                        try (PreparedStatement pstmFecha_Cita = conexion.prepareStatement(sqlConsultarFechas_Citas); ResultSet rsFechas_Citas = pstmFecha_Cita.executeQuery()) {
+                            while (rsFechas_Citas.next()) {
+                                Timestamp fechasCitasTime = rsFechas_Citas.getTimestamp("fecha");
+                                Date fecha_Cita = new Date(fechasCitasTime.getTime());
+                                arrayListFechaProximas.add(fecha_Cita);
+                            }
+                            cita.setArrayProximasCitas(arrayListFechaProximas);
+                        }
 
                         paciente.agregarCitas(cita);
                     }
