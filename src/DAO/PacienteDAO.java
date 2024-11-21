@@ -10,38 +10,48 @@ import BLL.Sexo;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PacienteDAO {
     
     private Especie perro = new Perro();
+    
     private Especie gato = new Gato();
     
-    public void agregar(Paciente paciente) throws SQLException{
+    public int agregar(Paciente paciente) throws SQLException {
+        int id_paciente = -1;
         try {
             String sql = "INSERT INTO Paciente (cedula_dueño, nombre, sexo, edad,id_especie, id_raza) VALUES(?, ?, ?, ?, ?, ?)";
-            try(PreparedStatement pstm = ConeccionDB.conectarBaseDatos().prepareStatement(sql)){
-                
+            try (PreparedStatement pstm = ConeccionDB.conectarBaseDatos().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
                 String cedula_dueno = paciente.getDueño().getCedula();
                 String nombre = paciente.getNombre();
                 String sexo = paciente.getSexo().name();
                 int edad = paciente.getEdad();
                 int id_especie = paciente.getEspecie().getId_especie();
                 int id_raza = paciente.getRaza().getId_raza();
-                
+
                 pstm.setString(1, cedula_dueno);
                 pstm.setString(2, nombre);
                 pstm.setString(3, sexo);
                 pstm.setInt(4, edad);
                 pstm.setInt(5, id_especie);
                 pstm.setInt(6, id_raza);
-                
+
                 pstm.executeUpdate();
+
+                try (ResultSet generatedKeys = pstm.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        id_paciente = generatedKeys.getInt(1);
+                    }
+                }
             }
         } catch (SQLException e) {
             throw e;
         }
+        return id_paciente;
     }
 
     public List<Paciente> consultarPacientes() throws SQLException {

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Paciente {
-    private final int id_paciente;
+    private int id_paciente;
     private String nombre;
     private Sexo sexo;
     private int edad;
@@ -95,9 +95,13 @@ public class Paciente {
     public void setRaza(Raza raza) {
         this.raza = raza;
     }
+
+    public void setId_paciente(int id_paciente) {
+        this.id_paciente = id_paciente;
+    }
      
-    public static void agregar(Paciente paciente) throws SQLException{
-        new PacienteDAO().agregar(paciente);
+    public static int agregar(Paciente paciente) throws SQLException{
+        return new PacienteDAO().agregar(paciente);
     }
     
     public static List<Paciente> consultarPacientes() throws SQLException{

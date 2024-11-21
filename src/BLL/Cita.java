@@ -2,7 +2,6 @@ package BLL;
 
 import DAO.CitaDAO;
 import java.sql.SQLException;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,6 +21,7 @@ public class Cita {
     private int frecuenciaRespiratoria;
     private int pulso;
     private int temperatura;
+    List<Date> arrayProximasCitas;
 
     public Cita(String diagnostico, String indicaciones, Date fechaCita, int frecuenciaCardiaca, int frecuenciaRespiratoria, int pulso, int temperatura, Condicion condicion) {
         id_cita = 0;
@@ -37,6 +37,7 @@ public class Cita {
         this.frecuenciaRespiratoria = frecuenciaRespiratoria;
         this.pulso = pulso;
         this.temperatura = temperatura;
+        arrayProximasCitas = new ArrayList<>();
     }
     
     public Cita(int id_cita, String diagnostico, String indicaciones, Date fechaCita, int frecuenciaCardiaca, int frecuenciaRespiratoria, int pulso, int temperatura, Condicion condicion) {
@@ -53,6 +54,7 @@ public class Cita {
         this.frecuenciaRespiratoria = frecuenciaRespiratoria;
         this.pulso = pulso;
         this.temperatura = temperatura;
+        arrayProximasCitas = new ArrayList<>();
     }
     
     public double calcularCostoCita(){
@@ -89,9 +91,14 @@ public class Cita {
     public void agregarPruebaLaboratorio(PruebaLaboratorio pruebaLaboratorio) {
         this.arrayPruebaLaboratorio.add(pruebaLaboratorio);
     }
+    
+    public void agregarProximaCita(Date fechaProximaCita){
+        arrayProximasCitas.add(fechaProximaCita);
+    }
 
     public String toStringInformacion() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        SimpleDateFormat sdfProximasCitas = new SimpleDateFormat("dd-MM-yyyy");
         String fechaCitaConFormato = sdf.format( fechaCita);
         StringBuilder sb = new StringBuilder();
         sb.append("Cita");
@@ -136,6 +143,13 @@ public class Cita {
                 for (SubCategoriaPrueba subCategoria : pruebaLaboratorio.getArraySubCategorias()) {
                     sb.append("▹").append(subCategoria.getNombre()).append("\n");
                 }
+            }
+        }
+        
+        if (!arrayProximasCitas.isEmpty()) {
+            sb.append("Fecha de proximas citas");
+            for (Date fechaProximaCita : arrayProximasCitas) {
+                sb.append("\n▹").append(sdfProximasCitas.format(fechaProximaCita));
             }
         }
         sb.append("\nEl costo total de la cita fue: ").append(calcularCostoCita());
@@ -254,6 +268,14 @@ public class Cita {
         return condicion;
     }
 
+    public List<Date> getArrayProximasCitas() {
+        return arrayProximasCitas;
+    }
+
+    public void setArrayProximasCitas(List<Date> arrayProximasCitas) {
+        this.arrayProximasCitas = arrayProximasCitas;
+    }
+
     public void setCondicion(Condicion condicion) {
         this.condicion = condicion;
     }
@@ -264,10 +286,6 @@ public class Cita {
     
     public static List<Cita> consultarCitasPorPaciente(int id_paciente) throws SQLException{
         return new CitaDAO().consultarCitasPorPaciente(id_paciente);
-    }
-    
-    public static List<Cita> consultarCitasPorFecha(Date fecha) throws SQLException{
-        return new CitaDAO().consultarCitasPorFecha(fecha);
     }
     
     public static List<Paciente> consultarPacientesConCita() throws SQLException{
