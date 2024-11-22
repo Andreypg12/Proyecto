@@ -104,7 +104,8 @@ public class CitaDAO {
                             try(PreparedStatement pstmProximasCitas = conexion.prepareStatement(sqlInisertarProximasFechas)){
                                 for (Date fecha : cita.getArrayProximasCitas()) {
                                     pstmProximasCitas.setInt(1, id_cita);
-                                    pstmtCita.setTimestamp(2, new java.sql.Timestamp(fecha.getTime()));
+                                    pstmProximasCitas.setTimestamp(2, new java.sql.Timestamp(fecha.getTime()));
+                                    pstmProximasCitas.addBatch();
                                 }
                                 pstmProximasCitas.executeBatch();
                             }
