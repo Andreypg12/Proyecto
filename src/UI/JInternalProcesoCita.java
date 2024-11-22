@@ -6,7 +6,10 @@ package UI;
 
 import BLL.*;
 import java.sql.SQLException;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -96,8 +99,9 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
-        buttonGroup2 = new javax.swing.ButtonGroup();
+        JBtnGroupEstadoEvaluacion = new javax.swing.ButtonGroup();
+        JBtnGroupCondicion = new javax.swing.ButtonGroup();
+        JBtnGroupAlicaExamen = new javax.swing.ButtonGroup();
         jTPlProcesoCita = new javax.swing.JTabbedPane();
         jPanelPaciente = new PanelConFondo("/Imagenes/FondoCitas.png");
         jPanelDueno = new javax.swing.JPanel();
@@ -148,6 +152,9 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         jCmbVacunas = new javax.swing.JComboBox<>();
         jLblVacunas = new javax.swing.JLabel();
         jBtnAgregarMotivo = new javax.swing.JButton();
+        jLblAplicaExamen = new javax.swing.JLabel();
+        jRbdSiAplicaExamen = new javax.swing.JRadioButton();
+        jRbdNoAplicaExamen = new javax.swing.JRadioButton();
         jPanelPrueba = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -575,6 +582,15 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
             }
         });
 
+        jLblAplicaExamen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLblAplicaExamen.setText("Aplica examen");
+
+        JBtnGroupAlicaExamen.add(jRbdSiAplicaExamen);
+        jRbdSiAplicaExamen.setText("Si");
+
+        JBtnGroupAlicaExamen.add(jRbdNoAplicaExamen);
+        jRbdNoAplicaExamen.setText("No");
+
         javax.swing.GroupLayout jPanelMotivoLayout = new javax.swing.GroupLayout(jPanelMotivo);
         jPanelMotivo.setLayout(jPanelMotivoLayout);
         jPanelMotivoLayout.setHorizontalGroup(
@@ -582,32 +598,47 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
             .addGroup(jPanelMotivoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
                 .addGroup(jPanelMotivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCmbVacunas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLblVacunas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTxtPrecioMotivo)
-                    .addComponent(jBtnAgregarMotivo, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMotivoLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jRbdSiAplicaExamen)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRbdNoAplicaExamen)
+                        .addGap(22, 22, 22))
+                    .addGroup(jPanelMotivoLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(jPanelMotivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLblAplicaExamen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jCmbVacunas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLblVacunas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jTxtPrecioMotivo)
+                            .addComponent(jBtnAgregarMotivo, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
         jPanelMotivoLayout.setVerticalGroup(
             jPanelMotivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelMotivoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelMotivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelMotivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3)
                     .addGroup(jPanelMotivoLayout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTxtPrecioMotivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLblVacunas)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jCmbVacunas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addComponent(jLblAplicaExamen)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelMotivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jRbdNoAplicaExamen, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jRbdSiAplicaExamen, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jBtnAgregarMotivo)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanelPrueba.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Pruebas de laboratorio"));
@@ -810,18 +841,17 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSprFechaCita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanelMotivosElegidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanelMotivo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, Short.MAX_VALUE)
-                    .addComponent(jPanelPrueba, javax.swing.GroupLayout.PREFERRED_SIZE, 328, Short.MAX_VALUE))
+                    .addComponent(jPanelPrueba, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -847,13 +877,13 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
 
         jRdbPostrado.setText("Postrado");
 
-        buttonGroup2.add(jRdbPesoNormal);
+        JBtnGroupCondicion.add(jRdbPesoNormal);
         jRdbPesoNormal.setText("Peso normal");
 
-        buttonGroup2.add(jRdbBajoPeso);
+        JBtnGroupCondicion.add(jRdbBajoPeso);
         jRdbBajoPeso.setText("Bajo peso");
 
-        buttonGroup2.add(jRdbSobrePeso);
+        JBtnGroupCondicion.add(jRdbSobrePeso);
         jRdbSobrePeso.setText("Sobre peso");
 
         jLabel11.setText("Frecuencia cardiaca");
@@ -887,11 +917,11 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Tipos de evaluación");
 
-        buttonGroup1.add(jRbdNormal);
+        JBtnGroupEstadoEvaluacion.add(jRbdNormal);
         jRbdNormal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jRbdNormal.setText("Normal");
 
-        buttonGroup1.add(jRbdAnormal);
+        JBtnGroupEstadoEvaluacion.add(jRbdAnormal);
         jRbdAnormal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jRbdAnormal.setText("Anormal");
 
@@ -1107,12 +1137,12 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
             .addGroup(jPanelCitaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelCitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanelCitaLayout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 622, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCitaLayout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(jBtncrearCita))
                     .addComponent(jPanelDatosPaciente2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         jTPlProcesoCita.addTab("Cita", jPanelCita);
@@ -1428,6 +1458,16 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
             jTxtPrecioMotivo.setText("");
             jLblVacunas.setVisible(false);
         }
+        if (motivoSeleccionado.isAplicaExamen()) {
+            jLblAplicaExamen.setVisible(true);
+            jRbdSiAplicaExamen.setVisible(true);
+            jRbdNoAplicaExamen.setVisible(true);
+        }
+        else{
+            jLblAplicaExamen.setVisible(false);
+            jRbdSiAplicaExamen.setVisible(false);
+            jRbdNoAplicaExamen.setVisible(false);
+        }
     }//GEN-LAST:event_jListMotivosValueChanged
 
     private void jCmbVacunasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCmbVacunasActionPerformed
@@ -1443,21 +1483,26 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
             Motivo motivoSeleccionado = jListMotivos.getSelectedValue();
             Motivo motivoAgregar = null;
             if (motivoSeleccionado instanceof Vacunacion) {
-                motivoAgregar = ((Vacunacion)motivoSeleccionado).clonar();
-                ((Vacunacion)motivoAgregar).setVacuna((Vacuna)jCmbVacunas.getSelectedItem());
-            }
-            else if (motivoSeleccionado.getPrecio() == 0) {
+                motivoAgregar = ((Vacunacion) motivoSeleccionado).clonar();
+                ((Vacunacion) motivoAgregar).setVacuna((Vacuna) jCmbVacunas.getSelectedItem());
+            } else if (motivoSeleccionado.getPrecio() == 0) {
                 try {
                     motivoAgregar = motivoSeleccionado.clonar();
                     motivoAgregar.setPrecio(Double.parseDouble(jTxtPrecioMotivo.getText()));
+                    if (motivoAgregar.isAplicaExamen()) {
+                        motivoAgregar.setAplicaExamen(!jRbdNoAplicaExamen.isSelected());
+                    }
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(null, "Debes ingresar un numero en el precio", "Espacio inválido", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
-            }
-            else{
+            } else {
                 motivoAgregar = motivoSeleccionado.clonar();
+                if (motivoAgregar.isAplicaExamen()) {
+                    motivoAgregar.setAplicaExamen(!jRbdNoAplicaExamen.isSelected());
+                }
             }
+
             arrayMotivosElegidos.add(motivoAgregar);
             Object[] fila = {motivoAgregar, motivoAgregar.getPrecio()};
             modeloTablaMotivos.addRow(fila);
@@ -1542,22 +1587,59 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                 (int) jSprPulso.getValue(),
                 (int) jSprTemperatura.getValue(),
                 crearCondicion());
-       cita.setArrayActitud(crearArrayActitudes());
-       cita.setArrayEvaluacion(arrayEvaluacionesElegidas);
-       cita.setArrayMotivo(arrayMotivosElegidos);
-       cita.setArrayPruebaLaboratorio(arrayPruebasLaboratorioElegidas);
-       String[] opciones = {"1 semana", "2 semanas", "1 mes", "2 meses"};
-       JOptionPane.showInputDialog(null, "¡Para cuando deseas agendar la próxima cita?", "Agendar próxima cita", JOptionPane.QUESTION_MESSAGE,
-               null, opciones, 0);
-               
-       JOptionPane.showMessageDialog(null, cita.toString(), "", JOptionPane.ERROR_MESSAGE);
+        cita.setArrayActitud(crearArrayActitudes());
+        cita.setArrayEvaluacion(arrayEvaluacionesElegidas);
+        cita.setArrayMotivo(arrayMotivosElegidos);
+        cita.setArrayPruebaLaboratorio(arrayPruebasLaboratorioElegidas);
+        String[] opciones = {"1 semana", "2 semanas", "1 mes", "2 meses", "No hay próxima cita"};
+        String opcion = (String) JOptionPane.showInputDialog(null, "¡Para cuando deseas agendar la próxima cita?", "Agendar próxima cita", JOptionPane.QUESTION_MESSAGE,
+                null, opciones, 0);
+        if (opcion != null) {
+            Date fechaProximaCita = definirProximasCitas(opcion, fechacita);
+
+            if (fechaProximaCita != null) {
+                cita.agregarProximaCita(fechaProximaCita);
+            }
+        }
+        JOptionPane.showMessageDialog(null, cita.toStringInformacion(), "", JOptionPane.ERROR_MESSAGE);
         try {
             Cita.agregarCita(cita, paciente);
         } catch (SQLException ex) {
             Logger.getLogger(JInternalProcesoCita.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jBtncrearCitaActionPerformed
+    
+    private Date definirProximasCitas(String opcion, Date fechaDeCita) {
 
+        if (opcion.equals("No hay próxima cita")) {
+            return null;
+        }
+
+        Calendar calendario = Calendar.getInstance();
+        calendario.setTime(fechaDeCita);
+
+        switch (opcion) {
+            case "1 semana" ->
+                calendario.add(Calendar.WEEK_OF_YEAR, 1);
+            case "2 semanas" ->
+                calendario.add(Calendar.WEEK_OF_YEAR, 2);
+            case "1 mes" ->
+                calendario.add(Calendar.MONTH, 1);
+            case "2 meses" ->
+                calendario.add(Calendar.MONTH, 2);
+        }
+
+        int diaDeLaSemana = calendario.get(Calendar.DAY_OF_WEEK);
+
+        if (diaDeLaSemana == Calendar.SATURDAY) {
+            calendario.add(Calendar.DAY_OF_MONTH, -1);
+        } else if (diaDeLaSemana == Calendar.SUNDAY) {
+            calendario.add(Calendar.DAY_OF_MONTH, 1);
+        }
+
+        return calendario.getTime();
+    }
+    
     private void jBtnAgregarEvaluaciónActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAgregarEvaluaciónActionPerformed
         // TODO add your handling code here:
         if (jListTiposEvaluaciones.getSelectedIndex() != -1) {
@@ -1676,8 +1758,9 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.ButtonGroup JBtnGroupAlicaExamen;
+    private javax.swing.ButtonGroup JBtnGroupCondicion;
+    private javax.swing.ButtonGroup JBtnGroupEstadoEvaluacion;
     private javax.swing.JButton jBtnAgregarEvaluación;
     private javax.swing.JButton jBtnAgregarMotivo;
     private javax.swing.JButton jBtnAgregarPrueba;
@@ -1716,6 +1799,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLblAplicaExamen;
     private javax.swing.JLabel jLblCedula;
     private javax.swing.JLabel jLblDireccion;
     private javax.swing.JLabel jLblDuenoElegido;
@@ -1749,7 +1833,9 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanelPaciente;
     private javax.swing.JPanel jPanelPrueba;
     private javax.swing.JRadioButton jRbdAnormal;
+    private javax.swing.JRadioButton jRbdNoAplicaExamen;
     private javax.swing.JRadioButton jRbdNormal;
+    private javax.swing.JRadioButton jRbdSiAplicaExamen;
     private javax.swing.JRadioButton jRdbBajoPeso;
     private javax.swing.JRadioButton jRdbDeprimido;
     private javax.swing.JRadioButton jRdbExitado;

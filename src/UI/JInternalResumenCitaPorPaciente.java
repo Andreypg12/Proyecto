@@ -55,6 +55,8 @@ public class JInternalResumenCitaPorPaciente extends javax.swing.JInternalFrame 
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
 
+        setClosable(true);
+
         jBtnElegirPaciente.setText("Elegir paciente");
         jBtnElegirPaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

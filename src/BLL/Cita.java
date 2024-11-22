@@ -101,7 +101,7 @@ public class Cita {
         SimpleDateFormat sdfProximasCitas = new SimpleDateFormat("dd-MM-yyyy");
         String fechaCitaConFormato = sdf.format( fechaCita);
         StringBuilder sb = new StringBuilder();
-        sb.append("Cita");
+        sb.append("➤Cita");
         sb.append("\nCondición: ").append(condicion).append("\n");
         if (!arrayActitud.isEmpty()) {
             if (arrayActitud.size() == 1) {
@@ -159,7 +159,7 @@ public class Cita {
         sb.append("\nFrecuencia cardiaca: ").append(frecuenciaCardiaca);
         sb.append("\nFrecuencia respiratoria: ").append(frecuenciaRespiratoria);
         sb.append("\nPulso: ").append(pulso);
-        sb.append("\nTemperatura: ").append(temperatura).append("°C");
+        sb.append("\nTemperatura: ").append(temperatura).append("°C\n\n");
         return sb.toString();
     }
 
