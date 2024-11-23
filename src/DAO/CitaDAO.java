@@ -12,8 +12,8 @@ public class CitaDAO {
 
     public void agregarCita(Cita cita, Paciente paciente) throws SQLException {
         String sqlInsertCita = "INSERT INTO Cita (id_Paciente, diagnostico, indicaciones, fechaCita, "
-                + "frecuenciaCardiaca, frecuenciaRespiratoria, pulso, temperatura, id_condicion) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + "frecuenciaCardiaca, frecuenciaRespiratoria, pulso, temperatura, id_condicion, fechaProximaCita) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         String sqlInsertCitaMotivo = "INSERT INTO Cita_Motivo (id_cita, id_motivo, id_vacuna, precio, aplica_examen) VALUES (?, ?, ?, ?, ?)";
 
@@ -24,8 +24,6 @@ public class CitaDAO {
         String sqlInsertarCita_Evaluacion = "INSERT INTO Cita_Evaluacion (id_cita, id_evaluacion) VALUES (?, ?)";
 
         String sqlInsertarCita_Actitud = "INSERT INTO Cita_Actitud (id_cita, id_actitud) VALUES (?, ?)";
-        
-        String sqlInisertarProximasFechas = "INSERT INTO FechaProximaCita (id_cita, fecha) VALUES (?, ?)";
 
         try (Connection conexion = ConeccionDB.conectarBaseDatos()) {
             conexion.setAutoCommit(false);
@@ -41,7 +39,11 @@ public class CitaDAO {
                 pstmtCita.setInt(7, cita.getPulso());
                 pstmtCita.setInt(8, cita.getTemperatura());
                 pstmtCita.setInt(9, cita.getCondicion().getId_condicion());
-
+                if (cita.getProximaCita() != null) {
+                    pstmtCita.setTimestamp(10, new java.sql.Timestamp(cita.getProximaCita().getTime()));
+                } else {
+                    pstmtCita.setNull(10, java.sql.Types.TIMESTAMP);
+                }
                 pstmtCita.executeUpdate();
 
                 try (ResultSet generatedKeys = pstmtCita.getGeneratedKeys()) {
@@ -81,8 +83,7 @@ public class CitaDAO {
                             }
                         }
                         if (!cita.getArrayEvaluacion().isEmpty()) {
-                            try (PreparedStatement pstmtEvaluacion = conexion.prepareStatement(sqlInsertarEvaluacion, Statement.RETURN_GENERATED_KEYS);
-                                    PreparedStatement pstmCita_Evaluacion = conexion.prepareStatement(sqlInsertarCita_Evaluacion)) {
+                            try (PreparedStatement pstmtEvaluacion = conexion.prepareStatement(sqlInsertarEvaluacion, Statement.RETURN_GENERATED_KEYS); PreparedStatement pstmCita_Evaluacion = conexion.prepareStatement(sqlInsertarCita_Evaluacion)) {
 
                                 for (Evaluacion evaluacion : cita.getArrayEvaluacion()) {
                                     pstmtEvaluacion.setInt(1, evaluacion.getTipoEvaluacion().getId_tipo_evaluacion());
@@ -101,16 +102,7 @@ public class CitaDAO {
                                 pstmCita_Evaluacion.executeBatch();
                             }
                         }
-                        if (!cita.getArrayProximasCitas().isEmpty()) {
-                            try(PreparedStatement pstmProximasCitas = conexion.prepareStatement(sqlInisertarProximasFechas)){
-                                for (Date fecha : cita.getArrayProximasCitas()) {
-                                    pstmProximasCitas.setInt(1, id_cita);
-                                    pstmProximasCitas.setTimestamp(2, new java.sql.Timestamp(fecha.getTime()));
-                                    pstmProximasCitas.addBatch();
-                                }
-                                pstmProximasCitas.executeBatch();
-                            }
-                        }
+
                         try (PreparedStatement pstmCita_Actitud = conexion.prepareStatement(sqlInsertarCita_Actitud)) {
                             for (Actitud actitud : cita.getArrayActitud()) {
                                 pstmCita_Actitud.setInt(1, id_cita);
@@ -134,7 +126,7 @@ public class CitaDAO {
 
     public List<Cita> consultarCitasPorPaciente(int id_paciente) throws SQLException {
         List<Cita> arrayCitas = new ArrayList<>();
-        String sqlConsultarCita = "SELECT c.id_cita, c.diagnostico, c.indicaciones, c.fechaCita, c.frecuenciaCardiaca, c.frecuenciaRespiratoria, c.pulso, c.temperatura"
+        String sqlConsultarCita = "SELECT c.id_cita, c.diagnostico, c.indicaciones, c.fechaCita, c.frecuenciaCardiaca, c.frecuenciaRespiratoria, c.pulso, c.temperatura, c.fechaProximaCita"
                 + ", co.descripcion "
                 + "FROM Cita c "
                 + "JOIN Condicion co ON c.id_condicion = co.id_condicion "
@@ -147,15 +139,16 @@ public class CitaDAO {
                     int id_cita = rsCitas.getInt("id_cita");
                     String disgnostico = rsCitas.getString("diagnostico").trim();
                     String indicaciones = rsCitas.getString("indicaciones").trim();
-                    Timestamp fechaCitaTime = rsCitas.getTimestamp("fechaCita");
-                    Date fechaCita = new Date(fechaCitaTime.getTime());
+                    Date fechaCita = new Date(rsCitas.getTimestamp("fechaCita").getTime());
+                    Timestamp proximaCitaTimestamp = rsCitas.getTimestamp("fechaProximaCita");
+                    Date proximaCita = (proximaCitaTimestamp != null) ? new Date(proximaCitaTimestamp.getTime()) : null;
                     int frecuenciaCardiaca = rsCitas.getInt("frecuenciaCardiaca");
                     int frecuenciaRespiratoria = rsCitas.getInt("frecuenciaRespiratoria");
                     int pulso = rsCitas.getInt("pulso");
                     int temperatura = rsCitas.getInt("temperatura");
                     Condicion condicion = Condicion.valueOf(rsCitas.getString("descripcion").trim());
 
-                    Cita cita = new Cita(id_cita, disgnostico, indicaciones, fechaCita, frecuenciaCardiaca, frecuenciaRespiratoria, pulso, temperatura, condicion);
+                    Cita cita = new Cita(id_cita, disgnostico, indicaciones, fechaCita, frecuenciaCardiaca, frecuenciaRespiratoria, pulso, temperatura, condicion, proximaCita);
 
                     String sqlConsultaActitudes = "SELECT a.id_actitud, a.descripcion "
                             + "FROM Actitud a "
@@ -430,7 +423,7 @@ public class CitaDAO {
     
     public List<Paciente> consultarPacientesConCita() throws SQLException {
         List<Paciente> arrayPacientes = new ArrayList<>();
-        String sqlConsultarCita = "SELECT c.id_cita, c.diagnostico, c.indicaciones, c.fechaCita, c.frecuenciaCardiaca, c.frecuenciaRespiratoria, c.pulso, c.temperatura"
+        String sqlConsultarCita = "SELECT c.id_cita, c.diagnostico, c.indicaciones, c.fechaCita, c.frecuenciaCardiaca, c.frecuenciaRespiratoria, c.pulso, c.temperatura, c.fechaProximaCita"
                 + ", co.descripcion "
                 + "FROM Cita c "
                 + "JOIN Condicion co ON c.id_condicion = co.id_condicion "
@@ -446,15 +439,16 @@ public class CitaDAO {
                         int id_cita = rsCitas.getInt("id_cita");
                         String disgnostico = rsCitas.getString("diagnostico").trim();
                         String indicaciones = rsCitas.getString("indicaciones").trim();
-                        Timestamp fechaCitaTime = rsCitas.getTimestamp("fechaCita");
-                        Date fechaCita = new Date(fechaCitaTime.getTime());
+                        Date fechaCita = new Date(rsCitas.getTimestamp("fechaCita").getTime());
+                        Timestamp proximaCitaTimestamp = rsCitas.getTimestamp("fechaProximaCita");
+                        Date proximaCita = (proximaCitaTimestamp != null) ? new Date(proximaCitaTimestamp.getTime()) : null;
                         int frecuenciaCardiaca = rsCitas.getInt("frecuenciaCardiaca");
                         int frecuenciaRespiratoria = rsCitas.getInt("frecuenciaRespiratoria");
                         int pulso = rsCitas.getInt("pulso");
                         int temperatura = rsCitas.getInt("temperatura");
                         Condicion condicion = Condicion.valueOf(rsCitas.getString("descripcion").trim());
 
-                        Cita cita = new Cita(id_cita, disgnostico, indicaciones, fechaCita, frecuenciaCardiaca, frecuenciaRespiratoria, pulso, temperatura, condicion);
+                        Cita cita = new Cita(id_cita, disgnostico, indicaciones, fechaCita, frecuenciaCardiaca, frecuenciaRespiratoria, pulso, temperatura, condicion, proximaCita);
 
                         String sqlConsultaActitudes = "SELECT a.id_actitud, a.descripcion "
                                 + "FROM Actitud a "
@@ -567,22 +561,6 @@ public class CitaDAO {
 
                             arrayPruebas.addAll(arrayPruebasHashMap.values());
                             cita.setArrayPruebaLaboratorio(arrayPruebas);
-                        }
-
-                        //Agregar aqui la parte de las citas
-                        String sqlConsultarFechas_Citas = "SELECT f.fecha "
-                                + "FROM FechaProximaCita f "
-                                + "JOIN Cita c ON f.id_cita = c.id_cita "
-                                + "WHERE f.id_cita = " + id_cita;
-                        List<Date> arrayListFechaProximas = new ArrayList<>();
-
-                        try (PreparedStatement pstmFecha_Cita = conexion.prepareStatement(sqlConsultarFechas_Citas); ResultSet rsFechas_Citas = pstmFecha_Cita.executeQuery()) {
-                            while (rsFechas_Citas.next()) {
-                                Timestamp fechasCitasTime = rsFechas_Citas.getTimestamp("fecha");
-                                Date fecha_Cita = new Date(fechasCitasTime.getTime());
-                                arrayListFechaProximas.add(fecha_Cita);
-                            }
-                            cita.setArrayProximasCitas(arrayListFechaProximas);
                         }
 
                         paciente.agregarCitas(cita);

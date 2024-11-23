@@ -21,9 +21,9 @@ public class Cita {
     private int frecuenciaRespiratoria;
     private int pulso;
     private int temperatura;
-    List<Date> arrayProximasCitas;
+    private Date proximaCita;
 
-    public Cita(String diagnostico, String indicaciones, Date fechaCita, int frecuenciaCardiaca, int frecuenciaRespiratoria, int pulso, int temperatura, Condicion condicion) {
+    public Cita(String diagnostico, String indicaciones, Date fechaCita, int frecuenciaCardiaca, int frecuenciaRespiratoria, int pulso, int temperatura, Condicion condicion, Date proximaCita) {
         id_cita = 0;
         this.arrayActitud = new ArrayList<>();
         this.condicion = condicion;
@@ -37,10 +37,10 @@ public class Cita {
         this.frecuenciaRespiratoria = frecuenciaRespiratoria;
         this.pulso = pulso;
         this.temperatura = temperatura;
-        arrayProximasCitas = new ArrayList<>();
+        this.proximaCita = proximaCita;
     }
     
-    public Cita(int id_cita, String diagnostico, String indicaciones, Date fechaCita, int frecuenciaCardiaca, int frecuenciaRespiratoria, int pulso, int temperatura, Condicion condicion) {
+    public Cita(int id_cita, String diagnostico, String indicaciones, Date fechaCita, int frecuenciaCardiaca, int frecuenciaRespiratoria, int pulso, int temperatura, Condicion condicion, Date proximaCita) {
         this.id_cita = id_cita;
         this.arrayActitud = new ArrayList<>();
         this.condicion = condicion;
@@ -54,7 +54,7 @@ public class Cita {
         this.frecuenciaRespiratoria = frecuenciaRespiratoria;
         this.pulso = pulso;
         this.temperatura = temperatura;
-        arrayProximasCitas = new ArrayList<>();
+        this.proximaCita = proximaCita;
     }
     
     public double calcularCostoCita(){
@@ -91,21 +91,16 @@ public class Cita {
     public void agregarPruebaLaboratorio(PruebaLaboratorio pruebaLaboratorio) {
         this.arrayPruebaLaboratorio.add(pruebaLaboratorio);
     }
-    
-    public void agregarProximaCita(Date fechaProximaCita){
-        arrayProximasCitas.add(fechaProximaCita);
-    }
 
     public String toStringInformacion() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-        SimpleDateFormat sdfProximasCitas = new SimpleDateFormat("dd-MM-yyyy");
-        String fechaCitaConFormato = sdf.format( fechaCita);
+
         StringBuilder sb = new StringBuilder();
         sb.append("➤Cita");
         sb.append("\nCondición: ").append(condicion).append("\n");
         if (!arrayActitud.isEmpty()) {
             if (arrayActitud.size() == 1) {
-                sb.append("Actitud: ").append(arrayActitud.get(0));
+                sb.append("Actitud: ").append(arrayActitud.get(0)).append("\n");
             } else {
                 sb.append("Actitudes: ");
                 for (Actitud actitud : arrayActitud) {
@@ -146,16 +141,16 @@ public class Cita {
             }
         }
         
-        if (!arrayProximasCitas.isEmpty()) {
-            sb.append("Fecha de proximas citas");
-            for (Date fechaProximaCita : arrayProximasCitas) {
-                sb.append("\n▹").append(sdfProximasCitas.format(fechaProximaCita));
-            }
+        if (proximaCita == null) {
+            sb.append("No hay proxima cita");
+        }
+        else{
+            sb.append("La fecha de la proxima cita es: ").append(sdf.format(proximaCita));
         }
         sb.append("\nEl costo total de la cita fue: ").append(calcularCostoCita());
         sb.append("\nDiagnostico: ").append(diagnostico);
         sb.append("\nIndicaciones: ").append(indicaciones);
-        sb.append("\nFecha de la cita: ").append(fechaCitaConFormato);
+        sb.append("\nFecha de la cita: ").append(sdf.format( fechaCita));
         sb.append("\nFrecuencia cardiaca: ").append(frecuenciaCardiaca);
         sb.append("\nFrecuencia respiratoria: ").append(frecuenciaRespiratoria);
         sb.append("\nPulso: ").append(pulso);
@@ -307,12 +302,12 @@ public class Cita {
         return condicion;
     }
 
-    public List<Date> getArrayProximasCitas() {
-        return arrayProximasCitas;
+    public Date getProximaCita() {
+        return proximaCita;
     }
 
-    public void setArrayProximasCitas(List<Date> arrayProximasCitas) {
-        this.arrayProximasCitas = arrayProximasCitas;
+    public void setProximaCita(Date proximaCita) {
+        this.proximaCita = proximaCita;
     }
 
     public void setCondicion(Condicion condicion) {
