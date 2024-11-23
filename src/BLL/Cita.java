@@ -325,4 +325,8 @@ public class Cita {
     public static List<Paciente> consultarPacientesConCita() throws SQLException{
         return new CitaDAO().consultarPacientesConCita();
     }
+    
+    public static boolean verificarCitaPorFecha(Date fechaVerificar) throws SQLException{
+        return new CitaDAO().verificarFechaCita(fechaVerificar);
+    }
 }

@@ -1581,42 +1581,44 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         if (!jRdbBajoPeso.isSelected() && !jRdbPesoNormal.isSelected() && !jRdbSobrePeso.isSelected()) {
             JOptionPane.showMessageDialog(null, "Debes seleccionar la condición del paciente", "Condición no elegida", JOptionPane.INFORMATION_MESSAGE);
             return;
-        }
-        
-        else if (!jRdbExitado.isSelected() && !jRdbPostrado.isSelected() && !jRdbDeprimido.isSelected()) {
+        } else if (!jRdbExitado.isSelected() && !jRdbPostrado.isSelected() && !jRdbDeprimido.isSelected()) {
             JOptionPane.showMessageDialog(null, "Debes seleccionar almenos una actitud", "Actitud no elegida", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-        
+
         Date fechacita = (Date) jSprFechaCita.getValue();
-
-        String[] opciones = {"1 semana", "2 semanas", "1 mes", "2 meses", "No hay próxima cita"};
-        String opcion = (String) JOptionPane.showInputDialog(null, "¡Para cuando deseas agendar la próxima cita?", "Agendar próxima cita", JOptionPane.QUESTION_MESSAGE,
-                null, opciones, 0);
-
-        if (opcion == null) {
-            opcion = "No hay próxima cita";
-        }
-        Date fechaProximaCita = definirProximaCita(opcion, fechacita);
-
-        Cita cita = new Cita(jTxtDiagnostico.getText(),
-                jTxtIndicaciones.getText(),
-                fechacita,
-                (int) jSprFrecuenciaCardiaca.getValue(),
-                (int) jSprFrecuenciaRespiratoria.getValue(),
-                (int) jSprPulso.getValue(),
-                (int) jSprTemperatura.getValue(),
-                crearCondicion(),
-                fechaProximaCita);
-
-        cita.setArrayActitud(crearArrayActitudes());
-        cita.setArrayEvaluacion(arrayEvaluacionesElegidas);
-        cita.setArrayMotivo(arrayMotivosElegidos);
-        cita.setArrayPruebaLaboratorio(arrayPruebasLaboratorioElegidas);
-        JOptionPane.showMessageDialog(null, cita.mostrarPrecio(), "Resumen de precios", JOptionPane.INFORMATION_MESSAGE);
-
         try {
-            Cita.agregarCita(cita, paciente);
+            if (!Cita.verificarCitaPorFecha(fechacita)) {
+
+                String[] opciones = {"1 semana", "2 semanas", "1 mes", "2 meses", "No hay próxima cita"};
+                String opcion = (String) JOptionPane.showInputDialog(null, "¡Para cuando deseas agendar la próxima cita?", "Agendar próxima cita", JOptionPane.QUESTION_MESSAGE,
+                        null, opciones, 0);
+
+                if (opcion == null) {
+                    opcion = "No hay próxima cita";
+                }
+                Date fechaProximaCita = definirProximaCita(opcion, fechacita);
+
+                Cita cita = new Cita(jTxtDiagnostico.getText(),
+                        jTxtIndicaciones.getText(),
+                        fechacita,
+                        (int) jSprFrecuenciaCardiaca.getValue(),
+                        (int) jSprFrecuenciaRespiratoria.getValue(),
+                        (int) jSprPulso.getValue(),
+                        (int) jSprTemperatura.getValue(),
+                        crearCondicion(),
+                        fechaProximaCita);
+
+                cita.setArrayActitud(crearArrayActitudes());
+                cita.setArrayEvaluacion(arrayEvaluacionesElegidas);
+                cita.setArrayMotivo(arrayMotivosElegidos);
+                cita.setArrayPruebaLaboratorio(arrayPruebasLaboratorioElegidas);
+                JOptionPane.showMessageDialog(null, cita.mostrarPrecio(), "Resumen de precios", JOptionPane.INFORMATION_MESSAGE);
+
+                Cita.agregarCita(cita, paciente);
+            } else{
+                JOptionPane.showMessageDialog(null, "Ya hay una cita en esa fecha", "No se pudo crear la cita", JOptionPane.ERROR_MESSAGE);
+            }
         } catch (SQLException ex) {
             Logger.getLogger(JInternalProcesoCita.class.getName()).log(Level.SEVERE, null, ex);
         }

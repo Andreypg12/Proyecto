@@ -656,7 +656,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jPanel1" pref="328" max="32767" attributes="0"/>
-                              <Component id="jPanelPrueba" pref="0" max="32767" attributes="0"/>
+                              <Component id="jPanelPrueba" pref="328" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -829,9 +829,6 @@
                     </Component>
                     <Component class="javax.swing.JRadioButton" name="jRbdSiAplicaExamen">
                       <Properties>
-                        <Property name="model" type="javax.swing.ButtonModel" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                          <ComponentRef name="default"/>
-                        </Property>
                         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                           <ComponentRef name="JBtnGroupAlicaExamen"/>
                         </Property>
@@ -840,9 +837,6 @@
                     </Component>
                     <Component class="javax.swing.JRadioButton" name="jRbdNoAplicaExamen">
                       <Properties>
-                        <Property name="model" type="javax.swing.ButtonModel" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                          <ComponentRef name="default"/>
-                        </Property>
                         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                           <ComponentRef name="JBtnGroupAlicaExamen"/>
                         </Property>
