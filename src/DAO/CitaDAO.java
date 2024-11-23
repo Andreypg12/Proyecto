@@ -15,7 +15,7 @@ public class CitaDAO {
                 + "frecuenciaCardiaca, frecuenciaRespiratoria, pulso, temperatura, id_condicion) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        String sqlInsertCitaMotivo = "INSERT INTO Cita_Motivo (id_cita, id_motivo, id_vacuna, precio) VALUES (?, ?, ?, ?)";
+        String sqlInsertCitaMotivo = "INSERT INTO Cita_Motivo (id_cita, id_motivo, id_vacuna, precio, aplica_examen) VALUES (?, ?, ?, ?, ?)";
 
         String sqlInsertarCita_PruebaLaboratorio_SubCategoria = "INSERT INTO Cita_PruebaLaboratorio (id_cita, id_pruebaLaboratorio, id_subCategoria) VALUES (?, ?, ?)";
 
@@ -60,6 +60,7 @@ public class CitaDAO {
                                     } else {
                                         pstmtCitaMotivo.setNull(3, java.sql.Types.INTEGER);
                                     }
+                                    pstmtCitaMotivo.setBoolean(5, motivo.isAplicaExamen());
                                     pstmtCitaMotivo.addBatch();
                                 }
 
@@ -189,8 +190,8 @@ public class CitaDAO {
                         cita.setArrayEvaluacion(arrayEvaluaciones);
                     }
 
-                    String sqlConsultarMotivos = "SELECT m.id_motivo, m.descripcion, m.aplica_examen, m.tiene_vacuna, "
-                            + "cm.precio AS precio_cita_motivo, v.id_vacuna, v.id_especie, v.precio AS precio_vacuna, v.nombre "
+                    String sqlConsultarMotivos = "SELECT m.id_motivo, m.descripcion, m.tiene_vacuna, "
+                            + "cm.precio AS precio_cita_motivo, cm.aplica_examen, v.id_vacuna, v.id_especie, v.precio AS precio_vacuna, v.nombre "
                             + "FROM Motivo m "
                             + "JOIN Cita_Motivo cm ON m.id_motivo = cm.id_motivo "
                             + "LEFT JOIN Vacuna v ON cm.id_vacuna = v.id_vacuna "
@@ -488,8 +489,8 @@ public class CitaDAO {
                             cita.setArrayEvaluacion(arrayEvaluaciones);
                         }
 
-                        String sqlConsultarMotivos = "SELECT m.id_motivo, m.descripcion, m.aplica_examen, m.tiene_vacuna, "
-                                + "cm.precio AS precio_cita_motivo, v.id_vacuna, v.id_especie, v.precio AS precio_vacuna, v.nombre "
+                        String sqlConsultarMotivos = "SELECT m.id_motivo, m.descripcion, m.tiene_vacuna, "
+                                + "cm.precio AS precio_cita_motivo, cm.aplica_examen, v.id_vacuna, v.id_especie, v.precio AS precio_vacuna, v.nombre "
                                 + "FROM Motivo m "
                                 + "JOIN Cita_Motivo cm ON m.id_motivo = cm.id_motivo "
                                 + "LEFT JOIN Vacuna v ON cm.id_vacuna = v.id_vacuna "
@@ -561,8 +562,7 @@ public class CitaDAO {
 
                                 SubCategoriaPrueba subCategoria = new SubCategoriaPrueba(nombre, precio_subCategoria, id_prueba, id_subCategoria);
 
-                                prueba.getArraySubCategorias().add(subCategoria);
-                                prueba.calcularPrecio();
+                                prueba.agregarSubCategoria(subCategoria);
                             }
 
                             arrayPruebas.addAll(arrayPruebasHashMap.values());
