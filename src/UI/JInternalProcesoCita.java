@@ -1601,7 +1601,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                 cita.agregarProximaCita(fechaProximaCita);
             }
         }
-        JOptionPane.showMessageDialog(null, cita.toStringInformacion(), "", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, cita.mostrarPrecio(), "Resumen de precios", JOptionPane.INFORMATION_MESSAGE);
         try {
             Cita.agregarCita(cita, paciente);
         } catch (SQLException ex) {

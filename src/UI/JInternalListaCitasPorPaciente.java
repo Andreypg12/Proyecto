@@ -58,6 +58,7 @@ public class JInternalListaCitasPorPaciente extends javax.swing.JInternalFrame {
         jTableCitas = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jBtnMostarInformacion = new javax.swing.JButton();
+        jBtnMostarInformacion1 = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -126,6 +127,13 @@ public class JInternalListaCitasPorPaciente extends javax.swing.JInternalFrame {
             }
         });
 
+        jBtnMostarInformacion1.setText("Mostra factura");
+        jBtnMostarInformacion1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnMostarInformacion1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -142,7 +150,10 @@ public class JInternalListaCitasPorPaciente extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 604, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 604, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtnMostarInformacion))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jBtnMostarInformacion1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jBtnMostarInformacion)))
                 .addGap(26, 26, 26))
         );
         layout.setVerticalGroup(
@@ -159,7 +170,8 @@ public class JInternalListaCitasPorPaciente extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtnElegirPaciente)
-                    .addComponent(jBtnMostarInformacion))
+                    .addComponent(jBtnMostarInformacion)
+                    .addComponent(jBtnMostarInformacion1))
                 .addContainerGap(202, Short.MAX_VALUE))
         );
 
@@ -218,10 +230,22 @@ public class JInternalListaCitasPorPaciente extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jBtnMostarInformacionActionPerformed
 
+    private void jBtnMostarInformacion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnMostarInformacion1ActionPerformed
+        // TODO add your handling code here:
+        int fila = jTableCitas.getSelectedRow();
+        if (fila != -1) {
+            JOptionPane.showMessageDialog(null, ((Cita)modeloTablaCitas.getValueAt(fila, 4)).mostrarPrecio());
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Debes elegir una cita de la lista", "Cita no elegida", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jBtnMostarInformacion1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnElegirPaciente;
     private javax.swing.JButton jBtnMostarInformacion;
+    private javax.swing.JButton jBtnMostarInformacion1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

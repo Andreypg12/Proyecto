@@ -207,7 +207,8 @@ public class JInternalMantenimientoEspeciesRazas extends javax.swing.JInternalFr
                     JOptionPane.showMessageDialog(null, "¡Raza Eliminada!", "Eliminación de raza", JOptionPane.INFORMATION_MESSAGE);
 
                 } catch (Exception e) {
-                    Logger.getLogger(JInternalMantenimientoEspeciesRazas.class.getName()).log(Level.SEVERE, null, e);
+                    JOptionPane.showMessageDialog(null, "No puedes eliminar esta raza porque un paciente es de esa raza",
+                    "¡Raza no eliminada!", JOptionPane.ERROR_MESSAGE);
                 }
             }
         } else {

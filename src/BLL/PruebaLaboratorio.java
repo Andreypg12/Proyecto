@@ -19,13 +19,8 @@ public abstract class PruebaLaboratorio{
     }
     
     public void agregarSubCategoria(SubCategoriaPrueba subCategoria){
+        precio += subCategoria.getPrecio();
         arraySubCategorias.add(subCategoria);
-    }
-    
-    public void calcularPrecio(){
-        for (SubCategoriaPrueba SubCategoria : arraySubCategorias) {
-            precio += SubCategoria.getPrecio();
-        }
     }
 
     public String getNombrePrueba() {

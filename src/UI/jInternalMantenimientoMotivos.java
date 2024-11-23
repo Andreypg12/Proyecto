@@ -59,7 +59,7 @@ public class jInternalMantenimientoMotivos extends javax.swing.JInternalFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Double.class, java.lang.String.class
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false
@@ -157,7 +157,7 @@ public class jInternalMantenimientoMotivos extends javax.swing.JInternalFrame {
                 try {
                     Motivo.eliminarMotivo(motivo);
                 } catch (Exception ex) {
-                    Logger.getLogger(jInternalMantenimientoMotivos.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "El motivo no se puede eliminar porque hay citas con el motivo", "¡Motivo no eliminado!", JOptionPane.ERROR_MESSAGE);
                 }
                 llenarTabla();
             }
@@ -188,7 +188,16 @@ public class jInternalMantenimientoMotivos extends javax.swing.JInternalFrame {
             modeloTabla.setNumRows(0);
             for (Motivo motivo : Motivo.consultarMotivos()) {
 
-                double precio = motivo.getPrecio();
+                String precio = String.valueOf(motivo.getPrecio()).trim() + "₡";
+                
+                if (motivo.getPrecio() == 0) {
+                    if (motivo instanceof Vacunacion) {
+                        precio = "Depende de la vacuna";
+                    }
+                    else{
+                        precio = "Especificado por el veterinario";
+                    }
+                }
                 String aplica_examen = (motivo.isAplicaExamen()) ? "Si" : "No";
 
                 Object[] arreglo = {motivo, precio, aplica_examen};

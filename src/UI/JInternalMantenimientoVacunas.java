@@ -211,7 +211,7 @@ public class JInternalMantenimientoVacunas extends javax.swing.JInternalFrame {
                     llenarLista();
                 }
             } catch (Exception ex) {
-                Logger.getLogger(JInternalMantenimientoVacunas.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "La vacuna no se puede eliminar porque hay citas que la usan", "¡Vacuna no eliminada!", JOptionPane.ERROR_MESSAGE);
             }
             actualizarLista();
             llenarLista();

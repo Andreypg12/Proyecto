@@ -49,7 +49,7 @@ public class Motivo {
         StringBuilder sb = new StringBuilder();
         sb.append(descripcion);
         sb.append("\nAplica examen: ").append((aplicaExamen) ? "Si" : "No");
-        sb.append("\nPrecio: ").append(precio).append("\n");
+        sb.append("\nPrecio: ").append(precio).append("₡\n");
         return sb.toString();
     }
 

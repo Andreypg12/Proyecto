@@ -170,6 +170,45 @@ public class Cita {
         return sb.toString();
     }
     
+    public String mostrarPrecio() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("➤Resumen de servicios");
+
+        if (!arrayMotivo.isEmpty()) {
+            if (arrayMotivo.size() == 1) {
+                sb.append("El motivo fue: ").append(arrayMotivo.get(0).toStringInformacion());
+            } else {
+                sb.append("\nLos motivos fueron ( \n");
+                for (Motivo motivo : arrayMotivo) {
+                    sb.append("➤").append(motivo.toStringInformacion());
+                }
+                sb.append(")");
+            }
+        }else{
+            sb.append("\nNo hay motivos");
+            
+        }
+        if (!arrayPruebaLaboratorio.isEmpty()) {
+            if (arrayPruebaLaboratorio.size() == 1) {
+                sb.append("\nPrueba de laboratorio:");
+            }else{
+                sb.append("\nPruebas de laboratorio:\n");
+            }
+            sb.append("\n");
+            for (PruebaLaboratorio pruebaLaboratorio : arrayPruebaLaboratorio) {
+                sb.append("➤").append(pruebaLaboratorio.getNombrePrueba()).append("\n");
+                for (SubCategoriaPrueba subCategoria : pruebaLaboratorio.getArraySubCategorias()) {
+                    sb.append("▹").append(subCategoria.getNombre()).append(" ").append(subCategoria.getPrecio()).append("₡\n");
+                }
+            }
+        }
+        else{
+            sb.append("\nNo hay pruebas de laboratorio");
+        }
+        sb.append("\nEl costo total de la cita fue: ").append(calcularCostoCita()).append("₡");
+        return sb.toString();
+    }
+    
     
 
     public List<Actitud> getArrayActitud() {

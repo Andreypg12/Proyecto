@@ -222,12 +222,13 @@ public class JInternalMantenimientoPruebasLaboratorio extends javax.swing.JInter
                     JOptionPane.showMessageDialog(null, "¡Subcategoría eliminada!", "Eliminación de subcategoría", JOptionPane.INFORMATION_MESSAGE);
 
                 } catch (Exception e) {
-                    Logger.getLogger(JInternalMantenimientoEspeciesRazas.class.getName()).log(Level.SEVERE, null, e);
+                    JOptionPane.showMessageDialog(null, "La subcategoría no se puede eliminar porque hay citas con ella",
+                    "¡Subcategoría no eliminada!", JOptionPane.ERROR_MESSAGE);
                 }
             }
         } else {
             JOptionPane.showMessageDialog(null, "Debes seleccionar una subcategoría",
-                    "subcategoría no especificada", JOptionPane.ERROR_MESSAGE);
+                    "Subcategoría no especificada", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_jBtnEliminarActionPerformed
