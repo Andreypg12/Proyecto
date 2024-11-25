@@ -1152,7 +1152,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-     // <editor-fold defaultstate="collapsed" desc="Codigo de Dueño y paciente">
+
     private void jFTxtNumeroCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFTxtNumeroCedulaKeyTyped
         // TODO add your handling code here:
         
@@ -1761,8 +1761,6 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
             Logger.getLogger(JInternalProcesoCita.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    // </editor-fold>
     
     private void llenarListaMotivos(){
         jListMotivos.setModel(modeloListaMotivos);

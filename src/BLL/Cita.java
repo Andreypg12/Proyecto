@@ -318,9 +318,9 @@ public class Cita {
         new CitaDAO().agregarCita(cita, paciente);
     }
     
-    public static List<Cita> consultarCitasPorPaciente(int id_paciente) throws SQLException{
-        return new CitaDAO().consultarCitasPorPaciente(id_paciente);
-    }
+//    public static List<Cita> consultarCitasPorPaciente(int id_paciente) throws SQLException{
+//        return new CitaDAO().consultarCitasPorPaciente(id_paciente);
+//    }
     
     public static List<Paciente> consultarPacientesConCita() throws SQLException{
         return new CitaDAO().consultarPacientesConCita();
