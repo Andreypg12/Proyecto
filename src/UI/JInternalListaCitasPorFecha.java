@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.StyledEditorKit;
@@ -144,7 +145,7 @@ public class JInternalListaCitasPorFecha extends javax.swing.JInternalFrame {
         String fechaSeleccionada = sdf.format(jSpinner1.getValue());
         modeloTabla.setRowCount(0);
         for (Paciente paciente : arrayPacientes) {
-
+            
             for (Cita cita : paciente.getArrayCitas()) {
                 
                 String fechaCita = sdf.format(cita.getFechaCita());
@@ -176,6 +177,9 @@ public class JInternalListaCitasPorFecha extends javax.swing.JInternalFrame {
                     modeloTabla.addRow(fila);
                 }
             }
+        }
+        if (modeloTabla.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "No hay citas en esa fecha", "No hay citas", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jBtnMostrarCitasActionPerformed
 

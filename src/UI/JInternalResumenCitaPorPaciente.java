@@ -138,10 +138,13 @@ public class JInternalResumenCitaPorPaciente extends javax.swing.JInternalFrame 
         jTextArea1.setText("");
         if (jTablePacientes.getSelectedRow() != -1) {
             Paciente paciente = (Paciente) jTablePacientes.getValueAt(jTablePacientes.getSelectedRow(), 2);
+            if (paciente.getArrayCitas().isEmpty()) {
+                jTextArea1.setText("El paciente no tiene ninguna cita");
+            } else {
+                for (Cita cita : paciente.getArrayCitas()) {
 
-            for (Cita cita : paciente.getArrayCitas()) {
-
-                jTextArea1.append(cita.toStringInformacion());
+                    jTextArea1.append(cita.toStringInformacion());
+                }
             }
         } else {
             JOptionPane.showMessageDialog(null, "Debes elegir un paciente de la lista", "Paciente no elegido", JOptionPane.ERROR_MESSAGE);

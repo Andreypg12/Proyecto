@@ -185,34 +185,36 @@ public class JInternalListaCitasPorPaciente extends javax.swing.JInternalFrame {
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 
             Paciente paciente = (Paciente) jTablePacientes.getValueAt(jTablePacientes.getSelectedRow(), 2);
+            if (paciente.getArrayCitas().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "El paciente no tiene ninguna cita", "Paciente sin citas", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                for (Cita cita : paciente.getArrayCitas()) {
 
-            for (Cita cita : paciente.getArrayCitas()) {
+                    Object[] fila = new Object[5];
 
-                Object[] fila = new Object[5];
-                
-                
-                String formattedDate = sdf.format(cita.getFechaCita());
-                
-                fila[0] = formattedDate;
-                if (cita.getArrayMotivo().isEmpty()) {
-                    fila[1] = "No hay motivos";
-                } else {
-                    fila[1] = cita.getArrayMotivo().size();
+                    String formattedDate = sdf.format(cita.getFechaCita());
+
+                    fila[0] = formattedDate;
+                    if (cita.getArrayMotivo().isEmpty()) {
+                        fila[1] = "No hay motivos";
+                    } else {
+                        fila[1] = cita.getArrayMotivo().size();
+                    }
+                    if (cita.getArrayEvaluacion().isEmpty()) {
+                        fila[2] = "No hay evaluaciones";
+                    } else {
+                        fila[2] = cita.getArrayEvaluacion().size();
+                    }
+                    if (cita.getArrayPruebaLaboratorio().isEmpty()) {
+                        fila[3] = "No hay pruebas de laboratorio";
+                    } else {
+                        fila[3] = cita.getArrayPruebaLaboratorio().size();
+                    }
+
+                    fila[4] = cita;
+
+                    modeloTablaCitas.addRow(fila);
                 }
-                if (cita.getArrayEvaluacion().isEmpty()) {
-                    fila[2] = "No hay evaluaciones";
-                } else {
-                    fila[2] = cita.getArrayEvaluacion().size();
-                }
-                if (cita.getArrayPruebaLaboratorio().isEmpty()) {
-                    fila[3] = "No hay pruebas de laboratorio";
-                } else {
-                    fila[3] = cita.getArrayPruebaLaboratorio().size();
-                }
-
-                fila[4] = cita;
-
-                modeloTablaCitas.addRow(fila);
             }
         } else {
             JOptionPane.showMessageDialog(null, "Debes elegir un paciente de la lista", "Paciente no elegido", JOptionPane.ERROR_MESSAGE);

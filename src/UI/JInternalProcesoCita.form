@@ -32,6 +32,9 @@
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
   <SubComponents>
     <Container class="javax.swing.JTabbedPane" name="jTPlProcesoCita">
+      <Properties>
+        <Property name="autoscrolls" type="boolean" value="true"/>
+      </Properties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
@@ -570,13 +573,12 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="-2" pref="392" max="-2" attributes="0"/>
+                              <Component id="jBtnLimpiarCita" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jBtncrearCita" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -594,11 +596,14 @@
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jPanel3" max="32767" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jBtncrearCita" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jBtncrearCita" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jBtnLimpiarCita" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <Component id="jPanelDatosPaciente2" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="16" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -705,9 +710,9 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="1" attributes="0">
                                       <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="jRbdSiAplicaExamen" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jRdbSiAplicaExamen" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="jRbdNoAplicaExamen" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jRdbNoAplicaExamen" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
@@ -744,8 +749,8 @@
                                       <Component id="jLblAplicaExamen" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jRbdNoAplicaExamen" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jRbdSiAplicaExamen" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jRdbNoAplicaExamen" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jRdbSiAplicaExamen" alignment="1" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="jBtnAgregarMotivo" min="-2" max="-2" attributes="0"/>
@@ -827,7 +832,7 @@
                         <Property name="text" type="java.lang.String" value="Aplica examen"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JRadioButton" name="jRbdSiAplicaExamen">
+                    <Component class="javax.swing.JRadioButton" name="jRdbSiAplicaExamen">
                       <Properties>
                         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                           <ComponentRef name="JBtnGroupAlicaExamen"/>
@@ -835,7 +840,7 @@
                         <Property name="text" type="java.lang.String" value="Si"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JRadioButton" name="jRbdNoAplicaExamen">
+                    <Component class="javax.swing.JRadioButton" name="jRdbNoAplicaExamen">
                       <Properties>
                         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                           <ComponentRef name="JBtnGroupAlicaExamen"/>
@@ -1467,8 +1472,8 @@
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="jRbdAnormal" max="32767" attributes="0"/>
-                                          <Component id="jRbdNormal" max="32767" attributes="0"/>
+                                          <Component id="jRdbAnormal" max="32767" attributes="0"/>
+                                          <Component id="jRdbNormal" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -1491,9 +1496,9 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-                                      <Component id="jRbdNormal" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jRdbNormal" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="jRbdAnormal" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jRdbAnormal" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
@@ -1540,7 +1545,7 @@
                         <Property name="text" type="java.lang.String" value="Tipos de evaluaci&#xf3;n"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JRadioButton" name="jRbdNormal">
+                    <Component class="javax.swing.JRadioButton" name="jRdbNormal">
                       <Properties>
                         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                           <ComponentRef name="JBtnGroupEstadoEvaluacion"/>
@@ -1551,7 +1556,7 @@
                         <Property name="text" type="java.lang.String" value="Normal"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JRadioButton" name="jRbdAnormal">
+                    <Component class="javax.swing.JRadioButton" name="jRdbAnormal">
                       <Properties>
                         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                           <ComponentRef name="JBtnGroupEstadoEvaluacion"/>
@@ -1613,6 +1618,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtncrearCitaActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="jBtnLimpiarCita">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Limpiar"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnLimpiarCitaActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

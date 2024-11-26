@@ -49,6 +49,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
      */
     public JInternalProcesoCita() {
         initComponents();
+        jTPlProcesoCita.setEnabledAt(1, false);
         jListDueno.setModel(modeloListaDuenos);
         jListPaciente.setModel(modeloListaPacientes);
         actualizararrayDuenos();
@@ -153,8 +154,8 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         jLblVacunas = new javax.swing.JLabel();
         jBtnAgregarMotivo = new javax.swing.JButton();
         jLblAplicaExamen = new javax.swing.JLabel();
-        jRbdSiAplicaExamen = new javax.swing.JRadioButton();
-        jRbdNoAplicaExamen = new javax.swing.JRadioButton();
+        jRdbSiAplicaExamen = new javax.swing.JRadioButton();
+        jRdbNoAplicaExamen = new javax.swing.JRadioButton();
         jPanelPrueba = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -198,18 +199,21 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         jScrollPane7 = new javax.swing.JScrollPane();
         jListTiposEvaluaciones = new javax.swing.JList<>();
         jLabel8 = new javax.swing.JLabel();
-        jRbdNormal = new javax.swing.JRadioButton();
-        jRbdAnormal = new javax.swing.JRadioButton();
+        jRdbNormal = new javax.swing.JRadioButton();
+        jRdbAnormal = new javax.swing.JRadioButton();
         jLabel18 = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
         jListEvaluacionesHechas = new javax.swing.JList<>();
         jBtnAgregarEvaluación = new javax.swing.JButton();
         jBtnEliminarEvaluacion = new javax.swing.JButton();
         jBtncrearCita = new javax.swing.JButton();
+        jBtnLimpiarCita = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Proceso de citas");
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
+
+        jTPlProcesoCita.setAutoscrolls(true);
 
         jPanelDueno.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Datos del dueño"));
         jPanelDueno.setOpaque(false);
@@ -585,11 +589,11 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         jLblAplicaExamen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLblAplicaExamen.setText("Aplica examen");
 
-        JBtnGroupAlicaExamen.add(jRbdSiAplicaExamen);
-        jRbdSiAplicaExamen.setText("Si");
+        JBtnGroupAlicaExamen.add(jRdbSiAplicaExamen);
+        jRdbSiAplicaExamen.setText("Si");
 
-        JBtnGroupAlicaExamen.add(jRbdNoAplicaExamen);
-        jRbdNoAplicaExamen.setText("No");
+        JBtnGroupAlicaExamen.add(jRdbNoAplicaExamen);
+        jRdbNoAplicaExamen.setText("No");
 
         javax.swing.GroupLayout jPanelMotivoLayout = new javax.swing.GroupLayout(jPanelMotivo);
         jPanelMotivo.setLayout(jPanelMotivoLayout);
@@ -601,9 +605,9 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                 .addGroup(jPanelMotivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMotivoLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jRbdSiAplicaExamen)
+                        .addComponent(jRdbSiAplicaExamen)
                         .addGap(18, 18, 18)
-                        .addComponent(jRbdNoAplicaExamen)
+                        .addComponent(jRdbNoAplicaExamen)
                         .addGap(22, 22, 22))
                     .addGroup(jPanelMotivoLayout.createSequentialGroup()
                         .addGap(12, 12, 12)
@@ -634,8 +638,8 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                         .addComponent(jLblAplicaExamen)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanelMotivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jRbdNoAplicaExamen, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jRbdSiAplicaExamen, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(jRdbNoAplicaExamen, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jRdbSiAplicaExamen, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jBtnAgregarMotivo)))
                 .addContainerGap())
@@ -851,7 +855,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, Short.MAX_VALUE)
-                    .addComponent(jPanelPrueba, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jPanelPrueba, javax.swing.GroupLayout.PREFERRED_SIZE, 328, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -917,13 +921,13 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Tipos de evaluación");
 
-        JBtnGroupEstadoEvaluacion.add(jRbdNormal);
-        jRbdNormal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jRbdNormal.setText("Normal");
+        JBtnGroupEstadoEvaluacion.add(jRdbNormal);
+        jRdbNormal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jRdbNormal.setText("Normal");
 
-        JBtnGroupEstadoEvaluacion.add(jRbdAnormal);
-        jRbdAnormal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jRbdAnormal.setText("Anormal");
+        JBtnGroupEstadoEvaluacion.add(jRdbAnormal);
+        jRdbAnormal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jRdbAnormal.setText("Anormal");
 
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel18.setText("Evaluaciones hechas");
@@ -961,8 +965,8 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                             .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jRbdAnormal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jRbdNormal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jRdbAnormal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jRdbNormal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
@@ -978,9 +982,9 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(43, 43, 43)
-                        .addComponent(jRbdNormal)
+                        .addComponent(jRdbNormal)
                         .addGap(18, 18, 18)
-                        .addComponent(jRbdAnormal))
+                        .addComponent(jRdbAnormal))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -1116,17 +1120,24 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
             }
         });
 
+        jBtnLimpiarCita.setText("Limpiar");
+        jBtnLimpiarCita.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnLimpiarCitaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelCitaLayout = new javax.swing.GroupLayout(jPanelCita);
         jPanelCita.setLayout(jPanelCitaLayout);
         jPanelCitaLayout.setHorizontalGroup(
             jPanelCitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCitaLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanelCitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelCitaLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCitaLayout.createSequentialGroup()
-                        .addGap(392, 392, 392)
+                        .addComponent(jBtnLimpiarCita)
+                        .addGap(18, 18, 18)
                         .addComponent(jBtncrearCita)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelDatosPaciente2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1140,9 +1151,11 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCitaLayout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(jBtncrearCita))
+                        .addGroup(jPanelCitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jBtncrearCita)
+                            .addComponent(jBtnLimpiarCita)))
                     .addComponent(jPanelDatosPaciente2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTPlProcesoCita.addTab("Cita", jPanelCita);
@@ -1353,6 +1366,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                     jBtnLimpiarPaciente.setText("Cambiar de paciente");
                     jLblNombrePacienteDatos.setText(paciente.getNombre());
                     llenarComboBoxVacunas();
+                    jTPlProcesoCita.setEnabledAt(1, true);
                     JOptionPane.showMessageDialog(null, "El paciente fue agreado", "¡Paciente agregado!", JOptionPane.INFORMATION_MESSAGE);
                 } catch (SQLException ex) {
                     Logger.getLogger(JInternalProcesoCita.class.getName()).log(Level.SEVERE, null, ex);
@@ -1400,6 +1414,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
             }
             llenarComboBoxVacunas();
             cambiarEstadoEspaciosPaciente(false);
+            jTPlProcesoCita.setEnabledAt(1, true);
             jLblNombrePacienteDatos.setText(paciente.getNombre());
             jBtnLimpiarPaciente.setText("Cambiar de paciente");
             JOptionPane.showMessageDialog(null, "El paciente fue elegido correctamente", "Paciente elegido", JOptionPane.INFORMATION_MESSAGE);
@@ -1425,6 +1440,8 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         jCmbEspecie.setSelectedIndex(0);
         jCmbRaza.setSelectedIndex(0);
         paciente = null;
+        jTPlProcesoCita.setEnabledAt(1, false);
+        jBtnLimpiarCita.doClick();
         if (jBtnLimpiarPaciente.getText().equals("Cambiar de paciente")) {
             cambiarEstadoEspaciosPaciente(true);
             jBtnLimpiarPaciente.setText("Limpiar");
@@ -1445,7 +1462,6 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                 jLblVacunas.setVisible(true);
                 jTxtPrecioMotivo.setText(((Vacuna) jCmbVacunas.getSelectedItem()).getPrecio() + "");
             }
-
         }
         else if (motivoSeleccionado.getPrecio() != 0) {
             jTxtPrecioMotivo.setEditable(false);
@@ -1460,13 +1476,13 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         }
         if (motivoSeleccionado.isAplicaExamen()) {
             jLblAplicaExamen.setVisible(true);
-            jRbdSiAplicaExamen.setVisible(true);
-            jRbdNoAplicaExamen.setVisible(true);
+            jRdbSiAplicaExamen.setVisible(true);
+            jRdbNoAplicaExamen.setVisible(true);
         }
         else{
             jLblAplicaExamen.setVisible(false);
-            jRbdSiAplicaExamen.setVisible(false);
-            jRbdNoAplicaExamen.setVisible(false);
+            jRdbSiAplicaExamen.setVisible(false);
+            jRdbNoAplicaExamen.setVisible(false);
         }
     }//GEN-LAST:event_jListMotivosValueChanged
 
@@ -1490,7 +1506,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                     motivoAgregar = motivoSeleccionado.clonar();
                     motivoAgregar.setPrecio(Double.parseDouble(jTxtPrecioMotivo.getText()));
                     if (motivoAgregar.isAplicaExamen()) {
-                        motivoAgregar.setAplicaExamen(!jRbdNoAplicaExamen.isSelected());
+                        motivoAgregar.setAplicaExamen(!jRdbNoAplicaExamen.isSelected());
                     }
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(null, "Debes ingresar un numero en el precio", "Espacio inválido", JOptionPane.ERROR_MESSAGE);
@@ -1499,7 +1515,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
             } else {
                 motivoAgregar = motivoSeleccionado.clonar();
                 if (motivoAgregar.isAplicaExamen()) {
-                    motivoAgregar.setAplicaExamen(!jRbdNoAplicaExamen.isSelected());
+                    motivoAgregar.setAplicaExamen(!jRdbNoAplicaExamen.isSelected());
                 }
             }
 
@@ -1659,8 +1675,8 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
     private void jBtnAgregarEvaluaciónActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAgregarEvaluaciónActionPerformed
         // TODO add your handling code here:
         if (jListTiposEvaluaciones.getSelectedIndex() != -1) {
-            Estado estado = (jRbdNormal.isSelected()) ? Estado.NORMAL
-                    : (jRbdAnormal.isSelected()) ? Estado.ANORMAL : null;
+            Estado estado = (jRdbNormal.isSelected()) ? Estado.NORMAL
+                    : (jRdbAnormal.isSelected()) ? Estado.ANORMAL : null;
             if (estado == null) {
                 JOptionPane.showMessageDialog(null, "Debes elegir si el tipo de evaluacion fue normal o anormal", "Estado de evaluacion no elegido", JOptionPane.ERROR_MESSAGE);
                 return;
@@ -1702,6 +1718,27 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_jFTxtNumeroCedulaKeyReleased
+
+    private void jBtnLimpiarCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnLimpiarCitaActionPerformed
+        // TODO add your handling code here:
+        jTxtDiagnostico.setText("");
+        jTxtIndicaciones.setText("");
+        arrayEvaluacionesElegidas.clear();
+        modeloListaEvaluacionesHechas.clear();
+        JBtnGroupEstadoEvaluacion.clearSelection();
+        jSprTemperatura.setValue(35);
+        jSprPulso.setValue(100);
+        jSprFrecuenciaRespiratoria.setValue(10);
+        jSprFrecuenciaCardiaca.setValue(100);
+        jRdbExitado.setSelected(false);
+        jRdbDeprimido.setSelected(false);
+        jRdbPostrado.setSelected(false);
+        JBtnGroupCondicion.clearSelection();
+        modeloTablaSubCategorias.setRowCount(0);
+        arrayPruebasLaboratorioElegidas.clear();
+        modeloTablaMotivos.setRowCount(0);
+        arrayMotivosElegidos.clear();
+    }//GEN-LAST:event_jBtnLimpiarCitaActionPerformed
 
     private List<Actitud> crearArrayActitudes(){
         List<Actitud> arrayListActitud = new ArrayList<>();
@@ -1785,6 +1822,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtnEliminarEvaluacion;
     private javax.swing.JButton jBtnEliminarMotivo;
     private javax.swing.JButton jBtnEliminarPrueba;
+    private javax.swing.JButton jBtnLimpiarCita;
     private javax.swing.JButton jBtnLimpiarDueno;
     private javax.swing.JButton jBtnLimpiarPaciente;
     private javax.swing.JButton jBtncrearCita;
@@ -1846,15 +1884,15 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanelMotivosElegidos;
     private javax.swing.JPanel jPanelPaciente;
     private javax.swing.JPanel jPanelPrueba;
-    private javax.swing.JRadioButton jRbdAnormal;
-    private javax.swing.JRadioButton jRbdNoAplicaExamen;
-    private javax.swing.JRadioButton jRbdNormal;
-    private javax.swing.JRadioButton jRbdSiAplicaExamen;
+    private javax.swing.JRadioButton jRdbAnormal;
     private javax.swing.JRadioButton jRdbBajoPeso;
     private javax.swing.JRadioButton jRdbDeprimido;
     private javax.swing.JRadioButton jRdbExitado;
+    private javax.swing.JRadioButton jRdbNoAplicaExamen;
+    private javax.swing.JRadioButton jRdbNormal;
     private javax.swing.JRadioButton jRdbPesoNormal;
     private javax.swing.JRadioButton jRdbPostrado;
+    private javax.swing.JRadioButton jRdbSiAplicaExamen;
     private javax.swing.JRadioButton jRdbSobrePeso;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
