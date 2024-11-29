@@ -6,8 +6,6 @@ package UI;
 
 import BLL.*;
 import java.sql.SQLException;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -104,7 +102,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         JBtnGroupCondicion = new javax.swing.ButtonGroup();
         JBtnGroupAlicaExamen = new javax.swing.ButtonGroup();
         jTPlProcesoCita = new javax.swing.JTabbedPane();
-        jPanelPaciente = new PanelConFondo("/Imagenes/FondoCitas.png");
+        jPanelPaciente = new PanelConFondo("/Imagenes/FondoCreacionCita.png");
         jPanelDueno = new javax.swing.JPanel();
         jLblNombreDueno = new javax.swing.JLabel();
         jTxtNombreDueno = new javax.swing.JTextField();
@@ -1431,7 +1429,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         jCmbRaza.setEnabled(estado);
         jBtnAnadirNuevoPaciente.setEnabled(estado);
         jBtnElegirPaciente.setEnabled(estado);
-    }
+    }    
     private void jBtnLimpiarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnLimpiarPacienteActionPerformed
         // TODO add your handling code here:
         jTxtNombrePaciente.setText("");
