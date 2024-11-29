@@ -1496,6 +1496,8 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         if (jListMotivos.getSelectedIndex() != -1) {
             Motivo motivoSeleccionado = jListMotivos.getSelectedValue();
             Motivo motivoAgregar = null;
+            
+            
             if (motivoSeleccionado instanceof Vacunacion) {
                 motivoAgregar = ((Vacunacion) motivoSeleccionado).clonar();
                 ((Vacunacion) motivoAgregar).setVacuna((Vacuna) jCmbVacunas.getSelectedItem());
@@ -1516,7 +1518,14 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                     motivoAgregar.setAplicaExamen(!jRdbNoAplicaExamen.isSelected());
                 }
             }
-
+            
+            for (Motivo motivo : arrayMotivosElegidos) {
+                if (motivo.getId_motivo()  == motivoAgregar.getId_motivo() && motivo.getPrecio() == motivoAgregar.getPrecio()) {
+                    JOptionPane.showMessageDialog(null, "El motivo ya fue agregado", "Motivo Repetido", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
+            
             arrayMotivosElegidos.add(motivoAgregar);
             Object[] fila = {motivoAgregar, motivoAgregar.getPrecio()};
             modeloTablaMotivos.addRow(fila);
