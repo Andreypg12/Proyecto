@@ -35,6 +35,8 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                   <Group type="102" attributes="0">
+                      <Component id="jBtnMostrarVacunaciones" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jBtnMostarInformacion1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jBtnMostarInformacion" min="-2" max="-2" attributes="0"/>
@@ -64,6 +66,7 @@
                   <Component id="jBtnElegirPaciente" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jBtnMostarInformacion" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jBtnMostarInformacion1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jBtnMostrarVacunaciones" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="67" max="32767" attributes="0"/>
           </Group>
@@ -153,6 +156,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnMostarInformacion1ActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jBtnMostrarVacunaciones">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Mostrar vacunaci&#xf3;nes"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnMostrarVacunacionesActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

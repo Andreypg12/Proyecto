@@ -5,7 +5,9 @@
 package UI;
 
 import BLL.Cita;
+import BLL.Motivo;
 import BLL.Paciente;
+import BLL.Vacunacion;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
@@ -21,6 +23,7 @@ public class JInternalListaCitasPorPaciente extends javax.swing.JInternalFrame {
 
     DefaultTableModel modeloTablaPacientes;
     DefaultTableModel modeloTablaCitas;
+    Paciente paciente;
     /**
      * Creates new form JInternalLisraCitasPorPaciente
      */
@@ -29,6 +32,7 @@ public class JInternalListaCitasPorPaciente extends javax.swing.JInternalFrame {
         modeloTablaPacientes = (DefaultTableModel)jTablePacientes.getModel();
         modeloTablaCitas = (DefaultTableModel)jTableCitas.getModel();
         llenarTablaPacientes();
+        paciente = null;
     }
 
     private void llenarTablaPacientes(){
@@ -59,6 +63,7 @@ public class JInternalListaCitasPorPaciente extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jBtnMostarInformacion = new javax.swing.JButton();
         jBtnMostarInformacion1 = new javax.swing.JButton();
+        jBtnMostrarVacunaciones = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -134,6 +139,13 @@ public class JInternalListaCitasPorPaciente extends javax.swing.JInternalFrame {
             }
         });
 
+        jBtnMostrarVacunaciones.setText("Mostrar vacunaciónes");
+        jBtnMostrarVacunaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnMostrarVacunacionesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -149,6 +161,8 @@ public class JInternalListaCitasPorPaciente extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jBtnMostrarVacunaciones)
+                        .addGap(18, 18, 18)
                         .addComponent(jBtnMostarInformacion1)
                         .addGap(18, 18, 18)
                         .addComponent(jBtnMostarInformacion))
@@ -171,7 +185,8 @@ public class JInternalListaCitasPorPaciente extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtnElegirPaciente)
                     .addComponent(jBtnMostarInformacion)
-                    .addComponent(jBtnMostarInformacion1))
+                    .addComponent(jBtnMostarInformacion1)
+                    .addComponent(jBtnMostrarVacunaciones))
                 .addContainerGap(67, Short.MAX_VALUE))
         );
 
@@ -185,6 +200,7 @@ public class JInternalListaCitasPorPaciente extends javax.swing.JInternalFrame {
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 
             Paciente paciente = (Paciente) jTablePacientes.getValueAt(jTablePacientes.getSelectedRow(), 2);
+            this.paciente = paciente;
             if (paciente.getArrayCitas().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "El paciente no tiene ninguna cita", "Paciente sin citas", JOptionPane.INFORMATION_MESSAGE);
             } else {
@@ -243,11 +259,36 @@ public class JInternalListaCitasPorPaciente extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jBtnMostarInformacion1ActionPerformed
 
+    private void jBtnMostrarVacunacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnMostrarVacunacionesActionPerformed
+        // TODO add your handling code here:
+        if (paciente == null) {
+            JOptionPane.showMessageDialog(null, "Debes seleccionar un paciente", "Paciente no elegido", JOptionPane.ERROR_MESSAGE);
+        } else {
+            String vacunasAplicadas = "";
+            if (!paciente.getArrayCitas().isEmpty()) {
+                for (Cita cita : paciente.getArrayCitas()) {
+                    for (Motivo motivo : cita.getArrayMotivo()) {
+                        if (motivo instanceof Vacunacion) {
+                            vacunasAplicadas += ((Vacunacion) motivo).getVacuna().getNombre() + "\n";
+                        }
+                    }
+                }
+            }
+            if (vacunasAplicadas.isBlank()) {
+                JOptionPane.showMessageDialog(null, "A " + paciente.getNombre() + " no se le han aplicado vacunas", "Esquema de vacunación", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Vacunas de " + paciente.getNombre() + "\n" + vacunasAplicadas, "Esquema de vacunación", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jBtnMostrarVacunacionesActionPerformed
+
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnElegirPaciente;
     private javax.swing.JButton jBtnMostarInformacion;
     private javax.swing.JButton jBtnMostarInformacion1;
+    private javax.swing.JButton jBtnMostrarVacunaciones;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

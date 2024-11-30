@@ -533,7 +533,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                 .addGroup(jPanelPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanelDueno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanelDatosPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
 
         jTPlProcesoCita.addTab("Paciente", jPanelPaciente);
@@ -1004,6 +1004,18 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                 .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLblNombrePacienteDatos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanelDatosPaciente2Layout.createSequentialGroup()
+                        .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelDatosPaciente2Layout.createSequentialGroup()
+                                .addComponent(jLabel16)
+                                .addGap(13, 13, 13))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDatosPaciente2Layout.createSequentialGroup()
+                                .addComponent(jLabel17)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                        .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTxtDiagnostico)
+                            .addComponent(jTxtIndicaciones)))
                     .addGroup(jPanelDatosPaciente2Layout.createSequentialGroup()
                         .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1023,39 +1035,26 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                                     .addComponent(jRdbPesoNormal)
                                     .addComponent(jRdbBajoPeso, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(81, 81, 81))))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanelDatosPaciente2Layout.createSequentialGroup()
-                        .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanelDatosPaciente2Layout.createSequentialGroup()
-                                .addComponent(jLabel16)
-                                .addGap(13, 13, 13))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDatosPaciente2Layout.createSequentialGroup()
-                                .addComponent(jLabel17)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                        .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTxtDiagnostico)
-                            .addComponent(jTxtIndicaciones))))
-                .addContainerGap())
-            .addGroup(jPanelDatosPaciente2Layout.createSequentialGroup()
-                .addGap(115, 115, 115)
-                .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanelDatosPaciente2Layout.createSequentialGroup()
-                        .addComponent(jLabel14)
-                        .addGap(70, 70, 70)
-                        .addComponent(jSprTemperatura, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelDatosPaciente2Layout.createSequentialGroup()
                         .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel12)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel13))
+                            .addComponent(jLabel11))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSprFrecuenciaCardiaca)
-                            .addComponent(jSprFrecuenciaRespiratoria)
-                            .addComponent(jSprPulso, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel15)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jSprFrecuenciaRespiratoria))
+                        .addGap(43, 43, 43)
+                        .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel13))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jSprPulso, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                            .addComponent(jSprTemperatura))
+                        .addGap(4, 4, 4)
+                        .addComponent(jLabel15)
+                        .addGap(29, 29, 29)))
+                .addContainerGap())
         );
         jPanelDatosPaciente2Layout.setVerticalGroup(
             jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1064,7 +1063,7 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLblNombrePacienteDatos)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(jLabel10))
@@ -1082,24 +1081,27 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                         .addComponent(jRdbSobrePeso)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jRdbPesoNormal)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelDatosPaciente2Layout.createSequentialGroup()
+                        .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSprFrecuenciaCardiaca))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSprFrecuenciaRespiratoria)))
+                    .addGroup(jPanelDatosPaciente2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jSprPulso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSprTemperatura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSprFrecuenciaCardiaca))
-                .addGap(18, 18, 18)
-                .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSprFrecuenciaRespiratoria))
-                .addGap(18, 18, 18)
-                .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jSprPulso)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSprTemperatura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelDatosPaciente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1131,14 +1133,15 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
             jPanelCitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCitaLayout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelCitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCitaLayout.createSequentialGroup()
+                    .addComponent(jPanelDatosPaciente2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanelCitaLayout.createSequentialGroup()
                         .addComponent(jBtnLimpiarCita)
                         .addGap(18, 18, 18)
-                        .addComponent(jBtncrearCita)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelDatosPaciente2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBtncrearCita)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanelCitaLayout.setVerticalGroup(
@@ -1146,14 +1149,14 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
             .addGroup(jPanelCitaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelCitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCitaLayout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
+                    .addGroup(jPanelCitaLayout.createSequentialGroup()
+                        .addComponent(jPanelDatosPaciente2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanelCitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jBtncrearCita)
                             .addComponent(jBtnLimpiarCita)))
-                    .addComponent(jPanelDatosPaciente2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         jTPlProcesoCita.addTab("Cita", jPanelCita);
@@ -1690,10 +1693,15 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
             }
             TiposEvaluaciones tipoEvaluacion = jListTiposEvaluaciones.getSelectedValue();
             Evaluacion evaluacion = new Evaluacion(estado, tipoEvaluacion);
+            for (Evaluacion evaluacionF : arrayEvaluacionesElegidas) {
+                if (evaluacion.getTipoEvaluacion().equals(evaluacionF.getTipoEvaluacion())) {
+                    JOptionPane.showMessageDialog(null, "La evaluación ya fue agregada", "¡Evaluación ya hecha!", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
             arrayEvaluacionesElegidas.add(evaluacion);
             modeloListaEvaluacionesHechas.addElement(evaluacion);
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(null, "Debes elegir un tipo de evaluación de la lista", "Tipo de evaluación no elegido", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jBtnAgregarEvaluaciónActionPerformed
@@ -1767,10 +1775,10 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
         if (jRdbBajoPeso.isSelected()) {
             condicion = Condicion.BAJO_PESO;
         }
-        if (jRdbSobrePeso.isSelected()) {
+        else if (jRdbSobrePeso.isSelected()) {
             condicion = Condicion.SOBRE_PESO;
         }
-        if (jRdbPesoNormal.isSelected()) {
+        else if (jRdbPesoNormal.isSelected()) {
             condicion = Condicion.NORMAL;
         }
         
