@@ -14,12 +14,25 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clase PacienteDAO que gestiona las operaciones relacionadas con la tabla Paciente 
+ * y tablas asociadas (Dueño, Especie, Raza) en la base de datos.
+ * 
+ * @author Andrey Pérez Gutiérrez
+ */
 public class PacienteDAO {
     
     private Especie perro = new Perro();
     
     private Especie gato = new Gato();
     
+    /**
+     * Agrega un nuevo paciente a la base de datos.
+     *
+     * @param paciente el objeto Paciente a insertar en la base de datos.
+     * @return el ID generado automáticamente para el paciente.
+     * @throws SQLException si ocurre un error durante la operación de base de datos.
+     */
     public int agregar(Paciente paciente) throws SQLException {
         int id_paciente = -1;
         try {
@@ -54,6 +67,13 @@ public class PacienteDAO {
         return id_paciente;
     }
 
+    /**
+     * Consulta y recupera todos los pacientes de la base de datos, 
+     * incluyendo información de sus dueños, especie y raza.
+     *
+     * @return una lista de objetos Paciente con la información recuperada.
+     * @throws SQLException si ocurre un error durante la operación de base de datos.
+     */
     public List<Paciente> consultarPacientes() throws SQLException {
         List<Paciente> arrayPacientes = new ArrayList<>();
         try {
@@ -93,6 +113,13 @@ public class PacienteDAO {
         return arrayPacientes;
     }
     
+    /**
+     * Consulta y recupera los pacientes asociados a un dueño específico.
+     *
+     * @param dueño el objeto Dueño cuyos pacientes se desean consultar.
+     * @return una lista de objetos Paciente asociados al dueño especificado.
+     * @throws SQLException si ocurre un error durante la operación de base de datos.
+     */
     public List<Paciente> consultarPacientesPorDueño(Dueño dueño) throws SQLException {
         List<Paciente> arrayPacientes = new ArrayList<>();
         try {
