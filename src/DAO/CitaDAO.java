@@ -1,4 +1,4 @@
-package DAO;
+ package DAO;
 
 import BLL.*;
 import java.sql.*;
@@ -8,8 +8,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+ /**
+ * Clase que gestiona las operaciones de base de datos relacionadas con las citas médicas.
+ * Contiene métodos para agregar citas, verificar la disponibilidad de fechas y consultar pacientes con citas.
+ * 
+ * @author Andrey Pérez Gutiérrez
+ */
 public class CitaDAO {
 
+    /**
+     * Agrega una nueva cita a la base de datos, incluyendo motivos, pruebas de laboratorio, evaluaciones y actitudes.
+     * 
+     * @param cita La cita que se va a agregar.
+     * @param paciente El paciente asociado a la cita.
+     * @throws SQLException Si ocurre un error al interactuar con la base de datos.
+     */
     public void agregarCita(Cita cita, Paciente paciente) throws SQLException {
         String sqlInsertCita = "INSERT INTO Cita (id_Paciente, diagnostico, indicaciones, fechaCita, "
                 + "frecuenciaCardiaca, frecuenciaRespiratoria, pulso, temperatura, id_condicion, fechaProximaCita) "
@@ -124,6 +137,13 @@ public class CitaDAO {
         }
     }
 
+    /**
+     * Verifica si una cita ya existe para una fecha específica, considerando un rango de 1 hora hacia adelante y hacia atrás.
+     * 
+     * @param fechaVerificar La fecha y hora que se va a verificar.
+     * @return true si ya existe una cita en ese rango de tiempo, false en caso contrario.
+     * @throws SQLException Si ocurre un error al interactuar con la base de datos.
+     */
     public boolean verificarFechaCita(Date fechaVerificar) throws SQLException {
         //Este sql lo que hace es que verifica si hay alguna fecha en un rango de una hora atras y adelante.
         String sqlConsultarCita = "SELECT id_cita FROM Cita WHERE fechaCita BETWEEN DATEADD(HOUR, -1, ?) AND DATEADD(HOUR, 1, ?)";
@@ -144,6 +164,12 @@ public class CitaDAO {
         }
     }
 
+    /**
+     * Consulta todos los pacientes con citas registradas, junto con los detalles de sus citas, motivos, pruebas y evaluaciones.
+     * 
+     * @return Una lista de pacientes con citas.
+     * @throws SQLException Si ocurre un error al interactuar con la base de datos.
+     */
     public List<Paciente> consultarPacientesConCita() throws SQLException {
         List<Paciente> arrayPacientes = new ArrayList<>();
         String sqlConsultarCita = "SELECT c.id_cita, c.diagnostico, c.indicaciones, c.fechaCita, c.frecuenciaCardiaca, c.frecuenciaRespiratoria, c.pulso, c.temperatura, c.fechaProximaCita"
