@@ -231,7 +231,6 @@ public class CitaDAO {
                             }
                             cita.setArrayEvaluacion(arrayEvaluaciones);
                         }
-
                         String sqlConsultarMotivos = "SELECT m.id_motivo, m.descripcion, m.tiene_vacuna, "
                                 + "cm.precio AS precio_cita_motivo, cm.aplica_examen, v.id_vacuna, v.id_especie, v.precio AS precio_vacuna, v.nombre "
                                 + "FROM Motivo m "
