@@ -7,6 +7,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Clase que representa una cita médica para un paciente, incluyendo sus detalles, actitudes, evaluaciones, motivos y pruebas de laboratorio.
+ * Proporciona métodos para calcular el costo de la cita, gestionar sus elementos y generar resúmenes informativos y también la facturación.
+ * 
+ * @author Andrey Pérez Gutiérrez
+ */
+
 public class Cita {
     private final int id_cita;
     private List<Actitud> arrayActitud;
@@ -23,6 +30,19 @@ public class Cita {
     private int temperatura;
     private Date proximaCita;
 
+    /**
+     * Constructor para crear una nueva cita con un identificador generado automáticamente.
+     * 
+     * @param diagnostico          Diagnóstico de la cita.
+     * @param indicaciones         Indicaciones de la cita.
+     * @param fechaCita            Fecha de la cita.
+     * @param frecuenciaCardiaca   Frecuencia cardíaca registrada.
+     * @param frecuenciaRespiratoria Frecuencia respiratoria registrada.
+     * @param pulso                Pulso registrado.
+     * @param temperatura          Temperatura registrada.
+     * @param condicion            Condición del paciente.
+     * @param proximaCita          Fecha de la próxima cita.
+     */
     public Cita(String diagnostico, String indicaciones, Date fechaCita, int frecuenciaCardiaca, int frecuenciaRespiratoria, int pulso, int temperatura, Condicion condicion, Date proximaCita) {
         id_cita = 0;
         this.arrayActitud = new ArrayList<>();
@@ -40,6 +60,20 @@ public class Cita {
         this.proximaCita = proximaCita;
     }
     
+    /**
+     * Constructor para crear una nueva cita con un identificador específico.
+     * 
+     * @param id_cita              Identificador de la cita.
+     * @param diagnostico          Diagnóstico de la cita.
+     * @param indicaciones         Indicaciones de la cita.
+     * @param fechaCita            Fecha de la cita.
+     * @param frecuenciaCardiaca   Frecuencia cardíaca registrada.
+     * @param frecuenciaRespiratoria Frecuencia respiratoria registrada.
+     * @param pulso                Pulso registrado.
+     * @param temperatura          Temperatura registrada.
+     * @param condicion            Condición del paciente.
+     * @param proximaCita          Fecha de la próxima cita.
+     */
     public Cita(int id_cita, String diagnostico, String indicaciones, Date fechaCita, int frecuenciaCardiaca, int frecuenciaRespiratoria, int pulso, int temperatura, Condicion condicion, Date proximaCita) {
         this.id_cita = id_cita;
         this.arrayActitud = new ArrayList<>();
@@ -57,6 +91,11 @@ public class Cita {
         this.proximaCita = proximaCita;
     }
     
+    /**
+     * Calcula el costo total de la cita sumando los costos de los motivos y las pruebas de laboratorio.
+     * Si Aplica el examen en el Chequeo general no se cobrará
+     * @return El costo total de la cita.
+     */
     public double calcularCostoCita(){
         double costo = 0;
         for (Motivo motivo : arrayMotivo) {
@@ -76,22 +115,47 @@ public class Cita {
         return costo;
     }
     
+    /**
+     * Permite agregar actitudes al arreglo de actitudes
+     * 
+     * @param actitud Es el onjeto que se va agregar
+     */
     public void agregarActitud(Actitud actitud) {
         this.arrayActitud.add(actitud);
     }
 
+    /**
+     * Permite agregar evaluaciones al arreglo de evaluaciones
+     * 
+     * @param evaluacion Es el onjeto que se va agregar
+     */
     public void agregarEvaluacion(Evaluacion evaluacion) {
         this.arrayEvaluacion.add(evaluacion);
     }
 
+    /**
+     * Permite agregar motivos al arreglo de motivos
+     * 
+     * @param motivo Es el onjeto que se va agregar
+     */
     public void agregarMotivo(Motivo motivo) {
         this.arrayMotivo.add(motivo);
     }
 
+    /**
+     * Permite agregar Pruebas al arreglo de Pruebas de laboratorio
+     * 
+     * @param pruebaLaboratorio Es el onjeto que se va agregar
+     */
     public void agregarPruebaLaboratorio(PruebaLaboratorio pruebaLaboratorio) {
         this.arrayPruebaLaboratorio.add(pruebaLaboratorio);
     }
 
+    /**
+     * Muestra toda la información de la cita
+     * 
+     * @return Toda la información de la cita
+     */
     public String toStringInformacion() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 
@@ -158,6 +222,11 @@ public class Cita {
         return sb.toString();
     }
 
+    /**
+     * Muestra el monto total a pagar por la cita
+     * 
+     * @return Monto total a pagar por la cita
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -165,6 +234,11 @@ public class Cita {
         return sb.toString();
     }
     
+    /**
+     * Muestra El resumen de los servicios a pagar por la cita
+     * 
+     * @return Los servicios a pagar por la cita
+     */
     public String mostrarPrecio() {
         StringBuilder sb = new StringBuilder();
         sb.append("➤Resumen de servicios");
@@ -204,128 +278,153 @@ public class Cita {
         return sb.toString();
     }
     
-    
-
+    /**
+     * @return Array de actitudes
+     */
     public List<Actitud> getArrayActitud() {
         return arrayActitud;
     }
 
+    /**
+     * @param arrayActitud Setea todo el array de actitudes
+     */
     public void setArrayActitud(List<Actitud> arrayActitud) {
         this.arrayActitud = arrayActitud;
     }
 
+    /**
+     * @return Array de evaluaciones
+     */
     public List<Evaluacion> getArrayEvaluacion() {
         return arrayEvaluacion;
     }
 
+    /**
+     * @param arrayEvaluacion Setea todo el array de evaluaciones
+     */
     public void setArrayEvaluacion(List<Evaluacion> arrayEvaluacion) {
         this.arrayEvaluacion = arrayEvaluacion;
     }
 
+    /**
+     * @return Array de motivos
+     */
     public List<Motivo> getArrayMotivo() {
         return arrayMotivo;
     }
 
+    /**
+     * @param arrayMotivo Setea todo el array de motivos
+     */
     public void setArrayMotivo(List<Motivo> arrayMotivo) {
         this.arrayMotivo = arrayMotivo;
     }
 
+    /**
+     * @return Array de pruebas de laboratorio
+     */
     public List<PruebaLaboratorio> getArrayPruebaLaboratorio() {
         return arrayPruebaLaboratorio;
     }
 
+    /**
+     * @param arrayPruebaLaboratorio Setea todo el array de pruebas de laboratorio
+     */
     public void setArrayPruebaLaboratorio(List<PruebaLaboratorio> arrayPruebaLaboratorio) {
         this.arrayPruebaLaboratorio = arrayPruebaLaboratorio;
     }
 
+    /**
+     * @return El diagnostico realizado en la cita
+     */
     public String getDiagnostico() {
         return diagnostico;
     }
 
-    public void setDiagnostico(String diagnostico) {
-        this.diagnostico = diagnostico;
-    }
-
+    /**
+     * @return Las indicaciones que se hicieron en la cita
+     */
     public String getIndicaciones() {
         return indicaciones;
     }
 
-    public void setIndicaciones(String indicaciones) {
-        this.indicaciones = indicaciones;
-    }
-
+    /**
+     * @return Fecha en que se realizó la cita
+     */
     public Date getFechaCita() {
         return fechaCita;
     }
 
-    public void setFechaCita(Date fechaCita) {
-        this.fechaCita = fechaCita;
-    }
-
+    /**
+     * @return Frecuencia cardiaca del paciente
+     */
     public int getFrecuenciaCardiaca() {
         return frecuenciaCardiaca;
     }
 
-    public void setFrecuenciaCardiaca(int frecuenciaCardiaca) {
-        this.frecuenciaCardiaca = frecuenciaCardiaca;
-    }
-
+    /**
+     * @return Frecuencia respiratoria del paciente
+     */
     public int getFrecuenciaRespiratoria() {
         return frecuenciaRespiratoria;
     }
 
-    public void setFrecuenciaRespiratoria(int frecuenciaRespiratoria) {
-        this.frecuenciaRespiratoria = frecuenciaRespiratoria;
-    }
-
+    /**
+     * @return Pulso del paciente
+     */
     public int getPulso() {
         return pulso;
     }
 
-    public void setPulso(int pulso) {
-        this.pulso = pulso;
-    }
-
+    /**
+     * @return Temperatura del paciente
+     */
     public int getTemperatura() {
         return temperatura;
     }
 
-    public void setTemperatura(int temperatura) {
-        this.temperatura = temperatura;
-    }
-
+    /**
+     * @return Identificador de la cita del paciente
+     */
     public int getId_cita() {
         return id_cita;
     }
 
+    /**
+     * @return Condicion de peso del paciente
+     */
     public Condicion getCondicion() {
         return condicion;
     }
 
+    /**
+     *  Puede no haber una fecha para la próxima cita
+     * @return Fecha de la próxima cita programada
+     */
     public Date getProximaCita() {
         return proximaCita;
     }
-
-    public void setProximaCita(Date proximaCita) {
-        this.proximaCita = proximaCita;
-    }
-
-    public void setCondicion(Condicion condicion) {
-        this.condicion = condicion;
-    }
     
+    /**
+     *  Agrega la cita a la base de datos
+     * @param cita Es la cita que se va a guardar
+     * @param paciente Es el paciente a la que se le realizó la cita
+     */
     public static void agregarCita(Cita cita, Paciente paciente) throws SQLException{
         new CitaDAO().agregarCita(cita, paciente);
     }
     
-//    public static List<Cita> consultarCitasPorPaciente(int id_paciente) throws SQLException{
-//        return new CitaDAO().consultarCitasPorPaciente(id_paciente);
-//    }
-    
+    /**
+     *  Consulta todos los pacientes de la base de datos con sus respectivas citas
+     */
     public static List<Paciente> consultarPacientesConCita() throws SQLException{
         return new CitaDAO().consultarPacientesConCita();
     }
     
+    /**
+     *  Verifica si la fecha de la cita está ligada a otra cita en un rango de una hora
+     * @return Falso si no hay ninguna cita ligada a esa fecha y verdadero si ya hay una cita ligada
+     */
     public static boolean verificarCitaPorFecha(Date fechaVerificar) throws SQLException{
         return new CitaDAO().verificarFechaCita(fechaVerificar);
     }

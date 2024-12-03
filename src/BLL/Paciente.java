@@ -99,18 +99,6 @@ public class Paciente {
     public void setId_paciente(int id_paciente) {
         this.id_paciente = id_paciente;
     }
-    
-//    public String consultarVacunaciones(){
-//        List<Vacuna> esquemaVacunacionPerros = new ArrayList<>(Arrays.asList(Vacuna));
-//        List<Vacuna> arrayVacunaAplicadas = new ArrayList<>();
-//        for (Cita cita : arrayCitas) {
-//            for (Motivo motivo : cita.getArrayMotivo()) {
-//                if (motivo instanceof Vacunacion) {
-//                    arrayVacunaAplicadas.add(((Vacunacion)motivo).getVacuna());
-//                }
-//            }
-//        }
-//    }
      
     public static int agregar(Paciente paciente) throws SQLException{
         return new PacienteDAO().agregar(paciente);
