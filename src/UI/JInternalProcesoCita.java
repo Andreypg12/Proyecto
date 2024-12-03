@@ -1411,7 +1411,6 @@ public class JInternalProcesoCita extends javax.swing.JInternalFrame {
                         break;
                     }
                 }
-
             }
             llenarComboBoxVacunas();
             cambiarEstadoEspaciosPaciente(false);
