@@ -325,15 +325,13 @@ public class JDialogMantenimientoMotivo extends javax.swing.JDialog {
             case CON_VACUNA -> {
                 jLblVacuna.setVisible(true);
                 jCmbVacunas.setVisible(true);
-                jTxtPrecio.setText(String.valueOf(((Vacuna) jCmbVacunas.getSelectedItem()).getPrecio()));
-                jTxtPrecio.setEditable(false);
+                jLblPrecio.setVisible(false);
+                jTxtPrecio.setVisible(false);
                 jRBNoAplicaExamen.setSelected(true);
                 jRBSiAplicaExamen.setEnabled(false);
                 jRBNoAplicaExamen.setEnabled(false);
                 jPanelMantenimientoVacunas.setVisible(true);
                 jLblMantenimiento.setVisible(true);
-                jLblPrecio.setVisible(true);
-                jTxtPrecio.setVisible(true);
             }
         }
     }//GEN-LAST:event_jCmbTipoMotivoActionPerformed
